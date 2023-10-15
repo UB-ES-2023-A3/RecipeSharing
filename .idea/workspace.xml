@@ -1,7 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="" />
+    <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/jsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HelloWorld.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/SignIn.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/vue.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.1ca7e5184abb5203.hot-update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.1ca7e5184abb5203.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.b39d4c0a1723cc9c.hot-update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.b39d4c0a1723cc9c.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.c7cd387be650f016.hot-update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.c7cd387be650f016.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.dc5bb212c191c67c.hot-update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.dc5bb212c191c67c.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.f80922392e76f7a3.hot-update.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/app.f80922392e76f7a3.hot-update.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/HomePage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/SignIn.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/_base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/_base_vue.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.cache/eslint/50ebde78.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.cache/eslint/50ebde78.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/node_modules/.cache/eslint/8dd8b43c.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/node_modules/.cache/eslint/8dd8b43c.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recipeSharing/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipeSharing/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recipeSharing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipeSharing/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,20 +61,33 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2Wo9RoF485tpFQJ6r07oeC0lGgw" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/marmo/OneDrive/Escritorio/UB/4º/Enginyeria del Software/Pràctica/RecipeSharing",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marmo/OneDrive/Escritorio/UB/4º/Enginyeria del Software/Pràctica/RecipeSharing&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\marmo\OneDrive\Escritorio\UB\4º\Enginyeria del Software\Pràctica\RecipeSharing" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -33,6 +97,10 @@
       <option name="presentableId" value="Default" />
       <updated>1697388059681</updated>
       <workItem from="1697388060749" duration="15000" />
+      <workItem from="1697388084660" duration="389000" />
+      <workItem from="1697388534338" duration="48000" />
+      <workItem from="1697388590932" duration="9000" />
+      <workItem from="1697388600621" duration="285000" />
     </task>
     <servers />
   </component>
