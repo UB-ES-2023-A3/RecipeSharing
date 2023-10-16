@@ -7,8 +7,9 @@
     <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/dist/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +65,7 @@
       <workItem from="1697462687810" duration="16000" />
       <workItem from="1697466636105" duration="1594000" />
       <workItem from="1697469021424" duration="685000" />
+      <workItem from="1697479908847" duration="2293000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1697389322821</created>

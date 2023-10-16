@@ -79,7 +79,7 @@ body{
 
 .mainTitle {
   font-size: 12px; /* Tamaño de fuente del título */
-  color: rgb(61, 41, 4); /* Color del título */
+  color: #FF5733; /* Color del título */
   margin: 0; /* Elimina el margen superior e inferior predeterminado */
   padding-bottom: 2px; /* Espacio entre el título y el contenido */
   display: flex; /* Activa el modelo de caja flexible para centrar horizontalmente el título */
@@ -136,10 +136,59 @@ body{
   font-size: 18px;
 }
 
+.submit-button {
+    background-color: #FF5733;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    font-size: 18px;
+}
 
+.submit-button:hover {
+    background-color: #E84A29;
+}
 
+.register-form-background {
+    margin: 0 auto;
+    background-color: #FCE4A4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
+.register-form {
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.error {
+    color: red;
+    margin-top: 5px;
+}
 
 
 
