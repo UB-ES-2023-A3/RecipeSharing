@@ -14,7 +14,7 @@
             <h1> NAME OF THE RECIPE</h1>
           </div>
         </div>
-        <AppTextField/> 
+        <AppTextField :defaultMessage="defaultMessageName"/> 
       </div>
       <div class="secondaryContainer">
         <div class="subtitleContainer">
@@ -23,6 +23,14 @@
           </div>
         </div>
         <AppFoodMultiSelect/> 
+      </div>
+            <div class="secondaryContainer">
+        <div class="subtitleContainer">
+          <div class="subTitle">
+            <h1> TYPE OF THE RECIPE</h1>
+          </div>
+        </div>
+        <AppTextField :defaultMessage="defaultMessageType" /> 
       </div>
     </div>
   </div>
@@ -35,7 +43,13 @@ import AppFoodMultiSelect from '@/components/AppFoodMultiSelect.vue';
 import AppTextField from '@/components/AppTextField.vue';
 import '../assets/styles/appStyles.css';
 export default {
-    components: { AppFoodMultiSelect, AppTextField }
+    components: { AppFoodMultiSelect, AppTextField },
+data() {
+  return {
+    defaultMessageName:"Introduce a name for your recipe",
+    defaultMessageType:"Introduce a type for your recipe"
+  };
+},
 };
 </script>
 
