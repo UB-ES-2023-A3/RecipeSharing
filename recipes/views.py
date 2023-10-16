@@ -4,6 +4,7 @@ from django.core import serializers
 from django.http import Http404, HttpResponseNotAllowed
 from .models import Recipe
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 def get_all_recipes(request):
     query_set = Recipe.objects.all()
@@ -12,13 +13,14 @@ def get_all_recipes(request):
 
 def get_recipe_by_id(request, recipe_id):
     try:
-        query_set = Recipe.objects.filter(pk=id)
+        query_set = Recipe.objects.filter(pk=recipe_id)
         data = serializers.serialize("json", query_set)
     except Recipe.DoesNotExist:
         raise Http404("Restaurant does not exist")
         data = serializers.serialize("json", query_set)
     return HttpResponse(data)
 
+@csrf_exempt
 def create_new_recipe(request):
     if request.method == 'POST':
         body = json.loads(request.body.decode('utf-8'))

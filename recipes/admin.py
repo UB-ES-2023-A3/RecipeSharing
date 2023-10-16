@@ -11,8 +11,7 @@ class RecipeAdmin(admin.ModelAdmin):
         (None,               {'fields': ['kcal']}),
         (None,               {'fields': ['username_id']}),
         (None,               {'fields': ['creation_date']}),
-        (None,               {'fields': ['id']}),
     ]
-    list_display = ('title', 'ingredients', 'instructions', 'preparation_time', 'servings', 'kcal', 'username_id', 'creation_date', 'id')
+    list_display = ('title', 'ingredients', 'instructions', 'preparation_time', 'servings', 'kcal', 'username_id', 'creation_date')
 
 admin.site.register(Recipe, RecipeAdmin)
