@@ -1,0 +1,120 @@
+/* styles.css */
+
+
+/* Fondos */
+
+/* Fondo verde */
+.green-background {
+  background-color: #4CAF50;
+  color: white; /* Texto blanco */
+}
+
+/* Fondo azul */
+.blue-background {
+  background-color: #3498DB;
+  color: white; /* Texto blanco */
+}
+
+/* Fondo rojo */
+.red-background {
+  background-color:#FF130F;
+  color: white; /* Texto blanco */
+}
+
+/* Containers */
+
+.mainContainer {
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+  padding-top: 120px; /* Espacio para el header */
+}
+
+.secondaryContainer {
+  background-color: white;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: white;
+  /* Agrega el margen superior necesario para evitar que se superponga con el header */
+  margin-top: 5px;
+}
+
+.titleContainer {
+  background-color: #f50a0a; /* Color de fondo del contenedor */
+  padding: 4px; /* Relleno interior del contenedor */
+  border: 1px solid #b69b70; /* Borde del contenedor */
+  border-radius: 8px; /* Bordes redondeados */
+  opacity: 0.9;
+  width: 100%;
+  display: flex; /* Activa el modelo de caja flexible */
+  justify-content: center; /* Centra horizontalmente los elementos en el contenedor */
+  align-items: center; /* Centra verticalmente los elementos en el contenedor */
+}
+
+.mainTitle {
+  font-size: 12px; /* Tamaño de fuente del título */
+  color: rgb(61, 41, 4); /* Color del título */
+  margin: 0; /* Elimina el margen superior e inferior predeterminado */
+  padding-bottom: 2px; /* Espacio entre el título y el contenido */
+  display: flex; /* Activa el modelo de caja flexible para centrar horizontalmente el título */
+  justify-content: center; /* Centra horizontalmente el título dentro del contenedor */
+}
+/* Botón genérico */
+.my-button {
+  background-color: #2c3e50; /* Fondo azul oscuro */
+  color: white; /* Texto blanco */
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Botón redondo con imagen */
+.button-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px; /* Tamaño del botón (ajusta según tus necesidades) */
+  margin-top: 12px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+/* Estilos específicos para el botón flotante */
+.add-button {
+  position: fixed;
+  bottom: 20px; /* Distancia desde la parte inferior */
+  right: 20px; /* Distancia desde la derecha */
+  z-index: 999; /* Para que esté por encima de otros elementos */
+  cursor: pointer;
+  /* Estilos para el botón */
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 12px 17px;
+  border-radius: 50%;
+  font-size: 18px;
+  /* Agrega estilos adicionales según tus necesidades */
+}
+
+
+
+
+
+
+
+

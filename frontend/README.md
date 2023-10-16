@@ -1,5 +1,10 @@
 # frontend
 
+
+## necesario instalar:
+
+npm install vue-awesome-swiper
+
 ## Project setup
 ```
 npm install
