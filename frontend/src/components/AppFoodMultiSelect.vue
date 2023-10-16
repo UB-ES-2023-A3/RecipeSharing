@@ -1,7 +1,7 @@
 <template>
   <div class="secondaryContainer" style="color: #3a2a1c;">
     <div class="dropdown" @click="toggleDropdown">
-      <button class="dropdown-button">Choose Ingredients</button> <!-- Agregué la clase "dropdown-button" al botón -->
+      <button class="dropdown-button">{{ buttonTitle }} </button>
       <div class="dropdown-content" v-if="isDropdownOpen">
         <div v-for="(group, groupIndex) in optionGroups" :key="groupIndex">
           <h3>{{ group.groupName }}</h3>
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="secondaryContainer" style="background-color: #4f8646ad; width: 50%;">
-      <h4>Choosen Ingredients:</h4>
+      <h4>{{notesTitle}}</h4>
       <ul>
         <li v-for="(selectedOption, index) in selectedOptions" :key="index">{{ selectedOption }}</li>
       </ul>
@@ -25,36 +25,16 @@
 
 <script>
 export default {
+  props: {
+    optionGroups: Array, 
+    buttonTitle : String,
+    notesTitle : String,
+
+  },
   data() {
     return {
       isDropdownOpen: false,
       selectedOptions: [],
-      optionGroups: [
-        {
-          groupName: 'Fruits',
-          options: ['Apple', 'Banana', 'Orange', 'Strawberry', 'Grapes', 'Mango'],
-        },
-        {
-          groupName: 'Vegetables',
-          options: ['Carrot', 'Broccoli', 'Spinach', 'Tomato', 'Cucumber', 'Cauliflower'],
-        },
-        {
-          groupName: 'Meat',
-          options: ['Chicken', 'Beef', 'Pork', 'Lamb', 'Turkey', 'Duck'],
-        },
-        {
-          groupName: 'Dairy',
-          options: ['Milk', 'Cheese', 'Yogurt', 'Butter', 'Cream', 'Eggs'],
-        },
-        {
-          groupName: 'Grains',
-          options: ['Rice', 'Pasta', 'Bread', 'Oats', 'Quinoa', 'Barley'],
-        },
-        {
-          groupName: 'Seafood',
-          options: ['Salmon', 'Shrimp', 'Tuna', 'Lobster', 'Crab', 'Scallops'],
-        },
-      ],
     };
   },
   methods: {
