@@ -4,6 +4,7 @@
       v-model="message"
       @blur="saveMessage"
       @keyup.enter="saveMessage"
+      @focus="clearDefaultMessage"
       ref="messageInput"
       :style="inputStyle"
     >
@@ -12,22 +13,29 @@
 
 <script>
 export default {
+   props: {
+    defaultMessage: String, // Propiedad para el texto predeterminado
+  },
   data() {
     return {
-      message: "Introduce the name of your recipe",
+      message: this.defaultMessage, // Usa la propiedad defaultMessage como valor inicial
       isSaved: false,
     };
   },
   computed: {
     inputStyle() {
       return {
-        backgroundColor: "#f0f0f0", // Cambia este color al que desees
-        padding: "10px", // Añade relleno para una apariencia adecuada
-        border: "1px solid #ccc", // Agrega un borde para resaltar el cuadro de texto
-        borderRadius: "5px", // Bordes redondeados
-        width: "auto", // Ancho automático para ajustarse al contenido
-        minWidth: "150px", // Ancho mínimo para evitar que sea demasiado estrecho
-        color: this.isSaved ? "green" : "black",
+        backgroundColor: this.isSaved ? "#52BE80" : "#34495E",
+        color: this.isSaved ? "white" : "white",
+        padding: "10px",
+        border: "1px solid #ccc",
+        borderRadius: "5px",
+        width: "auto",
+        minWidth: "300px",
+        textAlign: "center",
+        display: "block",
+        margin: "0 auto",
+        marginTop: "10px",
       };
     },
   },
@@ -35,6 +43,10 @@ export default {
     saveMessage() {
       this.isSaved = true;
       this.$refs.messageInput.blur();
+    },
+    clearDefaultMessage() {
+      // Borra el mensaje predeterminado al hacer clic en el cuadro de entrada
+      this.message = "";
     },
   },
 };
