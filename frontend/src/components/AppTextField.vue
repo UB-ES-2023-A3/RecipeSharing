@@ -7,18 +7,19 @@
       @focus="clearDefaultMessage"
       ref="messageInput"
       :style="inputStyle"
+      @input="updateTextFieldValue"
     >
   </div>
 </template>
 
 <script>
 export default {
-   props: {
-    defaultMessage: String, // Propiedad para el texto predeterminado
+  props: {
+    defaultMessage: String,
   },
   data() {
     return {
-      message: this.defaultMessage, // Usa la propiedad defaultMessage como valor inicial
+      message: this.defaultMessage,
       isSaved: false,
     };
   },
@@ -45,13 +46,12 @@ export default {
       this.$refs.messageInput.blur();
     },
     clearDefaultMessage() {
-      // Borra el mensaje predeterminado al hacer clic en el cuadro de entrada
       this.message = "";
+    },
+    updateTextFieldValue() {
+      // Emitir un evento personalizado con el valor actualizado
+      this.$emit('update:textValue', this.message);
     },
   },
 };
 </script>
-
-<style scoped>
-/* Estilos personalizados para tu componente */
-</style>
