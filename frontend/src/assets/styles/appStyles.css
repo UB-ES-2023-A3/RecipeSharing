@@ -154,7 +154,7 @@ html, body {
     background-color: #E84A29;
 }
 
-.register-form-background {
+.form-background {
     background-color: #FCE4A4;
     padding: 20px;
     border-radius: 10px;
@@ -162,7 +162,7 @@ html, body {
     margin: 0 auto 20px;
 }
 
-.register-form {
+.form {
     width: 400px;
     background-color: white;
     padding: 20px;

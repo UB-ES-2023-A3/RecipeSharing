@@ -26,14 +26,13 @@ export default {
   computed: {
     inputStyle() {
       return {
-        backgroundColor: this.isSaved ? "#52BE80" : "#34495E",
+        backgroundColor: this.isSaved ? "#fdbf54" : "#FCE4A4",
         color: this.isSaved ? "white" : "white",
         padding: "10px",
         border: "1px solid #ccc",
         borderRadius: "5px",
-        width: "auto",
+        width: "100%",
         minWidth: "300px",
-        textAlign: "center",
         display: "block",
         margin: "0 auto",
         marginTop: "10px",
