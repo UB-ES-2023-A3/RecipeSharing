@@ -1,0 +1,12 @@
+**API RECIPES**
+
+GET Endpoints:
+  - Get all recipes:
+    /recipes/
+  - Get recipe by id
+    /recipes/<int:recipe_id>/
+POST Endpoints
+  - New Recipe
+    /recipes/new/
+    JSON:
+      {
