@@ -9,4 +9,10 @@ POST Endpoints
   - New Recipe
     /recipes/new/
     JSON:
-      {
+      {"title": <string>
+       "ingredients": <string>
+       "instructions": <string>
+       "preparation_time": <int>
+       "servings": <int>
+       "kcal": <int>
+       "username_id": <string>}
