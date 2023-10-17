@@ -34,7 +34,7 @@ export default {
 }
 .image-container {
   position: relative;
-  height: 130px;
+  height: 100px;
 }
 
 .image {

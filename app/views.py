@@ -6,5 +6,8 @@ class HomeView(TemplateView):
 class RegisterView(TemplateView):
     template_name = "RegisterPage.html"
 
+class LoginView(TemplateView):
+    template_name = "LoginPage.html"
+
 class AddRecipeView(TemplateView):
     template_name = "AddRecipePage.html"

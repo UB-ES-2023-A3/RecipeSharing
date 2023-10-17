@@ -4,8 +4,11 @@
 /* Fondos */
 
 /* Fondo verde */
-body{
+html, body {
+  height: 100%;
   margin: 0;
+  padding: 0;
+  background-color: #ffddb3; /* Establece el fondo del body si lo deseas */
 }
 .main-background {
   background-color: #ffddb3;
@@ -31,15 +34,13 @@ body{
 /* Containers */
 
 .mainContainer {
-  background-color: #ffddb3;
-  width: 100%; /* Ocupa toda la anchura de la página */
-  height: 100vh; /* Ocupa toda la altura de la pantalla */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   color: white;
-  padding-top: 40px; /* Espacio para el header */
+  padding-top: 40px;
+  background-color: #ffddb3; /* Cambia el fondo del mainContainer si es necesario */
 }
 
 .secondaryContainer {
@@ -53,47 +54,48 @@ body{
 }
 
 .titleContainer {
-  background-color: #f50a0a; /* Color de fondo del contenedor */
-  padding: 4px; /* Relleno interior del contenedor */
-  border: 1px solid #b69b70; /* Borde del contenedor */
-  border-radius: 8px; /* Bordes redondeados */
+  background-color: #ff5733; /* Cambia el color de fondo del contenedor */
+  padding: 4px;
+  border: 1px solid #b69b70;
+  border-radius: 8px;
   opacity: 0.9;
   width: 100%;
-  display: flex; /* Activa el modelo de caja flexible */
-  justify-content: center; /* Centra horizontalmente los elementos en el contenedor */
-  align-items: center; /* Centra verticalmente los elementos en el contenedor */
-}
-
-.subtitleContainer {
-  background-color: #da5959; /* Color de fondo del contenedor */
-  padding: 0.5px; /* Relleno interior del contenedor */
-  border: 0.5px solid #b69b70; /* Borde del contenedor */
-  border-radius: 8px; /* Bordes redondeados */
-  opacity: 0.9;
-  width: 100%;
-  display: flex; /* Activa el modelo de caja flexible */
-  justify-content: center; /* Centra horizontalmente los elementos en el contenedor */
-  align-items: center; /* Centra verticalmente los elementos en el contenedor */
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mainTitle {
-  font-size: 12px; /* Tamaño de fuente del título */
-  color: #FF5733; /* Color del título */
-  margin: 0; /* Elimina el margen superior e inferior predeterminado */
-  padding-bottom: 2px; /* Espacio entre el título y el contenido */
-  display: flex; /* Activa el modelo de caja flexible para centrar horizontalmente el título */
-  justify-content: center; /* Centra horizontalmente el título dentro del contenedor */
+  font-size: 16px; /* Aumenta el tamaño de fuente del título */
+  color: #fff; /* Cambia el color del título a blanco para mejor contraste */
+  margin: 0;
+  padding-bottom: 2px;
+  display: flex;
+  justify-content: center;
+}
+
+.subtitleContainer {
+  background-color: #613131; /* Cambia el color de fondo del contenedor */
+  padding: 0.5px;
+  border: 0.5px solid #b69b70;
+  border-radius: 8px;
+  opacity: 0.9;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .subtitle {
-  font-size: 8px; /* Tamaño de fuente del título */
-  color: rgb(61, 41, 4); /* Color del título */
-  margin: 0; /* Elimina el margen superior e inferior predeterminado */
-  padding-bottom: 2px; /* Espacio entre el título y el contenido */
-  display: flex; /* Activa el modelo de caja flexible para centrar horizontalmente el título */
-  justify-content: center; /* Centra horizontalmente el título dentro del contenedor */
+  font-size: 12px; /* Aumenta el tamaño de fuente del título */
+  color: #fff; /* Cambia el color del título a blanco para mejor contraste */
+  margin: 0;
+  padding-bottom: 2px;
+  display: flex;
+  justify-content: center;
 }
+
 /* Botón genérico */
 .my-button {
   background-color: #2c3e50; /* Fondo azul oscuro */
@@ -153,11 +155,11 @@ body{
 }
 
 .register-form-background {
-    margin: 0 auto;
     background-color: #FCE4A4;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto 20px;
 }
 
 .register-form {
@@ -190,6 +192,10 @@ label {
     margin-top: 5px;
 }
 
+.note {
+    color: gray;
+    font-size: 12px;
+}
 
 
 
