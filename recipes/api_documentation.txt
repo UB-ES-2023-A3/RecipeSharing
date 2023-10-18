@@ -1,0 +1,75 @@
+**API RECIPES**
+
+GET Endpoints:
+  - Get all recipes:
+    Endpoint: /recipes/
+    Description: Obtiene todas las recetas almacenadas en la base de datos.
+    HTTP Method: GET
+
+  - Get recipe by id:
+    Endpoint: /recipes/<int:recipe_id>/
+    Description: Obtiene una receta específica por su id.
+    HTTP Method: GET
+
+POST Endpoints
+  - New Recipe:
+    Endpoint: /recipes/new/
+    Description: Crea una nueva receta en la base de datos
+    HTTP Method: POST
+    JSON Payload:
+                  {
+                    "title": <string>,
+                    "ingredients": <string>,
+                    "instructions": <string>,
+                    "preparation_time": <int>,
+                    "servings": <int>,
+                    "kcal": <int>,
+                    "username_id": <string>
+                  }
+    Parameters:
+        title (string): Título de la receta.
+        ingredients (string): Lista de ingredientes de la receta.
+        instructions (string): Instrucciones para preparar la receta.
+        preparation_time (int): Tiempo de preparación de la receta en minutos.
+        servings (int): Porciones que produce la receta.
+        kcal (int): Valor calórico de la receta.
+        username_id (string): ID del usuario que crea la receta.
+
+
+PUT Endpoint:
+
+  - Update Recipe:
+    Endpoint: /recipes/<int:recipe_id>/
+    Description: Actualiza una receta existente por su ID.
+    HTTP Method: PUT
+    JSON Payload (example):
+                  {
+                    "title": <string>,
+                    "ingredients": <string>,
+                    "instructions": <string>,
+                    "preparation_time": <int>,
+                    "servings": <int>,
+                    "kcal": <int>,
+                    "username_id": <string>
+                  }
+    Parameters (optional, provide only those to be updated):
+        title (string): Nuevo título de la receta.
+        ingredients (string): Nueva lista de ingredientes de la receta.
+        instructions (string): Nuevas instrucciones para preparar la receta.
+        preparation_time (int): Nuevo tiempo de preparación de la receta en minutos.
+        servings (int): Nuevas porciones que produce la receta.
+        kcal (int): Nuevo valor calórico de la receta.
+        username_id (string): Nuevo ID del usuario que crea la receta.
+
+DELETE Endpoint:
+  - Delete Recipe:
+    Endpoint: /recipes/<int:recipe_id>/
+    Description: Elimina una receta por su ID.
+    HTTP Method: DELETE
+
+
+--------------------------------------------------------------
+
+Note: When updating or deleting a recipe, ensure that the specified recipe ID exists in the database, 
+      and the appropriate HTTP status codes (200 for successful updates, 204 for successful deletions) will be returned. 
+      If the recipe does not exist, a 404 error will be returned.
