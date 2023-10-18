@@ -1,9 +1,14 @@
-from django.views.generic import TemplateView
-from app.LoginRegisterLogic import register_view, login_view
-from django.views.generic import View
-from django.http import HttpResponse
-from django.shortcuts import render
+import json
 
+from django.views.generic import TemplateView
+from rest_framework import status
+
+from app.logic.loginLogic import login_view
+from django.views.generic import View
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from app.logic.registerLogic import register_user
+from rest_framework.response import Response
 
 class HomeView(TemplateView):
     template_name = "HomePage.html"
@@ -17,12 +22,20 @@ class RegisterView(View):
         return render(request, self.template_name)
 
     def post(self, request):
-        response = register_view(request)
-        print("RESPONSE: ", response, response.data, response.status_code, response.context_data)
-        if response.status_code == 400:
-            return render(request, self.template_name)
-        else:
-            return render(request, "LoginPage.html")
+        if request.method == "POST":
+            data = json.loads(request.body)
+            username = data.get('username')
+            email = data.get('email')
+            password = data.get('password')
+
+            response_data = register_user(username, email, password, request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
 
 class LoginView(TemplateView):
@@ -33,9 +46,20 @@ class LoginView(TemplateView):
         return render(request, self.template_name)
 
     def post(self, request):
-        print("REQUEST ", request)
-        response = login_view(request)
-        return response
+        if request.method == "POST":
+            data = json.loads(request.body)
+            username = data.get('username')
+            email = data.get('email')
+            password = data.get('password')
+
+            response_data = login_view(username, email, password, request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
 
 class AddRecipeView(TemplateView):

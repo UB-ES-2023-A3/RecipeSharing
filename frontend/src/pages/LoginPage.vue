@@ -61,28 +61,32 @@ export default {
             }
 
             try {
-                const response = await axios.post('/login/', {
+                let response = await axios.post('/login/', {
                     username: this.username,
                     email: this.email,
                     password: this.password,
                 }, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/json'
                     }
                 });
 
-                console.log(response.data);
-                alert(response.data)
-                if (response.data.message) {
+                if (response.status === 200) {
                     // El inicio de sesión fue exitoso, redirigir al usuario o realizar otras acciones necesarias
-                } else {
-                    // El inicio de sesión falló, mostrar un mensaje de error
-                    console.error(response.data.error);
+                    alert("Logged!")
+                    this.$router.push('/')
                 }
             } catch (error) {
                 if (error.response) {
                     // Handle login failure (e.g., display an error message).
-                    console.error(error.response.data.error); // You can customize this based on your server's response.
+                    if (error.response.status === 400) {
+                        alert(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        alert("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        alert("Unexpected error");
+                    }
                 } else {
                     // Handle other errors.
                     console.error("An error occurred while logging in.");

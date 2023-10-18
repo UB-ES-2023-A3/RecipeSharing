@@ -125,29 +125,42 @@ export default {
                 return;
             }
             try {
-                const response = await axios.post('/register/', {
+                let response = await axios.post('/register/', {
                     username: this.username,
                     email: this.email,
                     password: this.password,
                 }, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+                        'Content-Type': 'application/json'
                     }
                 });
 
-                console.log(response.data)
-                // Puedes redirigir al usuario a la página de inicio de sesión u otra página aquí.
-                this.$router.push('/login')
-            } catch
-                (error) {
+                // Check the HTTP status code in the response
+                if (response.status === 200) {
+                    // Registration successful, you can handle success here
+                    console.log("Registration successful");
+                    alert("Registration successful");
+                    this.$router.push('/')
+                }
+            } catch (error) {
                 if (error.response) {
-                    alert(error.response.data.error);
+                    // Handle network errors
+                    if (error.response.status === 400) {
+                        // Handle client-side validation errors
+                        alert(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        // Handle server errors
+                        alert("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        alert("Unexpected error");
+                    }
                 } else {
+                    // Handle other unexpected errors
                     alert("An error occurred while registering.");
                 }
             }
-        }
-        ,
+        },
     },
 };
 </script>
