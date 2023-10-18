@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter} from "vue-router";
+import {createWebHistory, createRouter} from "vue-router";
 
 import HomePage from "./pages/HomePage.vue";
 import RegisterPage from "./pages/RegisterPage.vue";
@@ -6,22 +6,22 @@ import LoginPage from "./pages/LoginPage.vue";
 import AddRecipePage from "./pages/AddRecipePage.vue";
 
 const routes = [
-  {
-    path: "",
-    component: HomePage,
-  },
-  {
-    path: "/register",
-    component: RegisterPage,
-  },
-  {
-    path: "/login",
-    component: LoginPage,
-  },
-  {
-    path: "/addRecipe",
-    component: AddRecipePage,
-  },
+    {
+        path: "",
+        component: HomePage,
+    },
+    {
+        path: "/register",
+        component: RegisterPage,
+    },
+    {
+        path: "/login",
+        component: LoginPage,
+    },
+    {
+        path: "/addRecipe",
+        component: AddRecipePage,
+    },
 ];
 
 const router = createRouter({

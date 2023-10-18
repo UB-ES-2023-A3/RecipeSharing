@@ -67,6 +67,7 @@
 <script>
 import '../assets/styles/appStyles.css';
 import AppTextField from "@/components/AppTextField.vue";
+import axios from 'axios';
 
 export default {
     name: "RegisterPage",
@@ -118,15 +119,35 @@ export default {
             }
             this.passwordStrength = (strength / 4) * 100;
         },
-        register(e) {
-            e.preventDefault();
+        async register() {
             if (this.password !== this.confirmPassword) {
                 alert("Passwords do not match");
-            } else {
-                alert("Registration successful!");
-                // Add code to handle registration here
+                return;
             }
-        },
+            try {
+                const response = await axios.post('/register/', {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+
+                console.log(response.data)
+                // Puedes redirigir al usuario a la página de inicio de sesión u otra página aquí.
+                this.$router.push('/login')
+            } catch
+                (error) {
+                if (error.response) {
+                    alert(error.response.data.error);
+                } else {
+                    alert("An error occurred while registering.");
+                }
+            }
+        }
+        ,
     },
 };
 </script>
