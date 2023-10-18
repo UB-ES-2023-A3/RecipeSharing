@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Login</title>
+</head>
+<body>
+    <!-- templates/registration/login.html -->
+    <h2>Log In</h2>
+    <form action="logged/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="text" id="username" name="username" placeholder="Username">
+        <input type="text" id="email" name="email" placeholder="Email">
+        <input type="text" id="password" name="password" placeholder="Password">
+        <button type="submit"><a href="">Log In</a></button>
+    </form>
+</body>
+</html>
