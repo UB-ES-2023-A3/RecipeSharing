@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def login_view(request):
@@ -25,6 +26,7 @@ def login_view(request):
     else:
         return render(request, "login.html")
 
+@csrf_exempt
 def signin_view(request):
     if request.method == "POST":
         username = request.POST["username"]
