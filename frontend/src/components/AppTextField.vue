@@ -26,8 +26,8 @@ export default {
     computed: {
         inputStyle() {
             return {
-                backgroundColor: this.isSaved ? "#fdbf54" : "#FCE4A4",
-                color: this.isSaved ? "white" : "white",
+                backgroundColor: this.isSaved ? "#eea94d" : "#FCE4A4",
+                color: this.isSaved ? "white" : "black",
                 padding: "10px",
                 border: "1px solid #ccc",
                 borderRadius: "5px",

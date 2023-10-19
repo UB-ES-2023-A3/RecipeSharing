@@ -55,26 +55,48 @@ html, body {
     color: white;
 }
 
+.titleContainerHP {
+    background-color: #ff5733; /* Cambia el color de fondo del contenedor */
+    /*padding: 4px;*/
+    border: 1px solid #b69b70;
+    border-radius: 10px;
+    /*opacity: 0.9;*/
+    width: 98%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.mainTitleHP {
+    font-size: 10px; /* Aumenta el tamaño de fuente del título */
+    color: #fff; /* Cambia el color del título a blanco para mejor contraste */
+    margin-left: 5px;
+    /*padding-bottom: 2px;*/
+    display: flex;
+    justify-content: left;
+}
+
 .titleContainer {
     background-color: #ff5733; /* Cambia el color de fondo del contenedor */
     padding: 4px;
     border: 1px solid #b69b70;
-    border-radius: 8px;
-    opacity: 0.9;
-    width: 100%;
+    border-radius: 10px;
+    /*opacity: 0.9;*/
+    width: 98%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .mainTitle {
-    font-size: 16px; /* Aumenta el tamaño de fuente del título */
+    font-size: 10px; /* Aumenta el tamaño de fuente del título */
     color: #fff; /* Cambia el color del título a blanco para mejor contraste */
-    margin: 0;
+    margin: 0px;
     padding-bottom: 2px;
     display: flex;
     justify-content: center;
 }
+
 
 .subtitleContainer {
     background-color: #613131; /* Cambia el color de fondo del contenedor */

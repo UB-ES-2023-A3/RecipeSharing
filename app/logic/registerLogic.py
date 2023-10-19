@@ -1,19 +1,23 @@
-from django.contrib.auth.models import User
-from django.contrib.auth import login
 import re
-from rest_framework.response import Response
+
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 
 
+# Register logic
 def register_user(username, email, password, request):
+    # Username exists
     if User.objects.filter(username=username).exists():
         return {'error': 'Username already exists.'}
 
+    # Email exists
     if User.objects.filter(email=email).exists():
         return {'error': 'Email already exists.'}
 
-    if verifica_username(username):
-        if es_correo_valido(email):
-            if verifica_contrasena(password):
+    # Check username, email, password
+    if username_check(username):
+        if email_check(email):
+            if password_check(password):
                 user = User.objects.create_user(username=username, email=email, password=password)
                 login(request, user)
                 return {'message': 'Registration successful.'}
@@ -24,44 +28,48 @@ def register_user(username, email, password, request):
     else:
         return {'error': 'Username not valid'}
 
-def verifica_contrasena(contrasena):
-    # Verifica la longitud mínima de 8 caracteres
-    if len(contrasena) < 8:
+
+# Check username
+def username_check(username):
+    if 8 <= len(username) <= 16:
+        return True
+    else:
         return False
 
-    # Verifica si hay al menos un carácter especial
-    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', contrasena):
+
+# Check email
+def email_check(email):
+    # Regular expression pattern for validating email addresses
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+
+    # Check if the string matches the pattern
+    if re.match(pattern, email):
+        return True
+    else:
         return False
 
-    # Verifica si hay al menos una mayúscula
-    if not re.search(r'[A-Z]', contrasena):
+
+# Check password
+def password_check(password):
+    # Check for a minimum length of 8 characters
+    if len(password) < 8:
         return False
 
-    # Verifica si hay al menos un número
-    if not re.search(r'[0-9]', contrasena):
+    # Check if there is at least one special character
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
         return False
 
-    # Verifica si hay al menos una minúscula
-    if not re.search(r'[a-z]', contrasena):
+    # Check if there is at least one uppercase letter
+    if not re.search(r'[A-Z]', password):
         return False
 
-    # Si pasa todas las comprobaciones anteriores, la contraseña es válida
+    # Check if there is at least one digit
+    if not re.search(r'[0-9]', password):
+        return False
+
+    # Check if there is at least one lowercase letter
+    if not re.search(r'[a-z]', password):
+        return False
+
+    # If it passes all the above checks, the password is valid
     return True
-
-
-def verifica_username(cadena):
-    if 8 <= len(cadena) <= 16:
-        return True
-    else:
-        return False
-
-
-def es_correo_valido(correo):
-    # Patrón de expresión regular para validar correos electrónicos
-    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-
-    # Comprueba si la cadena coincide con el patrón
-    if re.match(patron, correo):
-        return True
-    else:
-        return False
