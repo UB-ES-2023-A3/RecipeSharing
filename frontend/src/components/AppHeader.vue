@@ -1,26 +1,42 @@
 <template>
-    <header class="app-header">
-        <div class="image-container">
-            <img class="image" :src="imageUrl" alt="Imagen">
-            <img class="button-image" src="../assets/images/DefaultUser.jpg" alt="Botón">
-            <div class="text-overlay">
-                <p class="animated-title">{{ title }}</p>
-            </div>
-        </div>
-
-    </header>
+  <header class="app-header">
+    <div class="image-container">
+      <img class="button-image-logo" @click="handleLogoClick" src="../assets/images/Logo.png" alt="Botón">
+      <img class="image" :src="imageUrl" alt="Imagen">
+      <img class="button-image-user" @click="handleUserClick" src="../assets/images/DefaultUser.jpg" alt="Botón">
+      <div class="text-overlay">
+        <p class="animated-title">{{ title }}</p>
+      </div>
+    </div>
+  </header>
 </template>
+
 
 <script>
 export default {
-    data() {
-        return {
-            title: "Chef's Nook",
-            imageUrl: require("../assets/images/HeaderImage.jpg"), // Asegúrate de tener una imagen en tu proyecto
-        };
+  data() {
+    return {
+      title: "Chef's Nook",
+      imageUrl: require("../assets/images/HeaderImage.jpg"),
+    };
+  },
+  methods: {
+    handleLogoClick() {
+      // Lógica para el clic en el logo
+      // Puedes utilizar Vue Router para navegar a la página principal:
+      this.$router.push('/');
     },
+    handleUserClick() {
+      // Lógica para el clic en el botón del usuario
+      // Puedes realizar alguna acción específica, como abrir un menú de usuario, etc.
+      // Por ejemplo, muestra una alerta en este caso:
+      alert('Hiciste clic en el botón del usuario');
+    },
+  },
 };
 </script>
+
+
 
 <style scoped>
 
@@ -47,18 +63,22 @@ export default {
 .text-overlay {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 300px; /* Desplazamiento de 200px desde el borde izquierdo */
+    width: 50%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
+
 
 .text-overlay p {
     color: #fff; /* Color del texto */
     font-style: oblique;
     font-size: 1cm;
+    text-align: center; /* Alinea el texto horizontalmente en el centro */
+    
 }
 
 .animated-title {
@@ -79,15 +99,23 @@ export default {
     }
 }
 
-.button-image {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 70px; /* Tamaño del botón (ajusta según tus necesidades) */
-    margin-top: 12px;
-    margin-right: 20px;
-    border-radius: 50%;
+.button-image-user {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  margin-top: 12px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.button-image-logo {
+  position: absolute;
+  top: 0;
+  left: 0; /* Cambia "right" a "left" para posicionar a la izquierda */
+  width: 70px;
+  margin-top: 12px;
+  margin-left: 20px; /* Ajusta el margen izquierdo */
+  border-radius: 50%;
 }
 </style>
-
-
