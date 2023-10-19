@@ -56,7 +56,7 @@ def password_check(password):
         return False
 
     # Check if there is at least one special character
-    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+    if not re.search(r'[-_!@#$%^&*(),.?":{}|<>]', password):
         return False
 
     # Check if there is at least one uppercase letter

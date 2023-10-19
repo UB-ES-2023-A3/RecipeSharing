@@ -80,17 +80,17 @@ class AddRecipeView(TemplateView):
         if request.method == 'POST':
             body = json.loads(request.body.decode('utf-8'))
             print(body)
-            title = body.get("title")
+            title = body.get("name")
             ingredients = body.get("ingredients")
             instructions = body.get("instructions")
-            prep_time = body.get("preparation_time")
+            prep_time = body.get("preparationTime")
             servings = body.get("servings")
             kcal = body.get("kcal")
             username_id = body.get("username_id")
-            recipe_type = body.get("recipe_type")
+            recipe_type = body.get("type")
             allergens = body.get("allergens")
 
-            response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id,
+            response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id, recipe_type, allergens,
                                          request)
 
             if 'error' in response_data:

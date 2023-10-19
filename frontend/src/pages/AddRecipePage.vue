@@ -304,6 +304,8 @@ export default {
                     allergens: this.allSelectedAllergens,
                     preparationTime: this.preparationTime,
                     servings: this.servings,
+                    kcal: 5,
+                    username_id:'1',
                 }, {
                     headers: {
                         'Content-Type': 'application/json'
