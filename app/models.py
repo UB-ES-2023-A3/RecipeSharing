@@ -20,6 +20,8 @@ class Recipe(models.Model):
     preparation_time = models.IntegerField(default=0)
     servings = models.IntegerField(default=0)
     kcal = models.IntegerField(default=0)
+    recipe_type = models.TextField()
+    allergens = models.TextField()
 
     # username_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     username_id = models.TextField()

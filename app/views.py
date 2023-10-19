@@ -87,6 +87,8 @@ class AddRecipeView(TemplateView):
             servings = body.get("servings")
             kcal = body.get("kcal")
             username_id = body.get("username_id")
+            recipe_type = body.get("recipe_type")
+            allergens = body.get("allergens")
 
             response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id,
                                          request)
