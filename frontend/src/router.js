@@ -9,18 +9,22 @@ const routes = [
     {
         path: "",
         component: HomePage,
+        name: 'home',
     },
     {
         path: "/register",
         component: RegisterPage,
+        name: 'register',
     },
     {
         path: "/login",
         component: LoginPage,
+        name: 'login',
     },
     {
         path: "/addRecipe",
         component: AddRecipePage,
+        name: 'addRecipe',
     },
 ];
 
