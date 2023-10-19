@@ -99,6 +99,10 @@
                     <input type="number" id="servings" v-model="servings" class="full-width-dropdown">
                 </div>
 
+                <div class="error-message" v-if="showErrorMessage">
+                    {{ errorMessage }}
+                </div>
+
                 <div class="secondaryContainer" style="background-color: white">
                     <button type="submit" class="submit-button">Add Recipe</button>
                 </div>
@@ -125,6 +129,16 @@ export default {
             preparationTime: '',
             servings: '',
             defaultMessageRecipe: "Introduce the name of your recipe",
+            showErrorMessage: false, 
+            errorMessages: {
+                recipeName: "Please enter the recipe name.",
+                selectedIngredients: "Please select at least one ingredient.",
+                selectedAllergens: "Please select at least one allergen.",
+                instructions: "Please provide instructions for the recipe.",
+                selectedRecipeType: "Please select a recipe type.",
+                preparationTime: "Please select the preparation time.",
+                servings: "Please enter the number of servings.",
+            },
             ingredientsList: [
                 {
                     groupName: "Fruits",
@@ -224,7 +238,8 @@ export default {
             ],
             recipeTypes: ['American', 'Italian', 'Mediterranean', 'Mexican', 'Indian', 'Chinese', 'Japanese', 'Thai', 'Greek', 'French', 'Spanish'],
         };
-    },
+    }
+    ,
     computed: {
         allSelectedIngredients() {
             return [...new Set(this.selectedIngredients)]; // Remove duplicates
@@ -234,6 +249,33 @@ export default {
         },
     },
     methods: {
+    checkForm() {
+        // Reinicia el mensaje de error
+        this.showErrorMessage = false;
+
+        // Verifica cada campo
+        if (!this.recipeName) {
+            this.errorField = "recipeName";
+        } else if (this.selectedIngredients.length === 0) {
+            this.errorField = "selectedIngredients";
+        } else if (!this.instructions) {
+            this.errorField = "instructions";
+        } else if (!this.selectedRecipeType) {
+            this.errorField = "selectedRecipeType";
+        } else if (this.preparationTime === "") {
+            this.errorField = "preparationTime";
+        } else if (this.servings === "") {
+            this.errorField = "servings";
+        } else if (this.selectedAllergens.length === 0) {
+            this.errorField = "selectedAllergens";
+        }
+
+        // Si hay un campo sin completar, muestra el mensaje de error correspondiente
+        if (this.errorField) {
+            this.showErrorMessage = true;
+            this.errorMessage = this.errorMessages[this.errorField];
+        }
+    },
         addIngredient() {
             if (this.selectedIngredient) {
                 this.selectedIngredients.push(this.selectedIngredient);
@@ -246,7 +288,13 @@ export default {
                 this.selectedAllergen = ''; // Reset the selection
             }
         },
-        async addRecipe() {
+    async addRecipe() {
+            this.checkForm(); // Llamamos a checkForm para validar los campos antes de la solicitud POST.
+
+            if (this.showErrorMessage) {
+                return; // Si hay un mensaje de error, detenemos el proceso de envío.
+            }
+
             try {
                 let response = await axios.post('/addRecipe/', {
                     name: this.recipeName,
@@ -269,7 +317,7 @@ export default {
             } catch (error) {
                 alert(error.response);
             }
-        },
+        }
     },
 };
 </script>
