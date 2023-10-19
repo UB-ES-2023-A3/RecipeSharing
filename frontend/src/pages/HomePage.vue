@@ -21,7 +21,7 @@
                 <!-- Aquí colocarás las tarjetas de las recetas más populares -->
             </div>
         </div>
-        <div class="floating-button">
+        <div class="floating-button" @click="redirectToRecipePage">
             <i class="fas fa-plus"></i>
             <span class="text">Upload new recipe</span>
         </div>
@@ -34,6 +34,11 @@ import '../assets/styles/appStyles.css';
 export default {
     name: "HomePage.vue",
     components: {},
+    methods: {
+        redirectToRecipePage() {
+            this.$router.push('/addRecipe');
+        }
+    }
 };
 </script>
 

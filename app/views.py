@@ -79,7 +79,7 @@ class AddRecipeView(TemplateView):
     def post(self, request):
         if request.method == 'POST':
             body = json.loads(request.body.decode('utf-8'))
-
+            print(body)
             title = body.get("title")
             ingredients = body.get("ingredients")
             instructions = body.get("instructions")
