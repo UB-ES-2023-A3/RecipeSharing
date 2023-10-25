@@ -8,12 +8,16 @@ from django.views.generic import View
 from app.logic.loginLogic import login_logic
 from app.logic.recipeLogic import recipe_logic
 from app.logic.registerLogic import register_user
+from app.logic.recipeLogic import get_all_recipes
 
 
 # Home Page
 class HomeView(TemplateView):
     template_name = "HomePage.html"
 
+    def get(self, request):
+        recipes = get_all_recipes(request)
+        return render(request, self.template_name, recipes)
 
 # Register Page
 class RegisterView(View):
