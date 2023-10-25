@@ -67,6 +67,7 @@
 <script>
 import '../assets/styles/appStyles.css';
 import AppTextField from "@/components/AppTextField.vue";
+import axios from 'axios';
 
 export default {
     name: "RegisterPage",
@@ -118,13 +119,46 @@ export default {
             }
             this.passwordStrength = (strength / 4) * 100;
         },
-        register(e) {
-            e.preventDefault();
+        async register() {
             if (this.password !== this.confirmPassword) {
                 alert("Passwords do not match");
-            } else {
-                alert("Registration successful!");
-                // Add code to handle registration here
+                return;
+            }
+            try {
+                let response = await axios.post('/register/', {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // Check the HTTP status code in the response
+                if (response.status === 200) {
+                    // Registration successful, you can handle success here
+                    console.log("Registration successful");
+                    alert("Registration successful");
+                    this.$router.push('/')
+                }
+            } catch (error) {
+                if (error.response) {
+                    // Handle network errors
+                    if (error.response.status === 400) {
+                        // Handle client-side validation errors
+                        alert(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        // Handle server errors
+                        alert("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        alert("Unexpected error");
+                    }
+                } else {
+                    // Handle other unexpected errors
+                    alert("An error occurred while registering.");
+                }
             }
         },
     },

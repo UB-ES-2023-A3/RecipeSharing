@@ -33,6 +33,7 @@
 <script>
 import '../assets/styles/appStyles.css';
 import AppTextField from "@/components/AppTextField.vue";
+import axios from 'axios';
 
 export default {
     name: "LoginPage",
@@ -48,15 +49,50 @@ export default {
         };
     },
     methods: {
-        login() {
-            const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-
-            if (emailRegex.test(this.usernameOrEmail)) {
-                this.email = this.usernameOrEmail
+        async login() {
+            // Determine if the input is an email or username
+            let loginIdentifier = this.usernameOrEmail;
+            if (loginIdentifier.match(/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)) {
+                // If it matches the email format, set it as an email
+                this.email = loginIdentifier;
             } else {
-                this.username = this.usernameOrEmail
+                // Otherwise, set it as a username
+                this.username = loginIdentifier;
             }
-        }
+
+            try {
+                let response = await axios.post('/login/', {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 200) {
+                    // El inicio de sesión fue exitoso, redirigir al usuario o realizar otras acciones necesarias
+                    alert("Logged!")
+                    this.$router.push('/')
+                }
+            } catch (error) {
+                if (error.response) {
+                    // Handle login failure (e.g., display an error message).
+                    if (error.response.status === 400) {
+                        alert(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        alert("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        alert("Unexpected error");
+                    }
+                } else {
+                    // Handle other errors.
+                    console.error("An error occurred while logging in.");
+                }
+            }
+        },
     }
 };
 </script>
