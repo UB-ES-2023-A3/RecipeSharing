@@ -16,8 +16,13 @@ class HomeView(TemplateView):
     template_name = "HomePage.html"
 
     def get(self, request):
-        recipes = get_all_recipes(request)
-        return render(request, self.template_name, recipes)
+
+        return render(request, self.template_name)
+    
+    def get_recipies (self):
+            recipes = get_all_recipes()
+            print(recipes)
+            return JsonResponse(recipes, status=200)
 
 # Register Page
 class RegisterView(View):

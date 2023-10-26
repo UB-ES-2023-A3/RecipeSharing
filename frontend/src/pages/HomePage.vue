@@ -40,22 +40,31 @@ export default {
             this.$router.push('/addRecipe');
         },
         getAllRecipes() {
-            console.log("get recipes")
+
+            // Axios para coger el template
             axios
-            .get("/") // Reemplaza "/recetas/" con la URL de tu endpoint de recetas
+            .get("/")
             .then((response) => {
-                console.log(response)
                 if (response.status === 200) {
-                // La respuesta debe contener las recetas en formato JSON
-                const recipes = response.recipes; // Asegúrate de que "recetas" sea la clave correcta en la respuesta JSON
-                recipes;
-                // Haz lo que necesites con las recetas, por ejemplo, mostrarlas en la vista
-                //console.log("Recetas obtenidas:", recipes);
+                    const data = response.data
+                    console.log("Data is:", data)
                 }
             })
             .catch((error) => {
                 console.error("Error al obtener las recetas:", error);
-                // Realiza alguna acción en caso de error, como mostrar un mensaje de error
+            });
+
+            // Axios para recibir las recetas
+            axios
+            .get("/getRecipies/")
+            .then((response) => {
+                if (response.status === 200) {
+                const recipes = response.data.recipes;
+                console.log("Recetas obtenidas:", recipes);
+                }
+            })
+            .catch((error) => {
+                console.error("Error al obtener las recetas:", error);
             });
         }
     },

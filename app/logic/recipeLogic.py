@@ -15,7 +15,7 @@ def recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, us
     new_recipe.save()
     return {'message': 'Recipe created.'}
 
-def get_all_recipes(request):
+def get_all_recipes():
     recipes = Recipe.objects.all()  # Esto obtiene todos los objetos Recipe, ajusta tu consulta según sea necesario
     recipe_list = [recipe.toJson() for recipe in recipes]
     return {'recipes': recipe_list}
