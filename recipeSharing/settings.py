@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recipes.apps.RecipesConfig',
-    'accounts.apps.AccountsConfig',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+LOGIN_REDIRECT_URL = "/"
 
 ROOT_URLCONF = 'recipeSharing.urls'
 
