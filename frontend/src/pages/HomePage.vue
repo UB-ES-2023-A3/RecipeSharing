@@ -1,40 +1,44 @@
 <template>
-    <div class="mainContainer">
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Trending Topic Recipes </h1>
-                </div>
-
-            </div>
-            <div class="recipeCarousel">
-                <!-- Aquí colocarás las tarjetas de las recetas más populares -->
-            </div>
+  <div class="mainContainer">
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Trending Topic Recipes </h1>
         </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Liked Recipes </h1>
-                </div>
-            </div>
-            <div class="recipeCarousel">
-                <!-- Aquí colocarás las tarjetas de las recetas más populares -->
-            </div>
-        </div>
-        <div class="floating-button" @click="redirectToRecipePage">
-            <i class="fas fa-plus"></i>
-            <span class="text">Upload new recipe</span>
-        </div>
+      </div>
+      <div class="recipeCarousel">
+        <!-- Aquí colocarás las tarjetas de las recetas más populares -->
+      </div>
     </div>
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Most Liked Recipes </h1>
+        </div>
+      </div>
+    <AppCardCarousel :recipes="this.recipes" :visibleRecipes="3" v-if="recipes.length > 0" ></AppCardCarousel>
+    </div> <!-- Agregamos el cierre del div que faltaba -->
+    <div class="floating-button" @click="redirectToRecipePage">
+      <i class="fas fa-plus"></i>
+      <span class="text">Upload new recipe</span>
+    </div>
+  </div>
 </template>
+
 
 <script>
 import '../assets/styles/appStyles.css';
 import axios from 'axios';
+import AppCardCarousel from '@/components/AppCardCarousel.vue';
 
 export default {
     name: "HomePage.vue",
-    components: {},
+    components: {AppCardCarousel},
+     data() {
+        return {
+            recipes: []
+        };
+    },
     methods: {
         redirectToRecipePage() {
             this.$router.push('/addRecipe');
@@ -60,7 +64,8 @@ export default {
             .then((response) => {
                 if (response.status === 200) {
                 const recipes = response.data.recipes;
-                console.log("Recetas obtenidas:", recipes);
+                this.recipes = recipes;
+                console.log(this.recipes)
                 }
             })
             .catch((error) => {

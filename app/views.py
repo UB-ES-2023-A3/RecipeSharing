@@ -21,7 +21,6 @@ class HomeView(TemplateView):
     
     def get_recipies (self):
             recipes = get_all_recipes()
-            print(recipes)
             return JsonResponse(recipes, status=200)
 
 # Register Page
