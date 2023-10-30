@@ -1,10 +1,11 @@
+# Import necessary modules and classes for Django views
 import json
-
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic import View
 
+# Import custom logic functions
 from app.logic.loginLogic import login_logic
 from app.logic.recipeLogic import recipe_logic
 from app.logic.registerLogic import register_user
@@ -16,12 +17,14 @@ class HomeView(TemplateView):
     template_name = "HomePage.html"
 
     def get(self, request):
-
+        # Render the template for the home page
         return render(request, self.template_name)
-    
-    def get_recipies (self):
-            recipes = get_all_recipes()
-            return JsonResponse(recipes, status=200)
+
+    def get_recipies(self):
+        # Get all recipes and return them as a JSON response
+        recipes = get_all_recipes()
+        return JsonResponse(recipes, status=200)
+
 
 # Register Page
 class RegisterView(View):
@@ -29,11 +32,13 @@ class RegisterView(View):
 
     # Get Endpoint
     def get(self, request):
+        # Render the template for the registration page
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == "POST":
+            # Parse the request data and call the registration logic function
             data = json.loads(request.body)
             username = data.get('username')
             email = data.get('email')
@@ -41,6 +46,7 @@ class RegisterView(View):
 
             response_data = register_user(username, email, password, request)
 
+            # Return a JSON response based on the outcome of the registration
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
@@ -55,11 +61,13 @@ class LoginView(TemplateView):
 
     # Get Endpoint
     def get(self, request):
+        # Render the template for the login page
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == "POST":
+            # Parse the request data and call the login logic function
             data = json.loads(request.body)
             username = data.get('username')
             email = data.get('email')
@@ -67,6 +75,7 @@ class LoginView(TemplateView):
 
             response_data = login_logic(username, email, password, request)
 
+            # Return a JSON response based on the outcome of the login
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
@@ -81,13 +90,14 @@ class AddRecipeView(TemplateView):
 
     # Get Endpoint
     def get(self, request):
+        # Render the template for the add recipe page
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == 'POST':
+            # Parse the request data and call the recipe logic function to add a new recipe
             body = json.loads(request.body.decode('utf-8'))
-            print(body)
             title = body.get("name")
             ingredients = body.get("ingredients")
             instructions = body.get("instructions")
@@ -98,9 +108,10 @@ class AddRecipeView(TemplateView):
             recipe_type = body.get("type")
             allergens = body.get("allergens")
 
-            response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id, recipe_type, allergens,
-                                         request)
+            response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id,
+                                         recipe_type, allergens)
 
+            # Return a JSON response based on the outcome of the recipe creation
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:

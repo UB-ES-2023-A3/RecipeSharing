@@ -1,40 +1,22 @@
 /* styles.css */
 
-
-/* Fondos */
-
-/* Fondo verde */
+/* Main Styles */
+/* html, body style for each page */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #ffddb3; /* Establece el fondo del body si lo deseas */
+    background-color: #ffddb3;
 }
 
+/* Main Background */
 .main-background {
     background-color: #ffddb3;
-    color: white; /* Texto blanco */
-}
-
-.green-background {
-    background-color: #4CAF50;
-    color: white; /* Texto blanco */
-}
-
-/* Fondo azul */
-.blue-background {
-    background-color: #3498DB;
-    color: white; /* Texto blanco */
-}
-
-/* Fondo rojo */
-.red-background {
-    background-color: #FF130F;
-    color: white; /* Texto blanco */
+    color: white;
 }
 
 /* Containers */
-
+/* Main Container - Full page */
 .mainContainer {
     display: flex;
     flex-direction: column;
@@ -42,9 +24,10 @@ html, body {
     align-items: center;
     color: white;
     padding-top: 40px;
-    background-color: #ffddb3; /* Cambia el fondo del mainContainer si es necesario */
+    background-color: #ffddb3;
 }
 
+/* Secondary Container - Containers inside de Main Container */
 .secondaryContainer {
     background-color: #ffddb3;
     width: 100%;
@@ -55,39 +38,39 @@ html, body {
     color: white;
 }
 
+/* Title Container for Home Page */
 .titleContainerHP {
-    background-color: #ff5733; /* Cambia el color de fondo del contenedor */
-    /*padding: 4px;*/
+    background-color: #ff5733;
     border: 1px solid #b69b70;
     border-radius: 10px;
-    /*opacity: 0.9;*/
     width: 98%;
     display: flex;
     justify-content: left;
     align-items: center;
 }
 
+/* Main Title for Home Page */
 .mainTitleHP {
-    font-size: 10px; /* Aumenta el tamaño de fuente del título */
-    color: #fff; /* Cambia el color del título a blanco para mejor contraste */
+    font-size: 10px;
+    color: #fff;
     margin-left: 5px;
-    /*padding-bottom: 2px;*/
     display: flex;
     justify-content: left;
 }
 
+/* Title Container for other pages */
 .titleContainer {
-    background-color: #ff5733; /* Cambia el color de fondo del contenedor */
+    background-color: #ff5733;
     padding: 4px;
     border: 1px solid #b69b70;
     border-radius: 10px;
-    /*opacity: 0.9;*/
     width: 98%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Main Title for other pages */
 .mainTitle {
     font-size: 10px; /* Aumenta el tamaño de fuente del título */
     color: #fff; /* Cambia el color del título a blanco para mejor contraste */
@@ -97,9 +80,9 @@ html, body {
     justify-content: center;
 }
 
-
+/* Subtitle Container */
 .subtitleContainer {
-    background-color: #613131; /* Cambia el color de fondo del contenedor */
+    background-color: #613131;
     padding: 0.5px;
     border: 0.5px solid #b69b70;
     border-radius: 8px;
@@ -111,19 +94,20 @@ html, body {
     margin-top: 10px;
 }
 
+/* Subtitle */
 .subtitle {
-    font-size: 12px; /* Aumenta el tamaño de fuente del título */
-    color: #fff; /* Cambia el color del título a blanco para mejor contraste */
+    font-size: 12px;
+    color: #fff;
     margin: 0;
     padding-bottom: 2px;
     display: flex;
     justify-content: center;
 }
 
-/* Botón genérico */
+/* Button */
 .my-button {
-    background-color: #2c3e50; /* Fondo azul oscuro */
-    color: white; /* Texto blanco */
+    background-color: #2c3e50;
+    color: white;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -135,7 +119,7 @@ html, body {
     border-radius: 4px;
 }
 
-/* Botón redondo con imagen */
+/* Rounded Button with image */
 .button-image {
     position: absolute;
     top: 0;
@@ -146,14 +130,12 @@ html, body {
     border-radius: 50%;
 }
 
-/* Estilos específicos para el botón flotante */
+/* Floating Button */
 .add-button {
-    position: fixe;
-    bottom: 20px; /* Distancia desde la parte inferior */
-    right: 20px; /* Distancia desde la derecha */
-    z-index: 999; /* Para que esté por encima de otros elementos */
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
     cursor: pointer;
-    /* Estilos para el botón */
     background-color: red;
     border: none;
     color: white;
@@ -162,6 +144,7 @@ html, body {
     font-size: 18px;
 }
 
+/* Submit Button */
 .submit-button {
     background-color: #FF5733;
     color: white;
@@ -174,10 +157,12 @@ html, body {
     font-size: 18px;
 }
 
+/* Submit Button Hover */
 .submit-button:hover {
     background-color: #E84A29;
 }
 
+/* Form Background */
 .form-background {
     background-color: #FCE4A4;
     padding: 20px;
@@ -186,6 +171,7 @@ html, body {
     margin: 0 auto 20px;
 }
 
+/* Form */
 .form {
     width: 400px;
     background-color: white;
@@ -194,6 +180,7 @@ html, body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Form Group */
 .form-group {
     margin-bottom: 20px;
 }

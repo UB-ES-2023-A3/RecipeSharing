@@ -1,25 +1,32 @@
+# Import the 're' module for regular expressions
 import re
 
+# Import necessary functions and models from Django's authentication module
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 
 
-# Register logic
+# Function for registering a new user
 def register_user(username, email, password, request):
-    # Username exists
+    # Check if the provided username already exists in the database
     if User.objects.filter(username=username).exists():
         return {'error': 'Username already exists.'}
 
-    # Email exists
+    # Check if the provided email already exists in the database
     if User.objects.filter(email=email).exists():
         return {'error': 'Email already exists.'}
 
-    # Check username, email, password
+    # Check the validity of the provided username, email, and password
     if username_check(username):
         if email_check(email):
             if password_check(password):
+                # Create a new User object with the provided data
                 user = User.objects.create_user(username=username, email=email, password=password)
+
+                # Log the user in
                 login(request, user)
+
+                # Return a success message indicating that registration was successful
                 return {'message': 'Registration successful.'}
             else:
                 return {'error': 'Password not valid'}
@@ -29,45 +36,46 @@ def register_user(username, email, password, request):
         return {'error': 'Username not valid'}
 
 
-# Check username
+# Function to check the validity of a username
 def username_check(username):
+    # Check if the length of the username is between 8 and 16 characters
     if 8 <= len(username) <= 16:
         return True
     else:
         return False
 
 
-# Check email
+# Function to check the validity of an email
 def email_check(email):
     # Regular expression pattern for validating email addresses
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
-    # Check if the string matches the pattern
+    # Check if the string matches the email pattern
     if re.match(pattern, email):
         return True
     else:
         return False
 
 
-# Check password
+# Function to check the validity of a password
 def password_check(password):
     # Check for a minimum length of 8 characters
     if len(password) < 8:
         return False
 
-    # Check if there is at least one special character
+    # Check if there is at least one special character in the password
     if not re.search(r'[-_!@#$%^&*(),.?":{}|<>]', password):
         return False
 
-    # Check if there is at least one uppercase letter
+    # Check if there is at least one uppercase letter in the password
     if not re.search(r'[A-Z]', password):
         return False
 
-    # Check if there is at least one digit
+    # Check if there is at least one digit in the password
     if not re.search(r'[0-9]', password):
         return False
 
-    # Check if there is at least one lowercase letter
+    # Check if there is at least one lowercase letter in the password
     if not re.search(r'[a-z]', password):
         return False
 
