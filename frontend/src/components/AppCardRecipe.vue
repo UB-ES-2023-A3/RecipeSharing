@@ -1,29 +1,45 @@
 <template>
   <div class="recipe-card">
-    <div class="header">
+    <div @click="togglePopup" class="recipe-title">
       <h2>{{ this.recipe.title }}</h2>
-      <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
     </div>
-    <div class="scrollable-content">
-      <div class="section">
-        <h3>Ingredients</h3>
-        <ul>
-          <li v-for="(step, index) in this.recipe.ingredients.split(',')" :key="index">{{ step }}</li>
-        </ul>
+    <div v-if="showPopup" class="popup">
+      <div class="popup-content">
+        <div class="scrollable-content">
+          <div class="section">
+            <h2>{{ this.recipe.title }}</h2>
+            <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
+          </div>
+          <div class="section">
+            <h3>Ingredients</h3>
+            <ul>
+              <li v-for="(step, index) in this.parseText(this.recipe.ingredients)" :key="index">{{ step }}</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h3>Instructions</h3>
+            <ol>
+              <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">{{ step }}</li>
+            </ol>
+          </div>
+          <div class="section">
+            <h3>Allergens</h3>
+            <ul>
+              <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">{{ step }}</li>
+            </ul>
+          </div>
+          <div class="section">
+            <h3>Type</h3> {{ this.recipe.recipe_type }}
+          </div>
+          <div class="section">
+            <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
+          </div>
+          <div class="section">
+            <h3>Servings</h3> {{ this.recipe.servings }}
+          </div>
+        </div>
+        <button @click="togglePopup">Close</button>
       </div>
-      <div class="section">
-        <h3>Instructions</h3>
-        <ol>
-          <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">{{ step }}</li>
-        </ol>
-      </div>
-    </div>
-    <div class="footer">
-      <p><strong>Preparation Time:</strong> {{ this.recipe.preparation_time }} minutes</p>
-      <p><strong>Servings:</strong> {{ this.recipe.servings }}</p>
-      <p><strong>Kcal:</strong> {{ this.recipe.kcal }}</p>
-      <p><strong>Recipe Type:</strong> {{ this.recipe.recipe_type }}</p>
-      <p><strong>Allergens:</strong> {{ this.recipe.allergens }}</p>
     </div>
   </div>
 </template>
@@ -33,77 +49,80 @@ export default {
   props: {
     recipe: Object,
   },
-  created() {
-    console.log(this.recipe);
+  data() {
+    return {
+      showPopup: false,
+    };
   },
   methods: {
-  }
+    togglePopup() {
+      this.showPopup = !this.showPopup;
+    },
+    parseText(listString) {
+      // Elimina los corchetes [ y ]
+      const sinCorchetes = listString.replace(/\[|\]/g, '');
+
+      // Elimina las comillas simples '
+      const sinComillasSimples = sinCorchetes.replace(/'/g, '');
+
+      // Divide la cadena en un array utilizando la coma como separador
+      const arrayIngredientes = sinComillasSimples.split(',');
+
+      return arrayIngredientes;
+    },
+  },
 };
 </script>
 
 <style scoped>
 .recipe-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #333;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 16px auto;
-  margin-left: 0;
-  font-family: Arial, sans-serif;
-  max-width: 250px;
+  cursor: pointer;
+  text-align: center;
 }
 
-.header {
-  background-color: #87e8e0;
-  color: #fff;
+.recipe-title {
+  cursor: pointer;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #a51d1de7;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
   padding: 10px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.scrollable-content {
-  max-height: 300px;
-  padding: 10px;
+.popup-content {
+  background-color: #625e5a;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Ancho más grande */
+  max-height: 500px; /* Alto más grande */
+  padding: 20px;
   overflow-y: auto;
 }
 
-.section {
-  margin-bottom: 20px;
+.section h2 {
+  font-size: 1.5rem; /* Tamaño de título más grande */
 }
 
 .section h3 {
   font-size: 1.2rem;
-  margin: 0;
 }
 
-.footer {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.footer p {
-  margin: 0;
-}
-
-.footer p strong {
-  font-weight: bold;
-}
-
-.footer p:last-child {
-  margin-top: 20px;
-}
-
+/* Resto de estilos */
 </style>

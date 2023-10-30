@@ -31,7 +31,7 @@
               :defaultMessage="defaultMessageInstructions"
               v-model="instructions"
               @update:textValue="handleInstructionsUpdate"
-            />
+            ></TextArea>
         </div>
 
         <div class="form-group">
