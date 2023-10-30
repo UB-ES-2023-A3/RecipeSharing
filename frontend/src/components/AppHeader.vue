@@ -1,41 +1,46 @@
 <template>
-  <header class="app-header">
-    <div class="image-container">
-      <img class="button-image-logo" @click="handleLogoClick" src="../assets/images/Logo.png" alt="Botón">
-      <img class="image" :src="imageUrl" alt="Imagen">
-      <img class="button-image-user" @click="handleUserClick" src="../assets/images/DefaultUser.jpg" alt="Botón">
-      <div class="text-overlay">
-        <p class="animated-title">{{ title }}</p>
-      </div>
-    </div>
-  </header>
+    <header class="app-header">
+        <div class="image-container">
+            <img class="button-image-logo" @click="handleLogoClick" src="../assets/images/Logo.png" alt="Botón">
+            <img class="image" :src="imageUrl" alt="Imagen">
+            <!-- Utiliza la directiva v-if para mostrar el botón de usuario solo si el usuario está logged -->
+            <AppHeaderUserButton :logged="logged" :username="username" :email="email" :password="password"/>
+            <div class="text-overlay">
+                <p class="animated-title">{{ title }}</p>
+            </div>
+        </div>
+    </header>
 </template>
 
-
 <script>
+
+import AppHeaderUserButton from "@/components/AppHeaderUserButton.vue";
+
 export default {
-  data() {
-    return {
-      title: "Chef's Nook",
-      imageUrl: require("../assets/images/HeaderImage.jpg"),
-    };
-  },
-  methods: {
-    handleLogoClick() {
-      // Lógica para el clic en el logo
-      // Puedes utilizar Vue Router para navegar a la página principal:
-      this.$router.push('/');
+    props: {
+        logged: Boolean, // Define la propiedad logged
+        username: String,
+        email: String,
+        password: String,
     },
-    handleUserClick() {
-      // Lógica para el clic en el botón del usuario
-      // Puedes realizar alguna acción específica, como abrir un menú de usuario, etc.
-      // Por ejemplo, muestra una alerta en este caso:
-      alert('Hiciste clic en el botón del usuario');
+    components: {
+        AppHeaderUserButton,
     },
-  },
+    data() {
+        return {
+            title: "Chef's Nook",
+            imageUrl: require("../assets/images/HeaderImage.jpg"),
+        };
+    },
+    methods: {
+        handleLogoClick() {
+            // Lógica para el clic en el logo
+            // Puedes utilizar Vue Router para navegar a la página principal:
+            this.$router.push('/');
+        },
+    },
 };
 </script>
-
 
 
 <style scoped>
@@ -78,7 +83,7 @@ export default {
     font-style: oblique;
     font-size: 1cm;
     text-align: center; /* Alinea el texto horizontalmente en el centro */
-    
+
 }
 
 .animated-title {
@@ -100,22 +105,22 @@ export default {
 }
 
 .button-image-user {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 70px;
-  margin-top: 12px;
-  margin-right: 20px;
-  border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    margin-top: 12px;
+    margin-right: 20px;
+    border-radius: 50%;
 }
 
 .button-image-logo {
-  position: absolute;
-  top: 0;
-  left: 0; /* Cambia "right" a "left" para posicionar a la izquierda */
-  width: 70px;
-  margin-top: 12px;
-  margin-left: 20px; /* Ajusta el margen izquierdo */
-  border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0; /* Cambia "right" a "left" para posicionar a la izquierda */
+    width: 70px;
+    margin-top: 12px;
+    margin-left: 20px; /* Ajusta el margen izquierdo */
+    border-radius: 50%;
 }
 </style>

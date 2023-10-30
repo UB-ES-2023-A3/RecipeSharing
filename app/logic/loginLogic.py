@@ -30,7 +30,7 @@ def login_logic(username, email, password, request):
     # User not authenticated
     elif request.user.is_authenticated:
         logout(request)
-        return {'error': 'Already logged.'}
+        return {'error': 'Logged out.'}
 
     # Unexpected error
     else:

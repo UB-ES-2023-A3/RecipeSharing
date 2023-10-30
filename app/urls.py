@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from app.views import HomeView, RegisterView, LoginView, AddRecipeView
 
 app_name = 'app'
@@ -12,4 +12,8 @@ urlpatterns = [
     # path('new/', views.create_new_recipe, name='create_new_recipe'),
     # path('recipes/<int:recipe_id>/', views.update_recipe, name='update_recipe'),
     # path('recipes/<int:recipe_id>/', views.delete_recipe, name='delete_recipe')
+]
+
+urlpatterns += [
+    path('login/', include('django.contrib.auth.urls')),
 ]

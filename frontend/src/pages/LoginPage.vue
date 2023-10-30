@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <AppTextField
+                    <AppTextFieldPassword
                             :defaultMessage="defaultMessagePassword"
                             @update:textValue="password = $event"
                     />
@@ -34,10 +34,11 @@
 import '../assets/styles/appStyles.css';
 import AppTextField from "@/components/AppTextField.vue";
 import axios from 'axios';
+import AppTextFieldPassword from "@/components/AppTextFieldPassword.vue"
 
 export default {
     name: "LoginPage",
-    components: {AppTextField},
+    components: {AppTextFieldPassword, AppTextField},
     data() {
         return {
             usernameOrEmail: "",
@@ -45,7 +46,8 @@ export default {
             username: "",
             email: "",
             defaultMessageUsernameOrEmail: "Enter your username or email",
-            defaultMessagePassword: "Enter your password"
+            defaultMessagePassword: "Enter your password",
+            logged: false,
         };
     },
     methods: {
@@ -74,7 +76,14 @@ export default {
                 if (response.status === 200) {
                     // El inicio de sesión fue exitoso, redirigir al usuario o realizar otras acciones necesarias
                     alert("Logged!")
-                    this.$router.push('/')
+                    this.logged = true
+                    localStorage.setItem('logged', this.logged);
+                    localStorage.setItem('username', this.username);
+                    this.$emit('login-success', this.logged);
+                    this.$emit('username-success', this.username);
+                    this.$emit('email-success', this.email);
+                    this.$emit('password-success', this.password);
+                    this.$router.push('/');
                 }
             } catch (error) {
                 if (error.response) {

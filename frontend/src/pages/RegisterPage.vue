@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <AppTextField
+                    <AppTextFieldPassword
                             :defaultMessage="defaultMessagePassword"
                             @update:textValue="password = $event"
                             @input="checkPassword"
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password:</label>
-                    <AppTextField
+                    <AppTextFieldPassword
                             :defaultMessage="defaultMessagePasswordCheck"
                             @update:textValue="confirmPassword = $event"
                     />
@@ -67,11 +67,12 @@
 <script>
 import '../assets/styles/appStyles.css';
 import AppTextField from "@/components/AppTextField.vue";
+import AppTextFieldPassword from "@/components/AppTextFieldPassword.vue";
 import axios from 'axios';
 
 export default {
     name: "RegisterPage",
-    components: {AppTextField},
+    components: {AppTextField,AppTextFieldPassword},
     data() {
         return {
             username: "",
