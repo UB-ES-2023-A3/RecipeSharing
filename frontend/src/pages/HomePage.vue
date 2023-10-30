@@ -5,7 +5,6 @@
                 <div class="mainTitleHP">
                     <h1> Trending Topic Recipes </h1>
                 </div>
-
             </div>
             <div class="recipeCarousel">
                 <!-- Aquí colocarás las tarjetas de las recetas más populares -->
@@ -17,10 +16,8 @@
                     <h1> Most Liked Recipes </h1>
                 </div>
             </div>
-            <div class="recipeCarousel">
-                <!-- Aquí colocarás las tarjetas de las recetas más populares -->
-            </div>
-        </div>
+            <AppCardCarousel :recipes="this.recipes" :visibleRecipes="3" v-if="recipes.length > 0"></AppCardCarousel>
+        </div> <!-- Agregamos el cierre del div que faltaba -->
         <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
             <i class="fas fa-plus"></i>
             <span class="text">Upload new recipe</span>
@@ -28,12 +25,16 @@
     </div>
 </template>
 
+
 <script>
 import '../assets/styles/appStyles.css';
+import axios from 'axios';
+import AppCardCarousel from '@/components/AppCardCarousel.vue';
 
 export default {
     name: "HomePage.vue",
-    components: {},
+
+    components: {AppCardCarousel},
     props: {
         logged: Boolean,
         username: String,
@@ -41,12 +42,46 @@ export default {
         password: String,
     },
     data() {
+        return {
+            recipes: []
+        };
     },
     methods: {
         redirectToRecipePage() {
             alert(this.logged)
             this.$router.push('/addRecipe');
         },
+        getAllRecipes() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get("/getRecipies/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const recipes = response.data.recipes;
+                        this.recipes = recipes;
+                        console.log(this.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        }
+    },
+    created() {
+        this.getAllRecipes()
     }
 };
 </script>

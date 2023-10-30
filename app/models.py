@@ -29,3 +29,18 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def toJson(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'ingredients': self.ingredients,
+            'instructions': self.instructions,
+            'preparation_time': self.preparation_time,
+            'servings': self.servings,
+            'kcal': self.kcal,
+            'recipe_type': self.recipe_type,
+            'allergens': self.allergens,
+            'username_id': self.username_id,
+            'creation_date': self.creation_date.strftime('%Y-%m-%d')
+        }
