@@ -9,9 +9,6 @@
         <AppCardRecipe :recipe="recipe"></AppCardRecipe>
       </div>
     </div>
-    <button @click="expandCarousel" v-if="recipes.length > visibleRecipes">
-      Ver Más
-    </button>
   </div>
 </template>
 
@@ -25,20 +22,16 @@ export default {
   },
   data() {
     return {
-      expanded: false,
     };
   },
   computed: {
     containerStyle() {
       return {
-        height: this.expanded ? "auto" : "250px", // Altura fija en píxeles cuando no está expandido
       };
     },
   },
   methods: {
-    expandCarousel() {
-      this.expanded = !this.expanded;
-    },
+
   },
 };
 </script>
@@ -56,10 +49,10 @@ export default {
   padding: 40px;
   border-radius: 4px;
   height: auto; /* Altura variable */
-  width: 75%;
+  width: 100%; /* Ocupa todo el ancho disponible */
   margin: 0 auto; /* Centra horizontalmente */
   margin-top: 15px;
-  max-width: 75%;
+  max-width: 100%; /* Asegura que no se desborde en dispositivos pequeños */
 }
 
 .carousel-item {
