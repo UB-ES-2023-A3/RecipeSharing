@@ -5,6 +5,16 @@
     </div>
     <div v-if="showPopup" class="popup">
       <div class="popup-content">
+        <div class="rating-stars">
+          <span
+            v-for="star in [1, 2, 3, 4, 5]"
+            :key="star"
+            @click="setRating(star)"
+            :class="{ 'filled': star <= rating }"
+          >
+            ★
+          </span>
+        </div>
         <div class="scrollable-content">
           <div class="section">
             <h2>{{ this.recipe.title }}</h2>
@@ -52,6 +62,7 @@ export default {
   data() {
     return {
       showPopup: false,
+      rating: 0, // Valoración inicial
     };
   },
   methods: {
@@ -59,16 +70,13 @@ export default {
       this.showPopup = !this.showPopup;
     },
     parseText(listString) {
-      // Elimina los corchetes [ y ]
       const sinCorchetes = listString.replace(/\[|\]/g, '');
-
-      // Elimina las comillas simples '
       const sinComillasSimples = sinCorchetes.replace(/'/g, '');
-
-      // Divide la cadena en un array utilizando la coma como separador
       const arrayIngredientes = sinComillasSimples.split(',');
-
       return arrayIngredientes;
+    },
+    setRating(rating) {
+      this.rating = rating;
     },
   },
 };
@@ -110,19 +118,25 @@ export default {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px; /* Ancho más grande */
-  max-height: 500px; /* Alto más grande */
+  max-width: 600px;
+  max-height: 500px;
   padding: 20px;
   overflow-y: auto;
 }
 
-.section h2 {
-  font-size: 1.5rem; /* Tamaño de título más grande */
+.rating-stars {
+  text-align: right;
+  margin-bottom: 10px;
 }
 
-.section h3 {
-  font-size: 1.2rem;
+.rating-stars span {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc;
+  margin-left: 5px;
 }
 
-/* Resto de estilos */
+.rating-stars span.filled {
+  color: #ffcc00;
+}
 </style>
