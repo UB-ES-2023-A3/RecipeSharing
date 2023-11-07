@@ -50,3 +50,23 @@ def get_all_recipes():
     recipes = Recipe.objects.all()  # Esto obtiene todos los objetos Recipe, ajusta tu consulta según sea necesario
     recipe_list = [recipe.toJson() for recipe in recipes]
     return {'recipes': recipe_list}
+
+def get_recipes_main():
+    recipes_rating = Recipe.objects.order_by("-rating_average")
+    recipes_rating_list = [recipe.toJson() for recipe in recipes_rating]
+    recipes_recent = Recipe.objects.order_by("-creation_date")
+    recipes_recent_list = [recipe.toJson() for recipe in recipes_recent]
+    return {'recipes_rating': recipes_rating_list, 'recipes_recent': recipes_recent_list}
+
+
+def get_list_recipes_by_query(query):
+    if query == "rate":
+        recipes = Recipe.objects.order_by("-rating_average")
+        recipes_list = [recipe.toJson() for recipe in recipes]
+        return {'recipes': recipes_list}
+    elif query == "recent":
+        recipes = Recipe.objects.order_by("-creation_date")
+        recipes_list = [recipe.toJson() for recipe in recipes]
+        return {'recipes': recipes_list}
+    else:
+        return {'error': 'Query not valid.'}
