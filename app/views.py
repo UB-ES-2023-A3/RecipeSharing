@@ -121,3 +121,29 @@ class AddRecipeView(TemplateView):
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
     
 
+# Query Recipes View
+class QueryListRecipesView(TemplateView):
+    template_name = "ListRecipesPage.html"
+    def get(self, request, query):
+        if request.method == 'GET' and query is not None:
+            response_data = get_list_recipes_by_query(query)
+            
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
+
+    # Post Endpoint
+    def post(self, request):
+        if request.method == 'POST' and request.json.count == 3:
+            
+            response_data = add_rating_logic(request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
