@@ -1,5 +1,5 @@
 from django.urls import path, include
-from app.views import HomeView, RegisterView, LoginView, AddRecipeView, ViewRecipeView
+from app.views import *
 
 app_name = 'app'
 urlpatterns = [
@@ -8,8 +8,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='loginpage'),
     path('addRecipe/', AddRecipeView.as_view(), name='addRecipe'),
 
-    path('getRecipes/', HomeView.get_recipies, name= 'get_recipies'),
-    path('recipe/<int:recipe_id>/', ViewRecipeView.as_view(), name='viewRecipe')
+    # path('getRecipes/', HomeView.get_recipes, name= 'get_recipes'),
     
     # path('new/', views.create_new_recipe, name='create_new_recipe'),
     # path('recipes/<int:recipe_id>/', views.update_recipe, name='update_recipe'),

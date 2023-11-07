@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from app.logic.loginLogic import login_logic
-from app.logic.recipeLogic import add_rating_logic, recipe_logic
+from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic
 from app.logic.registerLogic import register_user
 from app.logic.recipeLogic import get_all_recipes
 
@@ -19,9 +19,21 @@ class HomeView(TemplateView):
 
         return render(request, self.template_name)
     
-    def get_recipies (self):
-            recipes = get_all_recipes()
-            return JsonResponse(recipes, status=200)
+    def get_recipes (self):
+        recipes = get_recipes_main()
+        return JsonResponse(recipes, status=200)
+    
+    def post(self, request):
+        if request.method == 'POST' and request.json.count == 3:
+            
+            response_data = add_rating_logic(request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
 # Register Page
 class RegisterView(View):
@@ -108,19 +120,4 @@ class AddRecipeView(TemplateView):
 
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
     
-# View Recipe Page
-class ViewRecipeView(TemplateView):
-    template_name = "ViewRecipePage.html"
 
-    # Post Endpoint
-    def post(self, request):
-        if request.method == 'POST' and request.json.count == 3:
-            
-            response_data = add_rating_logic(request)
-
-            if 'error' in response_data:
-                return JsonResponse(response_data, status=400)
-            else:
-                return JsonResponse(response_data, status=200)
-
-        return JsonResponse({'error': 'Method not allowed.'}, status=405)
