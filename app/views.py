@@ -16,9 +16,12 @@ class HomeView(TemplateView):
     template_name = "HomePage.html"
 
     def get(self, request):
-        if request.method == 'GET':
-            recipes = get_recipes_main()
-            return JsonResponse(recipes, status=200)        
+
+        return render(request, self.template_name)
+    
+    def get_recipes (self):
+        recipes = get_recipes_main()
+        return JsonResponse(recipes, status=200)     
     
     def post(self, request):
         if request.method == 'POST' and request.json.count == 3:
