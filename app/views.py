@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from app.logic.loginLogic import login_logic
-from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic
+from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic, get_rating_by_id
 from app.logic.registerLogic import register_user
 from app.logic.recipeLogic import get_all_recipes
 
@@ -105,12 +105,11 @@ class AddRecipeView(TemplateView):
             instructions = body.get("instructions")
             prep_time = body.get("preparationTime")
             servings = body.get("servings")
-            kcal = body.get("kcal")
-            username_id = body.get("username_id")
             recipe_type = body.get("type")
             allergens = body.get("allergens")
+            username_id = body.get("username_id")
 
-            response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id, recipe_type, allergens,
+            response_data = recipe_logic(title, ingredients, instructions, prep_time, username_id, servings, recipe_type, allergens,
                                          request)
 
             if 'error' in response_data:
@@ -147,3 +146,30 @@ class QueryListRecipesView(TemplateView):
                 return JsonResponse(response_data, status=200)
 
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
+class PostRecipeRatingView(TemplateView):
+    # Post Endpoint
+    def post(self, request):
+        if request.method == 'POST':
+            
+            response_data = add_rating_logic(request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
+    
+class GetRecipeRatingView(TemplateView):
+    
+    def get(self, request, query):
+        if request.method == 'GET':
+            response_data = get_rating_by_id(query)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        
+

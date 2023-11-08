@@ -6,7 +6,7 @@
         v-for="(recipe, index) in recipes"
         :key="index"
       >
-        <AppCardRecipe :recipe="recipe"></AppCardRecipe>
+        <AppCardRecipe :recipe="recipe" :username="username"></AppCardRecipe>
       </div>
     </div>
   </div>
@@ -19,6 +19,7 @@ export default {
   props: {
     recipes: Array,
     visibleRecipes: Number,
+    username: String,
   },
   data() {
     return {

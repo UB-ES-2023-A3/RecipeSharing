@@ -5,20 +5,26 @@
     </div>
     <div v-if="showPopup" class="popup">
       <div class="popup-content">
-        <div class="rating-stars">
-          <span
-            v-for="star in [1, 2, 3, 4, 5]"
-            :key="star"
-            @click="setRating(star)"
-            :class="{ 'filled': star <= rating }"
-          >
-            ★
-          </span>
-        </div>
         <div class="scrollable-content">
           <div class="section">
-            <h2>{{ this.recipe.title }}</h2>
+            <h2>{{ "Title: " + this.recipe.title }}</h2>
             <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
+          </div>
+          <div class="section">
+            <h3>Current Rating</h3>
+            <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
+          </div>
+          <div class="section">
+            <div class="rating-stars">
+              <span
+                v-for="star in [1, 2, 3, 4, 5]"
+                :key="star"
+                @click="setRating(star)"
+                :class="{ 'filled': star <= rating }"
+                >
+                ★
+              </span>
+            </div>
           </div>
           <div class="section">
             <h3>Ingredients</h3>
@@ -55,14 +61,19 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   props: {
     recipe: Object,
+    username: String,
   },
   data() {
     return {
       showPopup: false,
       rating: 0, // Valoración inicial
+      NumRatings: this.recipe.rating_amount,
+      CurrRating: this.recipe.rating_average,
+      recipe_id: this.recipe.id
     };
   },
   methods: {
@@ -77,7 +88,46 @@ export default {
     },
     setRating(rating) {
       this.rating = rating;
+      this.addRating();
+      this.getRating();
+      
     },
+    getRating() {
+      // Axios para recibir los ratings
+      axios
+          axios.get(`recipes/getratings/${this.recipe_id}/`)
+          .then((response) => {
+              if (response.status === 200) {
+                  const ratings = response.data;
+                  this.NumRatings = ratings.rating_amount;
+                  this.CurrRating = ratings.rating_average;
+                  console.log(response.data.recipes)
+              }
+          })
+          .catch((error) => {
+              console.error("Error al obtener los ratings:", error);
+          });
+        },    
+      
+      addRating() {
+        //axios para postear el rating de una receta
+        axios
+          .post("recipes/postratings/", {
+            user_id: this.username,
+            recipe_id: this.recipe.id,
+            rating: this.rating
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              console.log("Rating added");
+              alert("Rating added.");
+              this.getRating();
+            }
+          })
+          .catch((error) => {
+            alert(error.response);
+          });
+      }
   },
 };
 </script>
