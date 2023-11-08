@@ -213,8 +213,7 @@ export default {
                     allergens: this.allSelectedAllergens,
                     preparationTime: this.preparationTime,
                     servings: this.servings,
-                    kcal: 5,
-                    username_id: "1",
+                    username_id: 4
                 })
                 .then((response) => {
                     if (response.status === 200) {
@@ -226,7 +225,7 @@ export default {
                 .catch((error) => {
                     alert(error.response);
                 });
-        },
+        }
     },
 };
 

@@ -1,15 +1,12 @@
 <template>
     <div class="card-carousel">
-        <!-- Container for the carousel -->
         <div class="carousel-container" :style="containerStyle">
-            <!-- Loop through the recipes and render each as a card -->
             <div
                     class="carousel-item"
                     v-for="(recipe, index) in recipes"
                     :key="index"
             >
-                <!-- Use the 'AppCardRecipe' component to display the recipe -->
-                <AppCardRecipe :recipe="recipe" :logged="this.logged"></AppCardRecipe>
+                <AppCardRecipe :recipe="recipe" :logged="this.logged" :username="username"></AppCardRecipe>
             </div>
         </div>
     </div>
@@ -22,23 +19,19 @@ import AppCardRecipe from '@/components/AppCardRecipe.vue';
 export default {
     components: {AppCardRecipe},
     props: {
-        recipes: Array,          // An array of recipe objects
-        visibleRecipes: Number,  // Number of visible recipes
-        logged: Boolean
+        recipes: Array,
+        visibleRecipes: Number,
+        username: String,
+        logged: Boolean,
     },
     data() {
         return {};
     },
     computed: {
         containerStyle() {
-            return {
-                // Dynamic styling for the container if needed
-            };
+            return {};
         },
-    },
-    methods: {
-        // Define any custom methods if necessary
-    },
+    }
 };
 
 </script>

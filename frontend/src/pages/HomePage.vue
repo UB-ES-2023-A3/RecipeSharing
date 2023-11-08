@@ -3,12 +3,10 @@
         <div class="secondaryContainer">
             <div class="titleContainerHP">
                 <div class="mainTitleHP">
-                    <h1> Trending Topic Recipes </h1>
+                    <h1> Most Recent Recipes </h1>
                 </div>
             </div>
-            <div class="recipeCarousel">
-                <!-- Aquí colocarás las tarjetas de las recetas más populares -->
-            </div>
+            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div>
         <div class="secondaryContainer">
             <div class="titleContainerHP">
@@ -16,7 +14,7 @@
                     <h1> Most Liked Recipes </h1>
                 </div>
             </div>
-            <AppCardCarousel :recipes="this.recipes" :visibleRecipes="3" :logged="this.logged" v-if="recipes.length > 0"></AppCardCarousel>
+            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :logged="this.logged" :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div> <!-- Agregamos el cierre del div que faltaba -->
         <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
             <i class="fas fa-plus"></i>
@@ -43,14 +41,15 @@ export default {
     },
     data() {
         return {
-            recipes: []
+            recipesByDate: [],
+            recipesByRate: []
         };
     },
     methods: {
         redirectToRecipePage() {
             this.$router.push('/addRecipe');
         },
-        getAllRecipes() {
+        getRecipesByRate() {
             // Axios para coger el template
             axios
                 .get("/")
@@ -66,12 +65,40 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get("/getRecipies/")
+                .get("recipe/rate/")
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
-                        this.recipes = recipes;
-                        console.log(this.recipes)
+                        this.recipesByRate = recipes;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+        getRecipesByRecent() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get("recipe/recent/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const recipes = response.data.recipes;
+                        this.recipesByDate = recipes;
+                        console.log(response.data.recipes)
                     }
                 })
                 .catch((error) => {
@@ -80,7 +107,8 @@ export default {
         }
     },
     created() {
-        this.getAllRecipes()
+        this.getRecipesByRate();
+        this.getRecipesByRecent();
     }
 };
 </script>

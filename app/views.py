@@ -1,13 +1,13 @@
-# Import necessary modules and classes for Django views
 import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic import View
 
-# Import custom logic functions
 from app.logic.loginLogic import login_logic
-from app.logic.recipeLogic import recipe_logic
+from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic, \
+    get_rating_by_id
 from app.logic.registerLogic import register_user
 from app.logic.recipeLogic import get_all_recipes
 
@@ -17,13 +17,24 @@ class HomeView(TemplateView):
     template_name = "HomePage.html"
 
     def get(self, request):
-        # Render the template for the home page
+
         return render(request, self.template_name)
 
-    def get_recipies(self):
-        # Get all recipes and return them as a JSON response
-        recipes = get_all_recipes()
+    def get_recipes(self):
+        recipes = get_recipes_main()
         return JsonResponse(recipes, status=200)
+
+    def post(self, request):
+        if request.method == 'POST' and request.json.count == 3:
+
+            response_data = add_rating_logic(request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
 
 # Register Page
@@ -32,13 +43,11 @@ class RegisterView(View):
 
     # Get Endpoint
     def get(self, request):
-        # Render the template for the registration page
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == "POST":
-            # Parse the request data and call the registration logic function
             data = json.loads(request.body)
             username = data.get('username')
             email = data.get('email')
@@ -46,7 +55,6 @@ class RegisterView(View):
 
             response_data = register_user(username, email, password, request)
 
-            # Return a JSON response based on the outcome of the registration
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
@@ -61,13 +69,11 @@ class LoginView(TemplateView):
 
     # Get Endpoint
     def get(self, request):
-        # Render the template for the login page
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == "POST":
-            # Parse the request data and call the login logic function
             data = json.loads(request.body)
             username = data.get('username')
             email = data.get('email')
@@ -75,7 +81,6 @@ class LoginView(TemplateView):
 
             response_data = login_logic(username, email, password, request)
 
-            # Return a JSON response based on the outcome of the login
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
@@ -90,31 +95,85 @@ class AddRecipeView(TemplateView):
 
     # Get Endpoint
     def get(self, request):
-        # Render the template for the add recipe page
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == 'POST':
-            # Parse the request data and call the recipe logic function to add a new recipe
             body = json.loads(request.body.decode('utf-8'))
+            print(body)
             title = body.get("name")
             ingredients = body.get("ingredients")
             instructions = body.get("instructions")
             prep_time = body.get("preparationTime")
             servings = body.get("servings")
-            kcal = body.get("kcal")
-            username_id = body.get("username_id")
             recipe_type = body.get("type")
             allergens = body.get("allergens")
+            username_id = body.get("username_id")
 
-            response_data = recipe_logic(title, ingredients, instructions, prep_time, servings, kcal, username_id,
-                                         recipe_type, allergens)
+            response_data = recipe_logic(title, ingredients, instructions, prep_time, username_id, servings,
+                                         recipe_type, allergens,
+                                         request)
 
-            # Return a JSON response based on the outcome of the recipe creation
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
                 return JsonResponse(response_data, status=200)
 
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
+
+# Query Recipes View
+class QueryListRecipesView(TemplateView):
+    template_name = "ListRecipesPage.html"
+
+    def get(self, request, query):
+        if request.method == 'GET' and query is not None:
+            response_data = get_list_recipes_by_query(query)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
+    # Post Endpoint
+    def post(self, request):
+        if request.method == 'POST' and request.json.count == 3:
+
+            response_data = add_rating_logic(request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
+
+class PostRecipeRatingView(TemplateView):
+    # Post Endpoint
+    def post(self, request):
+        if request.method == 'POST':
+
+            response_data = add_rating_logic(request)
+
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
+
+class GetRecipeRatingView(TemplateView):
+
+    def get(self, request, query):
+        if request.method == 'GET':
+            response_data = get_rating_by_id(query)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+
