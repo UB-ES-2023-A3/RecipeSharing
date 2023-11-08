@@ -6,7 +6,7 @@
                     <h1> Most Recent Recipes </h1>
                 </div>
             </div>
-            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :logged="this.logged" :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div>
         <div class="secondaryContainer">
             <div class="titleContainerHP">
