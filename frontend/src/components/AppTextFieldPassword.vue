@@ -2,26 +2,24 @@
     <div>
         <div class="text-field-container">
             <input
-                v-model="message"
-                @blur="saveMessage"
-                @focus="clearDefaultMessage"
-                ref="messageInput"
-                @input="updateTextFieldValue"
-                :style="inputStyle"
-                :type="isPasswordVisible ? 'text' : 'password'"
+                    v-model="message"
+                    @blur="saveMessage"
+                    @focus="clearDefaultMessage"
+                    ref="messageInput"
+                    @input="updateTextFieldValue"
+                    :style="inputStyle"
+                    :type="isPasswordVisible ? 'text' : 'password'"
+                    @keydown="handleEnterKey"
             >
         </div>
         <button @click.prevent="togglePasswordVisibility" class="password-toggle-button">
-                <i :class="isPasswordVisible ? 'far fa-eye' : 'far fa-eye-slash'"></i>
-            </button>
+            <i :class="isPasswordVisible ? 'far fa-eye' : 'far fa-eye-slash'"></i>
+        </button>
     </div>
 </template>
 
-
-
-
-
 <script>
+
 export default {
     name: "AppTextFieldPassword.vue",
     props: {
@@ -59,25 +57,30 @@ export default {
         clearDefaultMessage() {
             if (!this.clearedOnce) {
                 this.clearedOnce = true;
-                this.message = ''; // Limpiar el mensaje predeterminado
+                this.message = '';
             }
         },
         togglePasswordVisibility() {
             this.isPasswordVisible = !this.isPasswordVisible;
         },
         updateTextFieldValue() {
-            // Emitir un evento personalizado con el valor actualizado
             this.$emit('update:textValue', this.message);
+        },
+        handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Evita el comportamiento predeterminado (envío del formulario) al presionar Enter
+            }
         },
     },
 };
 </script>
 
 <style>
+
 .text-field-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Añade esto para centrar horizontalmente */
+    justify-content: center;
 }
 
 .password-toggle-button {
@@ -88,4 +91,3 @@ export default {
 }
 
 </style>
-

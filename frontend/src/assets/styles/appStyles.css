@@ -72,9 +72,9 @@ html, body {
 
 /* Main Title for other pages */
 .mainTitle {
-    font-size: 10px; /* Aumenta el tamaño de fuente del título */
-    color: #fff; /* Cambia el color del título a blanco para mejor contraste */
-    margin: 0px;
+    font-size: 10px;
+    color: #fff;
+    margin: 0;
     padding-bottom: 2px;
     display: flex;
     justify-content: center;
@@ -83,8 +83,8 @@ html, body {
 /* Subtitle Container */
 .subtitleContainer {
     background-color: #613131;
-    padding: 0.5px;
-    border: 0.5px solid #b69b70;
+    padding: 1px;
+    border: 1px solid #b69b70;
     border-radius: 8px;
     opacity: 0.9;
     width: 100%;
@@ -124,7 +124,7 @@ html, body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 70px; /* Tamaño del botón (ajusta según tus necesidades) */
+    width: 70px;
     margin-top: 12px;
     margin-right: 20px;
     border-radius: 50%;
@@ -185,11 +185,13 @@ html, body {
     margin-bottom: 20px;
 }
 
+/* Form Label */
 label {
     display: block;
     font-weight: bold;
 }
 
+/* Input */
 .input {
     width: 100%;
     padding: 10px;
@@ -198,17 +200,14 @@ label {
     font-size: 16px;
 }
 
+/* Error */
 .error {
     color: red;
     margin-top: 5px;
 }
 
+/* Notes */
 .note {
     color: gray;
     font-size: 12px;
 }
-
-
-
-
-

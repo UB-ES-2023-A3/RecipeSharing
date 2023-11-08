@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     defaultMessage: String,
@@ -40,19 +41,17 @@ export default {
   },
   methods: {
     saveMessage() {
-      // Emitir un evento personalizado con el valor actualizado
       this.$emit('update:textValue', this.message);
     },
     clearDefaultMessage() {
-      // Limpiar el mensaje predeterminado al enfocar
       this.message = "";
     },
     adjustTextAreaHeight() {
-      // Ajustar la altura del textarea en función del contenido
       const textarea = this.$refs.messageInput;
       textarea.style.height = "auto";
       textarea.style.height = textarea.scrollHeight + "px";
     },
   },
 };
+
 </script>

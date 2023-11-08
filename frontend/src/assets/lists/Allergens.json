@@ -1,5 +1,11 @@
 [
   {
+    "groupName": "None Allergens",
+    "options": [
+      "None"
+    ]
+  },
+  {
     "groupName": "Common Allergens",
     "options": [
       "Cereals containing gluten - ",

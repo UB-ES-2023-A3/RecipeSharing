@@ -136,7 +136,7 @@
   ]
   },
   {
-    "grupName":"Meats and Sausages",
+    "groupName":"Meats and Sausages",
     "options": [
       "Bacon (Pancetta)",
       "Boiled Butifarra",
@@ -185,7 +185,7 @@
   ]
   },
   {
-    "grupName":"Seafood",
+    "groupName":"Seafood",
     "options": [
       "Anchovies",
       "Anguillas",
@@ -227,7 +227,7 @@
   ]
   },
   {
-    "grupName":"Sweets and sugar",
+    "groupName":"Sweets and sugar",
     "options": [
       "Caramel",
       "Cocoa Powder with Instant Sugar",
@@ -244,7 +244,7 @@
   ]
   },
   {
-    "grupName":"Cereals",
+    "groupName":"Cereals",
     "options": [
       "Barley",
       "Breakfast Cereals with Honey",
@@ -272,7 +272,7 @@
   ]
   },
   {
-    "grupName":"Legumes",
+    "groupName":"Legumes",
     "options": [
       "Chickpeas",
       "Kidney Beans",
@@ -280,7 +280,7 @@
   ]
   },
   {
-    "grupName":"Eggs",
+    "groupName":"Eggs",
     "options": [
       "Egg White",
       "Egg Yolk",
@@ -289,7 +289,7 @@
   ]
   },
   {
-    "grupName":"Baked goods",
+    "groupName":"Baked goods",
     "options": [
       "Apple Cake",
       "Apple Pie",
@@ -306,7 +306,7 @@
   ]
   },
   {
-    "grupName":"Beverages",
+    "groupName":"Beverages",
     "options": [
       "Anise",
       "Bitter Vermouth",
@@ -341,7 +341,7 @@
   ] 
   },
   {
-    "grupName":"Oils and fats",
+    "groupName":"Oils and fats",
     "options": [
       "Butter",
       "Lard",

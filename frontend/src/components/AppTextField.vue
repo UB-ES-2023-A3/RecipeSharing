@@ -13,7 +13,9 @@
 </template>
 
 <script>
+
 export default {
+    name: "AppTextField.vue",
     props: {
         defaultMessage: String,
     },
@@ -21,6 +23,7 @@ export default {
         return {
             message: this.defaultMessage,
             isSaved: false,
+            clearedOnce: false,
         };
     },
     computed: {
@@ -45,12 +48,15 @@ export default {
             this.$refs.messageInput.blur();
         },
         clearDefaultMessage() {
-            this.message = "";
+            if (!this.clearedOnce) {
+                this.message = "";
+                this.clearedOnce = true;
+            }
         },
         updateTextFieldValue() {
-            // Emitir un evento personalizado con el valor actualizado
             this.$emit('update:textValue', this.message);
         },
     },
 };
+
 </script>

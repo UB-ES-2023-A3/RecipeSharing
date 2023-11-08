@@ -18,7 +18,7 @@ export default {
         };
     },
     methods: {
-        // Aquí puedes definir tus métodos si los necesitas en el futuro.
+
     },
 };
 </script>
@@ -26,11 +26,11 @@ export default {
 <style scoped>
 .app-header {
     width: 100%;
-    position: fixed; /* Fija el encabezado en la parte superior de la ventana */
-    top: 0; /* Pegado en la parte superior */
-    left: 0; /* Pegado a la izquierda */
-    right: 0; /* Pegado a la derecha */
-    z-index: 999; /* Asegura que esté en la parte superior de otros elementos */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
 }
 
 .image-container {
@@ -39,15 +39,15 @@ export default {
 }
 
 .image {
-    width: 100%; /* Ajusta el ancho de la imagen según tus necesidades */
-    height: 100%; /* Ajusta la altura al 100% para mantener la relación de aspecto */
-    object-fit: cover; /* La imagen se ajusta al contenedor manteniendo la relación de aspecto */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .text-overlay {
     position: absolute;
     top: 0;
-    left: 300px; /* Desplazamiento de 200px desde el borde izquierdo */
+    left: 300px;
     width: 50%;
     height: 100%;
     display: flex;
@@ -56,16 +56,16 @@ export default {
 }
 
 .text-overlay p {
-    color: #fff; /* Color del texto */
+    color: #fff;
     font-style: oblique;
     font-size: 1cm;
-    text-align: center; /* Alinea el texto horizontalmente en el centro */
+    text-align: center;
 }
 
 .animated-title {
     color: #fff;
     font-size: 24px;
-    animation: bounce 10s infinite; /* Nombre de la animación, duración y repetición */
+    animation: bounce 10s infinite;
 }
 
 @keyframes bounce {

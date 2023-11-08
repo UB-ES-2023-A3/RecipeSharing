@@ -5,121 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/static/dist/app.0a62298030842c16.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.0a62298030842c16.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.0e5a382503ecff5d.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.0e5a382503ecff5d.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.1595e3a3dad8deca.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.1595e3a3dad8deca.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.1795b6bd68b36059.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.1795b6bd68b36059.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.2141015aa8a3cacb.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.2141015aa8a3cacb.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.25095b12aaca9a08.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.25095b12aaca9a08.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.2a9725b8ce41cfde.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.2a9725b8ce41cfde.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.2b32804492f836a9.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.2b32804492f836a9.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.3194b1cf7613d08c.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.3194b1cf7613d08c.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.31ccdf5f31999b90.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.31ccdf5f31999b90.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.320bddda9185679f.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.320bddda9185679f.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.32606643bfa1321e.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.32606643bfa1321e.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.32e236af9bec9e51.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.32e236af9bec9e51.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.3c0adce48a8e97f8.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.3c0adce48a8e97f8.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.3c63cfbb2779fb01.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.3c63cfbb2779fb01.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.44832e83866966a2.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.44832e83866966a2.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.4c212c9744519906.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.4c212c9744519906.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.4f46c17695b5a9d5.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.4f46c17695b5a9d5.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.593a8933461b352a.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.593a8933461b352a.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6601dc165d02f488.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6601dc165d02f488.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6603df18bdef0c02.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6603df18bdef0c02.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.667ef5b1dae6569c.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.667ef5b1dae6569c.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.66d472084e8b1094.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.66d472084e8b1094.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.687681d8626f5a6d.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.687681d8626f5a6d.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6c293253fea9a760.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6c293253fea9a760.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6e7f09f2037bbd3d.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.6e7f09f2037bbd3d.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.746543a2421914e5.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.746543a2421914e5.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.78ec04119539a4f7.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.78ec04119539a4f7.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.7f4c35b5fc237202.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.7f4c35b5fc237202.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.826d665ac1dab310.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.826d665ac1dab310.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.84c8e3c29dbb73ea.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.84c8e3c29dbb73ea.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.89b9dd42e4d3e8f0.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.89b9dd42e4d3e8f0.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.8cc6c67ffe79a628.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.8cc6c67ffe79a628.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.8db4ed0edd0193b9.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.8db4ed0edd0193b9.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a08dcadd7f333eb8.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a08dcadd7f333eb8.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a2df630068d76426.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a2df630068d76426.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a60ccb11bf159581.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a60ccb11bf159581.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a9062d6e7a6e1daf.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.a9062d6e7a6e1daf.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b0e64d38a118d60f.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b0e64d38a118d60f.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b38200118491b5c7.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b38200118491b5c7.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b3d1f8876e955c29.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b3d1f8876e955c29.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b9376371978dd7e7.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.b9376371978dd7e7.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.bff0855f941dd80f.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.bff0855f941dd80f.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cbd4148d0f287e87.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cbd4148d0f287e87.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cd502aced4c4d69c.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cd502aced4c4d69c.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cdbd65106c43f736.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cdbd65106c43f736.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cf3f9ab38e1e2bed.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.cf3f9ab38e1e2bed.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d493b55ccc421353.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d493b55ccc421353.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d6e56dc54a8f9eeb.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d6e56dc54a8f9eeb.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d819dabffeb53f99.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d819dabffeb53f99.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d9f8d99d605d1cd8.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.d9f8d99d605d1cd8.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.dc12978c3dc93d0b.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.dc12978c3dc93d0b.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.e4286b62a66db1a6.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.e4286b62a66db1a6.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.ecbd01685f96e731.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.ecbd01685f96e731.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.edad7f7a7618e059.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.edad7f7a7618e059.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.fa0b82e3aca618f7.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/dist/app.fa0b82e3aca618f7.hot-update.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/lists/Allergens.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/lists/Allergens.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/lists/Ingredients.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/lists/Ingredients.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCarousel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppDropdownSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppDropdownSelect.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppHeader.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppHeaderIni.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppHeaderIni.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppHeaderUserButton.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppHeaderUserButton.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppTextArea.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppTextArea.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppTextField.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppTextField.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppTextFieldPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppTextFieldPassword.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/AddRecipePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AddRecipePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/LoginPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/LoginPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/dist/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" afterDir="false" />
     </list>
@@ -153,7 +57,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marmo/OneDrive/Escritorio/UB/4º/Enginyeria del Software/Pràctica/RecipeSharing&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -195,7 +99,12 @@
       <workItem from="1698679534154" duration="141000" />
       <workItem from="1698679973557" duration="586000" />
       <workItem from="1698680679892" duration="608000" />
-      <workItem from="1698682411863" duration="1481000" />
+      <workItem from="1698682411863" duration="2047000" />
+      <workItem from="1698922698490" duration="2123000" />
+      <workItem from="1699008683331" duration="765000" />
+      <workItem from="1699011588657" duration="127000" />
+      <workItem from="1699020722761" duration="6710000" />
+      <workItem from="1699381379887" duration="487000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1697389322821</created>

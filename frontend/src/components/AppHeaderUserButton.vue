@@ -1,50 +1,51 @@
 <template>
     <div class="button-image-user">
         <div @click="toggleMenu" class="button-image-user">
-            <img :src="userImage" alt="Botón" class="user-image"/>
+            <img :src="userImage" alt="Button" class="user-image"/>
         </div>
-        <!-- Utiliza v-if para mostrar el menú cuando isMenuOpen es verdadero -->
+        <!-- Use v-if to show the menu when isMenuOpen is true -->
         <div v-if="logged && isMenuOpen" class="user-menu">
             <ul>
-                <li @click="goToProfile">Mi perfil</li>
-                <li @click="logout">Log out</li>
+                <li @click="goToProfile">My Profile</li>
+                <li @click="logout">Log Out</li>
             </ul>
         </div>
         <div v-if="!logged && isMenuOpen" class="user-menu">
             <ul>
-                <li @click="goToLogin">Log in</li>
+                <li @click="goToLogin">Log In</li>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+
 import axios from "axios";
 
 export default {
     props: {
-        logged: Boolean, // Define la propiedad logged
+        logged: Boolean, // Define the logged property
         username: String,
         email: String,
         password: String,
     },
     data() {
         return {
-            isMenuOpen: false,
+            isMenuOpen: false, // Controls the visibility of the user menu
             name: "AppHeaderUserButton",
-            userImage: require("../assets/images/DefaultUser.jpg"), // Ruta de la imagen del usuario
+            userImage: require("../assets/images/DefaultUser.jpg"), // User image path
         };
     },
     methods: {
         toggleMenu() {
-            this.isMenuOpen = !this.isMenuOpen;
+            this.isMenuOpen = !this.isMenuOpen; // Toggles the user menu
         },
         goToLogin() {
-            this.$router.push('/login');
+            this.$router.push('/login'); // Navigate to the login page
         },
         goToProfile() {
-            // Agrega la lógica para navegar a la página de perfil del usuario
-            // Ejemplo: this.$router.push('/perfil');
+            // Add logic to navigate to the user's profile page if needed
+            // Example: this.$router.push('/profile');
         },
         async logout() {
             try {
@@ -59,7 +60,7 @@ export default {
                 });
 
                 if (response.status === 200) {
-                    // El inicio de sesión fue exitoso, redirigir al usuario o realizar otras acciones necesarias
+                    // Successful login, redirect the user or perform other necessary actions
                 }
             } catch (error) {
                 if (error.response) {
@@ -72,7 +73,7 @@ export default {
                         localStorage.setItem('password', null);
                         window.location.reload();
                     } else if (error.response.status === 500) {
-                        alert("An error occurred while registering.");
+                        alert("An error occurred while logging in.");
                     } else {
                         // Handle other status codes
                         alert("Unexpected error");
@@ -85,6 +86,7 @@ export default {
         },
     },
 };
+
 </script>
 
 <style scoped>
@@ -106,13 +108,13 @@ export default {
 
 .user-menu {
     position: absolute;
-    top: 60px; /* Posición debajo del botón de usuario */
+    top: 60px;
     right: 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100px; /* Ajusta el ancho según tus necesidades */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100px;
 }
 
 ul {
@@ -129,4 +131,5 @@ li {
 li:hover {
     background-color: #f0f0f0;
 }
+
 </style>
