@@ -26,10 +26,6 @@ class Recipe(models.Model):
     # username_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     username_id = models.TextField()
     creation_date = models.DateField(default=timezone.now)
-    #Rating fileds
-    rating_average = models.IntegerField(default=0)
-    rating_amount = models.IntegerField(default=0)
-    rating_list = models.JSONField(default={})
 
     def __str__(self):
         return self.title
@@ -46,8 +42,5 @@ class Recipe(models.Model):
             'recipe_type': self.recipe_type,
             'allergens': self.allergens,
             'username_id': self.username_id,
-            'creation_date': self.creation_date.strftime('%Y-%m-%d'),
-            'rating_average': self.rating_average,
-            'rating_amount': self.rating_amount,
-            'rating_list': self.rating_list
+            'creation_date': self.creation_date.strftime('%Y-%m-%d')
         }
