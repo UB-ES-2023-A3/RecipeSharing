@@ -6,7 +6,8 @@
                     <h1> Most Recent Recipes </h1>
                 </div>
             </div>
-            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :logged="this.logged" :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :logged="this.logged"
+                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div>
         <div class="secondaryContainer">
             <div class="titleContainerHP">
@@ -14,7 +15,8 @@
                     <h1> Most Liked Recipes </h1>
                 </div>
             </div>
-            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :logged="this.logged" :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+            <AppCardCarousel :recipes="this.recipesByRate" :visibleRecipes="3" :logged="this.logged"
+                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div> <!-- Agregamos el cierre del div que faltaba -->
         <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
             <i class="fas fa-plus"></i>
@@ -116,7 +118,7 @@ export default {
 <style scoped>
 
 .floating-button {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: #ff5733;

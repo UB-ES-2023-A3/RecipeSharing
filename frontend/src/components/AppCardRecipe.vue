@@ -13,72 +13,87 @@
         <div v-if="showPopup" class="popup">
             <div class="popup-content">
                 <div class="scrollable-content">
-                    <div class="section">
-                        <h2>{{ "Title: " + this.recipe.title }}</h2>
-                        <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
-                    </div>
-                    <div class="section">
-                        <h3>Current Rating</h3>
-                        <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
-                    </div>
-                    <div class="section">
-                        <div class="rating-stars">
-              <span
-                      v-for="star in [1, 2, 3, 4, 5]"
-                      :key="star"
-                      @click="setRating(star)"
-                      :class="{ 'filled': star <= rating }"
-              >
-                ★
-              </span>
+                    <div class="recipe-header">
+                        <div class="recipe-card-title">
+                            <h2>{{ "Title: " + this.recipe.title }}</h2>
+                            <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
+                        </div>
+                        <div class="recipe-card-rating">
+                            <div class="recipe-card-rating-title">
+                                <h3>Current Rating</h3>
+                                <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
+                            </div>
+                            <div class="rating-stars">
+                                    <span
+                                            v-for="star in [1, 2, 3, 4, 5]"
+                                            :key="star"
+                                            @click="setRating(star)"
+                                            @mouseover="hoverStars(star)"
+                                            @mouseout="resetStars"
+                                            :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
+                                    >
+                                      ★
+                                    </span>
+                            </div>
                         </div>
                     </div>
                     <div class="section">
-                        <h3>Ingredients</h3>
-                        <ul>
-                            <li v-for="(step, index) in this.parseText(this.recipe.ingredients)" :key="index">{{
-                                step
-                                }}
-                            </li>
-                        </ul>
+                        <div class="recipe-card-section">
+                            <h3>Ingredients</h3>
+                            <ul>
+                                <li v-for="(step, index) in this.parseText(this.recipe.ingredients)" :key="index">
+                                    {{ step }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="section">
-                        <h3>Instructions</h3>
-                        <ol>
-                            <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">{{
-                                step
-                                }}
-                            </li>
-                        </ol>
+                        <div class="recipe-card-section">
+                            <h3>Instructions</h3>
+                            <ol>
+                                <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
+                                    {{ step }}
+                                </li>
+                            </ol>
+                        </div>
                     </div>
                     <div class="section">
-                        <h3>Allergens</h3>
-                        <ul>
-                            <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">{{
-                                step
-                                }}
-                            </li>
-                        </ul>
+                        <div class="recipe-card-section">
+                            <h3>Allergens</h3>
+                            <ul>
+                                <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">
+                                    {{ step }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="section">
-                        <h3>Type</h3> {{ this.recipe.recipe_type }}
+                        <div class="recipe-card-section">
+                            <h3>Type</h3> {{ this.recipe.recipe_type }}
+                        </div>
                     </div>
                     <div class="section">
-                        <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
+                        <div class="recipe-card-section">
+                            <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
+                        </div>
                     </div>
                     <div class="section">
-                        <h3>Servings</h3> {{ this.recipe.servings }}
+                        <div class="recipe-card-section">
+                            <h3>Servings</h3> {{ this.recipe.servings }}
+                        </div>
                     </div>
+                    <button class="submit-button" @click="togglePopup">Close</button>
                 </div>
-                <button @click="togglePopup">Close</button>
             </div>
         </div>
     </div>
 </template>
 
+
 <script>
 
 import axios from 'axios';
+import '../assets/styles/appStyles.css';
 
 export default {
     props: {
@@ -93,6 +108,7 @@ export default {
             NumRatings: this.recipe.rating_amount,
             CurrRating: this.recipe.rating_average,
             recipe_id: this.recipe.id,
+            hoveredStar: 0,
         };
     },
     methods: {
@@ -112,7 +128,12 @@ export default {
             this.rating = rating;
             this.addRating();
             this.getRating();
-
+        },
+        hoverStars(star) {
+            this.hoveredStar = star;
+        },
+        resetStars() {
+            this.hoveredStar = 0;
         },
         getRating() {
             // Axios para recibir los ratings
@@ -170,6 +191,11 @@ export default {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 250px;
     padding: 10px;
+    margin-bottom: 10px; /* Añadido margen inferior */
+}
+
+.recipe-title:hover {
+    background-color: #ff5733;
 }
 
 .popup {
@@ -187,14 +213,15 @@ export default {
 }
 
 .popup-content {
-    background-color: #625e5a;
+    background-color: #FCE4A4;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    width: 100%;
     max-height: 500px;
     padding: 20px;
     overflow-y: auto;
+    margin-top: 100px;
 }
 
 .section h2 {
@@ -202,12 +229,9 @@ export default {
 }
 
 .section h3 {
-    font-size: 1.2rem;
-}
-
-.rating-stars {
-    text-align: right;
+    font-size: 1.3rem;
     margin-bottom: 10px;
+    color: #d44d31; /* Color personalizado para los títulos de sección */
 }
 
 .rating-stars span {
@@ -220,4 +244,45 @@ export default {
 .rating-stars span.filled {
     color: #ffcc00;
 }
+
+.rating-stars span.hovered {
+    color: #ffcc00;
+}
+
+.hidden-stars {
+    display: none;
+}
+
+.recipe-header {
+    background-color: #FF5733;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Añadido margen inferior */
+}
+
+.recipe-card-title {
+    border-radius: 5px;
+    width: 60%;
+    padding: 10px;
+    border: 2px solid #d44d31;
+    margin: 5px;
+}
+
+.recipe-card-section {
+    border-radius: 5px;
+    padding: 10px;
+    border: 2px solid #d44d31;
+    margin: 5px;
+}
+
+.recipe-card-rating {
+    border: 2px solid #d44d31;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
 </style>

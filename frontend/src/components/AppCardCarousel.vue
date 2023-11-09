@@ -51,7 +51,7 @@ export default {
     border-radius: 4px;
     height: auto;
     width: 100%;
-    margin: 15px auto 0;
+    margin: 15px auto 10px;
     max-width: 100%;
 }
 

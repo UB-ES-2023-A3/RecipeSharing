@@ -118,6 +118,7 @@ export default {
     components: {AppTextField, DropdownSelect, TextArea},
     data() {
         return {
+            username: "",
             recipeName: "",
             selectedIngredients: "",
             instructions: "",
@@ -213,7 +214,7 @@ export default {
                     allergens: this.allSelectedAllergens,
                     preparationTime: this.preparationTime,
                     servings: this.servings,
-                    username_id: 4
+                    username_id: this.username,
                 })
                 .then((response) => {
                     if (response.status === 200) {
@@ -227,6 +228,9 @@ export default {
                 });
         }
     },
+    created() {
+        this.username = localStorage.getItem('username');
+    }
 };
 
 </script>

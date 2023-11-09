@@ -12,7 +12,10 @@ def recipe_logic(title, ingredients, instructions, prep_time, username_id, servi
                         servings=servings,
                         kcal=calculateCalories(ingredients),
                         recipe_type=recipe_type,
-                        allergens=allergens)
+                        allergens=allergens,
+                        rating_amount=0,
+                        rating_average=0,
+                        rating_list={})
     new_recipe.save()
     return {'message': 'Recipe created.'}
 
@@ -31,7 +34,7 @@ def add_rating_logic(request):
         previous_rating = recipe.rating_list.pop(user_id)
         recipe.rating_list[user_id] = rating
         recipe.rating_average = (((
-                                              recipe.rating_average * recipe.rating_amount) - previous_rating) + rating) / recipe.rating_amount
+                                          recipe.rating_average * recipe.rating_amount) - previous_rating) + rating) / recipe.rating_amount
         print(recipe.rating_average)
         recipe.save()
         return {'message': 'Rating updated.',
