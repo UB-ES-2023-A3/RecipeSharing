@@ -27,9 +27,9 @@ class Recipe(models.Model):
     username_id = models.TextField()
     creation_date = models.DateField(default=timezone.now)
     # Rating fileds
-    rating_average = models.DecimalField(max_digits=5, decimal_places=1)
+    rating_average = models.FloatField(default=0.0)
     rating_amount = models.IntegerField(default=0)
-    rating_list = models.JSONField(default={})
+    rating_list = models.JSONField(default=dict)
 
     def __str__(self):
         return self.title
