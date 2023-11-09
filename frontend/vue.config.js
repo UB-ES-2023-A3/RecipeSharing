@@ -5,6 +5,7 @@ module.exports = {
 
     configureWebpack: {
         devServer: {
+            disableHostCheck: true,
             devMiddleware: {
                 writeToDisk: true
             }
