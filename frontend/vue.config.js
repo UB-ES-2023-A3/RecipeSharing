@@ -5,7 +5,10 @@ module.exports = {
 
     configureWebpack: {
         devServer: {
-            disableHostCheck: true,
+            allowedHosts:[
+                'frontend-wm7w.onrender.com',
+                'frontend-rg5p.onrender.com'
+            ],
             devMiddleware: {
                 writeToDisk: true
             }
