@@ -1,19 +1,26 @@
 <template>
     <div class="card-carousel">
-        <div class="carousel-container" :style="containerStyle">
-            <div
-                    class="carousel-item"
-                    v-for="(recipe, index) in recipes"
+        <div class="carousel-container">
+            <button @click="moveCarousel(-1)" class="arrow-button left-arrow"
+                    :class="{ 'disabled-button': isAtBeginning }">◄
+            </button>
+            <AppCardRecipe
+                    v-for="(recipe, index) in displayedRecipes"
                     :key="index"
-            >
-                <AppCardRecipe :type="this.type" :recipe="recipe" :logged="this.logged" :username="username"></AppCardRecipe>
-            </div>
+                    :type="this.type"
+                    :recipe="recipe"
+                    :logged="this.logged"
+                    :username="username"
+            ></AppCardRecipe>
+            <button @click="moveCarousel(1)" class="arrow-button right-arrow" :class="{ 'disabled-button': isAtEnd }">
+                ►
+            </button>
         </div>
     </div>
 </template>
 
-<script>
 
+<script>
 import AppCardRecipe from '@/components/AppCardRecipe.vue';
 
 export default {
@@ -26,16 +33,34 @@ export default {
         type: String,
     },
     data() {
-        return {};
+        return {
+            currentCardIndex: 0,
+        };
     },
     computed: {
-        containerStyle() {
-            return {};
+        displayedRecipes() {
+            const startIndex = this.currentCardIndex;
+            const endIndex = startIndex + this.visibleRecipes;
+            return this.recipes.slice(startIndex, endIndex);
         },
-    }
+        isAtBeginning() {
+            return this.currentCardIndex === 0;
+        },
+        isAtEnd() {
+            return this.currentCardIndex + this.visibleRecipes >= this.recipes.length;
+        },
+    },
+    methods: {
+        moveCarousel(step) {
+            const newIndex = this.currentCardIndex + step;
+            if (newIndex >= 0 && newIndex <= this.recipes.length - this.visibleRecipes) {
+                this.currentCardIndex = newIndex;
+            }
+        },
+    },
 };
-
 </script>
+
 
 <style scoped>
 
@@ -68,6 +93,16 @@ button {
     border-radius: 4px;
     padding: 10px;
     cursor: pointer;
+}
+
+.arrow-button:hover {
+    background-color: #ff8844; /* Cambia el color al pasar el cursor por encima */
+}
+
+.disabled-button {
+    background-color: #ccc; /* Color de fondo gris para botones deshabilitados */
+    pointer-events: none; /* Deshabilitar interacción con el botón */
+    cursor: not-allowed; /* Cambiar el cursor a "no permitido" */
 }
 
 </style>
