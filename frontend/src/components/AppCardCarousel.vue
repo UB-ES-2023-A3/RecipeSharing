@@ -6,7 +6,7 @@
                     v-for="(recipe, index) in recipes"
                     :key="index"
             >
-                <AppCardRecipe :recipe="recipe" :logged="this.logged" :username="username"></AppCardRecipe>
+                <AppCardRecipe :type="this.type" :recipe="recipe" :logged="this.logged" :username="username"></AppCardRecipe>
             </div>
         </div>
     </div>
@@ -23,6 +23,7 @@ export default {
         visibleRecipes: Number,
         username: String,
         logged: Boolean,
+        type: String,
     },
     data() {
         return {};

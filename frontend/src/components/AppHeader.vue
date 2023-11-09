@@ -101,16 +101,6 @@ export default {
     }
 }
 
-.button-image-user {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 70px;
-    margin-top: 12px;
-    margin-right: 20px;
-    border-radius: 50%;
-}
-
 .button-image-logo {
     position: absolute;
     top: 0;

@@ -2,15 +2,14 @@
     <div class="recipe-card">
         <div v-if="logged">
             <div @click="togglePopup" class="recipe-title">
-                <h2>{{ this.recipe.title }}</h2>
+                <span v-if="type === 'rate'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ 'Rating: ' + this.CurrRating }}</h3>
+                </span>
+                <span v-else>
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
+                </span>
             </div>
-        </div>
-        <div v-else>
-            <div @click="goToLogin" class="recipe-title">
-                <h2>{{ this.recipe.title }}</h2>
-            </div>
-        </div>
-        <div v-if="showPopup" class="popup">
+            <div v-if="showPopup" class="popup">
             <div class="popup-content">
                 <div class="scrollable-content">
                     <div class="recipe-header">
@@ -24,16 +23,19 @@
                                 <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
                             </div>
                             <div class="rating-stars">
-                                    <span
+                                <span v-if="username !== this.recipe.username_id"   >
+                                    <h3>Add your rating:</h3>
+                                </span>
+                                <span
                                             v-for="star in [1, 2, 3, 4, 5]"
                                             :key="star"
                                             @click="setRating(star)"
                                             @mouseover="hoverStars(star)"
                                             @mouseout="resetStars"
                                             :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
-                                    >
-                                      ★
-                                    </span>
+                                >
+                                    ★
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -86,6 +88,18 @@
                 </div>
             </div>
         </div>
+        </div>
+        <div v-else>
+            <div @click="goToLogin" class="recipe-title">
+                <span v-if="type === 'rate'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ 'Rating: ' + this.CurrRating }}</h3>
+                </span>
+                <span v-else>
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
+                </span>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -100,6 +114,7 @@ export default {
         recipe: Object,
         username: String,
         logged: Boolean,
+        type: String
     },
     data() {
         return {
@@ -116,6 +131,7 @@ export default {
             this.showPopup = !this.showPopup;
         },
         goToLogin() {
+            alert('Log in to see the recipe!');
             this.$router.push('/login');
         },
         parseText(listString) {
@@ -234,6 +250,10 @@ export default {
     color: #d44d31; /* Color personalizado para los títulos de sección */
 }
 
+.section {
+    color: black;
+}
+
 .rating-stars span {
     font-size: 1.5rem;
     cursor: pointer;
@@ -284,5 +304,15 @@ export default {
     padding: 10px;
 }
 
+h3 {
+    display: block;
+    font-size: 20px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    color: white;
+}
 
 </style>

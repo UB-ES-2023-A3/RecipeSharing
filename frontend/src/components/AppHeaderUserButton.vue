@@ -39,6 +39,25 @@ export default {
     methods: {
         toggleMenu() {
             this.isMenuOpen = !this.isMenuOpen; // Toggles the user menu
+            if (this.isMenuOpen) {
+                // Si el menú se abre, agrega un manejador de eventos de clic al documento
+                document.addEventListener('click', this.closeMenuOnClickOutside);
+            } else {
+                // Si el menú se cierra, elimina el manejador de eventos de clic del documento
+                document.removeEventListener('click', this.closeMenuOnClickOutside);
+            }
+        },
+        closeMenu() {
+            this.isMenuOpen = false;
+            document.removeEventListener('click', this.closeMenuOnClickOutside);
+        },
+        closeMenuOnClickOutside(event) {
+            // Cierra el menú si se hace clic en cualquier parte de la pantalla que no sea el botón o el menú.
+            const button = this.$el.querySelector('.button-image-user');
+            const menu = this.$el.querySelector('.user-menu');
+            if (button && !button.contains(event.target) && menu && !menu.contains(event.target)) {
+                this.closeMenu();
+            }
         },
         goToLogin() {
             this.$router.push('/login'); // Navigate to the login page
@@ -92,10 +111,12 @@ export default {
 <style scoped>
 
 .button-image-user {
+    position: absolute;
+    top: 0;
+    right: 0;
     height: 100%;
-    width: 100%;
-    margin-top: 5px;
-    margin-right: 20px;
+    margin-top: 7px;
+    margin-right: 10px;
     border-radius: 50%;
 }
 
