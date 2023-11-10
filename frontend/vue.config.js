@@ -7,7 +7,8 @@ module.exports = {
         devServer: {
             allowedHosts:[
                 'frontend-wm7w.onrender.com',
-                'frontend-rg5p.onrender.com'
+                'frontend-rg5p.onrender.com',
+                'backend-7stm.onrender.com',
             ],
             devMiddleware: {
                 writeToDisk: true
