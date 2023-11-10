@@ -25,7 +25,7 @@ class RecipeTestCase(TestCase):
             response = self.client.post('/postratings/', json.dumps(request_data), content_type='application/json')
 
             # Llama a la función add_rating_logic con la solicitud simulada
-            response_from_logic = recipeLogic.add_rating_logic(response.wsgi_request)  # Envía la solicitud, no la respuesta
+            response_from_logic = recipeLogic.add_rating_logic(response.wsgi_request) # Envía la solicitud, no la respuesta
 
             # Verifica que la respuesta de la lógica sea la esperada
-            self.assertEqual(response_from_logic['message'], 'Rating added.')  # Ajusta el código de estado según tu implementación
+            self.assertEqual(response_from_logic['message'], 'Rating added.') # Ajusta el código de estado según tu implementación
