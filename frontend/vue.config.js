@@ -1,7 +1,7 @@
 module.exports = {
-    publicPath: 'http://localhost:8080',
-    outputDir: '../frontend/dist',
-    indexPath: '../../templates/_base_vue.html',
+    publicPath: 'https://frontend-rg5p.onrender.com/',
+    outputDir: '../frontend/static/dist',
+    indexPath: '../frontend/static/dist/index.html',
 
     configureWebpack: {
         devServer: {
