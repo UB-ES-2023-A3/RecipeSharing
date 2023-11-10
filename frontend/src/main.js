@@ -1,10 +1,16 @@
-import {createApp} from 'vue';
-import router from './router';
-
+import BootstrapVue from 'bootstrap-vue'
+import '@/../bootstrap/css/bootstrap.css'
+import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
 
-const app = createApp(App);
+Vue.use(BootstrapVue)
+Vue.config.productionTip = false
 
-app.use(router);
-
-app.mount("#app");
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+})
