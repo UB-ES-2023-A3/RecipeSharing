@@ -79,10 +79,10 @@ class Order(OrderBase):
 
 class AccountBase(BaseModel):
     username: str = Field(..., description="username")
+    email: str = Field(..., description="email")
     password: str = Field(..., min_length=8, description="user password")
+    password_confirmation: str = Field(..., min_length=8, description="user password confirmation")
     is_admin: int
-    available_money: float
-    orders: list[Order] = []
 
 
 class AccountCreate(AccountBase):

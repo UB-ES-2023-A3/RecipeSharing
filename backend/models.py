@@ -57,17 +57,18 @@ class Account(Base):
     __tablename__ = 'accounts'
 
     username = Column(String(30), primary_key=True, unique=True, nullable=False)
+    email = Column(String(), primary_key=True, unique=True, nullable=False)
     password = Column(String(), nullable=False)
+    password_confirmation = Column(String(), nullable=False)
     # 0 not admin/ 1 is admin
     is_admin = Column(Integer, nullable=False)
-    available_money = Column(Float, nullable=False)
-    orders = relationship('Order', backref='orders', lazy=True)
 
-    def __init__(self, username, password, available_money=200.0, is_admin=0):
+    def __init__(self, username, email, password, password_confirmation, is_admin=0):
         self.username = username
-        self.available_money = available_money
+        self.email = email
         self.is_admin = is_admin
         self.password = password
+        self.password_confirmation = password_confirmation
 
 
 class Recipe(Base):

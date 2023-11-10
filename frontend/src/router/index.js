@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Matches from '@/components/Matches.vue'
-import Login from '@/components/Login.vue'
+import HomePage from '../pages/HomePage.vue'
+import LoginPage from '../pages/LoginPage.vue'
+import RegisterPage from '../pages/RegisterPage.vue'
 
 Vue.use(Router)
 
@@ -11,13 +12,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Matches',
-      component: Matches
+      name: 'HomePage',
+      component: HomePage
     },
     {
-      path: '/userlogin',
-      name: 'Login',
-      component: Login
+      path: '/login',
+      name: 'LoginPage',
+      component: LoginPage
+    },
+    {
+      path: '/register',
+      name: 'RegisterPage',
+      component: RegisterPage
     }
   ]
 })

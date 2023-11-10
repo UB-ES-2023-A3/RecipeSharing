@@ -373,7 +373,9 @@ async def create_account(account: schemas.AccountCreate, db: Session = Depends(g
     else:
         user = {
             'username': account.username,
-            'password': get_hashed_password(account.password)
+            'email': account.email,
+            'password': get_hashed_password(account.password),
+            'password_confirmation': get_hashed_password(account.password_confirmation)
         }
         return repository.create_account(db=db, user=user)
 
@@ -446,10 +448,11 @@ def create_order(order: schemas.OrderCreate, db: Session = Depends(get_db)):
 
 # LOGIN
 # Do login
-@app.post("/login", summary="Create access and refresh tokens for user", response_model=schemas.TokenSchema)
+@app.post("/login/", summary="Create access and refresh tokens for user", response_model=schemas.TokenSchema)
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)):
     username = form_data.username
     password = form_data.password
+    print(username, password)
     db_account = repository.get_account_by_username(db=db, username=username)
     if not db_account:
         raise HTTPException(status_code=400, detail="Account not found")
