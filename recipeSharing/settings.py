@@ -112,6 +112,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'https://frontendrecipesharing.onrender.com',
-    "http://localhost:8080",
-    "https://frontend-rg5p.onrender.com/"
+    'http://localhost:8080',
+    'https://frontend-rg5p.onrender.com' 
 ]
