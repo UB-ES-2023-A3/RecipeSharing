@@ -17,41 +17,41 @@
 
 export default {
   props: {
-    defaultMessage: String
+    defaultMessage: String,
   },
-  data () {
+  data() {
     return {
-      message: this.defaultMessage
-    }
+      message: this.defaultMessage,
+    };
   },
   computed: {
-    inputStyle () {
+    inputStyle() {
       return {
-        color: 'black',
-        padding: '10px',
-        border: '1px solid #ccc',
-        width: '100%',
-        minWidth: '300px',
-        display: 'block',
-        margin: '0 auto',
-        marginTop: '10px',
-        backgroundColor: '#FCE4A4'
-      }
-    }
+        color: "black",
+        padding: "10px",
+        border: "1px solid #ccc",
+        width: "100%",
+        minWidth: "300px",
+        display: "block",
+        margin: "0 auto",
+        marginTop: "10px",
+        backgroundColor: "#FCE4A4",
+      };
+    },
   },
   methods: {
-    saveMessage () {
-      this.$emit('update:textValue', this.message)
+    saveMessage() {
+      this.$emit('update:textValue', this.message);
     },
-    clearDefaultMessage () {
-      this.message = ''
+    clearDefaultMessage() {
+      this.message = "";
     },
-    adjustTextAreaHeight () {
-      const textarea = this.$refs.messageInput
-      textarea.style.height = 'auto'
-      textarea.style.height = textarea.scrollHeight + 'px'
-    }
-  }
-}
+    adjustTextAreaHeight() {
+      const textarea = this.$refs.messageInput;
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    },
+  },
+};
 
 </script>

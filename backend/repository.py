@@ -459,22 +459,17 @@ def get_user_by_username(db: Session, username: str):
     return db.query(models.User).filter((models.User.username == username)).first()
 
 def get_user_by_uq(db: Session, username: str, password: str, email:str):
-    db_user = db.query(models.User).filter((models.User.username == username)).first()
-    if(db_user):
-        coded_password = utils.verify_password(password, db_user.password)
-        if not coded_password:
-            return None
-    return db.query(models.User).filter((models.User.username == username) &
+    return db.query(models.User).filter((models.User.username == username) |
                                             (models.User.email == email)).first()
 
 
 def create_user(db: Session, user: dict):
-    db_user= models.User(username=user['username'], password=user['password'], email=user['email'])
+    db_user = models.User(username=user['username'], password=user['password'], email=user['email'])
     try:
         db.add(db_user)
         db.commit()
         db.refresh(db_user)
         return db_user
-    except:
+    except Exception as e:
         db.rollback()
-        return {"message": "An error occurred inserting the account."}, 500
+        return {"message": "An error occurred inserting the account.", "error": str(e)}, 500

@@ -11,3 +11,4 @@ jose
 python-jose
 jinja2
 python-multipart
+bcrypt

@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.responses import JSONResponse
 from fastapi.responses import RedirectResponse
 from typing import Annotated
 from backend import models, repository, schemas
@@ -34,9 +35,9 @@ def get_db():
         db.close()
 
 
-app.mount("/static", StaticFiles(directory="frontend/dist/static"), name="static")
+app.mount("/static", StaticFiles(directory="frontend/static/dist"), name="static")
 
-templates = Jinja2Templates(directory="frontend")
+templates = Jinja2Templates(directory="frontend/public")
 
 
 # Matches page
@@ -44,8 +45,9 @@ templates = Jinja2Templates(directory="frontend")
 async def serve_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
 # Login page
-@app.get("/userlogin")
+@app.get("/login")
 async def serve_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
@@ -429,10 +431,10 @@ def create_order(order: schemas.OrderCreate, db: Session = Depends(get_db)):
     if db_account:
         if db_match:
             if db_account.available_money >= db_price:
-                    if order.tickets_bought <= db_match.total_available_tickets:
-                        return repository.create_order(db=db, order=order)
-                    else:
-                        raise HTTPException(status_code=400, detail="No tickets available")
+                if order.tickets_bought <= db_match.total_available_tickets:
+                    return repository.create_order(db=db, order=order)
+                else:
+                    raise HTTPException(status_code=400, detail="No tickets available")
             else:
                 raise HTTPException(status_code=400, detail="Not enough money on the account")
         else:
@@ -459,6 +461,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: 
                 "refresh_token": create_refresh_token(username)
             }
 
+
 # RECIPES
 # Read all matches
 @app.get("/recipes/", response_model=list[schemas.Recipe])
@@ -479,7 +482,8 @@ def read_recipe(recipe_id: int, db: Session = Depends(get_db)):
 @app.post("/recipe/", response_model=schemas.Recipe)
 def create_recipe(recipe: schemas.RecipeCreate, db: Session = Depends(get_db)):
     db_recipe = repository.get_recipe_by_uq(db, recipe_type=recipe.recipe_type, kcal=recipe.kcal, title=recipe.title,
-                                            servings=recipe.servings, allergens=recipe.allergens, ingredients=recipe.ingredients,
+                                            servings=recipe.servings, allergens=recipe.allergens,
+                                            ingredients=recipe.ingredients,
                                             instructions=recipe.instructions, preparation_time=recipe.preparation_time,
                                             username_id=recipe.username_id)
 
@@ -488,11 +492,12 @@ def create_recipe(recipe: schemas.RecipeCreate, db: Session = Depends(get_db)):
     else:
         return repository.create_recipe(db=db, recipe=recipe)
 
+
 @app.post("/user/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = repository.get_user_by_uq(db,username=user.username,password=user.password,email=user.email)
+    db_user = repository.get_user_by_uq(db, username=user.username, password=user.password, email=user.email)
     if db_user:
-        raise HTTPException(status_code=400, detail="Recipe already Exists, Use put for updating")
+        return JSONResponse({'error': 'User already exists'}, status_code=400)
     else:
         newUser = {
             'username': user.username,
@@ -500,3 +505,8 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
             'email': user.email
         }
         return repository.create_user(db=db, user=newUser)
+
+
+@app.get("/users/", response_model=list[schemas.User])
+def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    return repository.get_users(db, skip=skip, limit=limit)

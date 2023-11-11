@@ -192,7 +192,7 @@ export default {
           }
         } else {
           // Handle other unexpected errors
-          alert('An error occurred while registering.')
+          alert('An error occurred while registering!')
         }
       }
     }
