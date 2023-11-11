@@ -77,7 +77,7 @@ DATABASES = {
 }
 
 database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse("postgres://database_s7jh_user:f6bBVvHLhwAvyZSscwJRspTMVOh8aNWr@dpg-cl6ob62uuipc73f1l9q0-a.oregon-postgres.render.com/database_s7jh")
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 # Password validation settings
 AUTH_PASSWORD_VALIDATORS = [
@@ -111,7 +111,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "https://frontend-rg5p.onrender.com/",
-    "https://backend-7stm.onrender.com/",
+    'https://frontendrecipesharing.onrender.com'
 ]
