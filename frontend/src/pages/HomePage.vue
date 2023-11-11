@@ -56,7 +56,7 @@ export default {
         getRecipesByRate() {
             // Axios para coger el template
             axios
-                .get("/")
+                .get("https://backend-7stm.onrender.com/")
                 .then((response) => {
                     if (response.status === 200) {
                         const data = response.data
@@ -69,7 +69,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get("recipe/rate/")
+                .get("https://backend-7stm.onrender.com/recipe/rate/")
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
@@ -84,7 +84,7 @@ export default {
         getRecipesByRecent() {
             // Axios para coger el template
             axios
-                .get("/")
+                .get("https://backend-7stm.onrender.com/")
                 .then((response) => {
                     if (response.status === 200) {
                         const data = response.data
@@ -97,7 +97,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get("recipe/recent/")
+                .get("https://backend-7stm.onrender.com/recipe/recent/")
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
