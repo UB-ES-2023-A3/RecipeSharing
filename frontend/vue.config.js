@@ -5,7 +5,6 @@ module.exports = {
 
   devServer: {
     public: 'https://frontend-rg5p.onrender.com/',
-    writeToDisk: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
