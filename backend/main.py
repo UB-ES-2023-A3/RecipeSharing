@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import RedirectResponse
 from typing import Annotated
-from backend.utils import verify_password, create_access_token, create_refresh_token, get_hashed_password
 from backend import models, repository, schemas
+from backend.utils import verify_password, create_access_token, create_refresh_token, get_hashed_password
 from backend.database import SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 from backend.dependencies import get_current_user
@@ -36,7 +36,7 @@ def get_db():
 
 app.mount("/static", StaticFiles(directory="frontend/dist/static"), name="static")
 
-templates = Jinja2Templates(directory="frontend/dist")
+templates = Jinja2Templates(directory="frontend")
 
 
 # Matches page
@@ -371,13 +371,7 @@ async def create_account(account: schemas.AccountCreate, db: Session = Depends(g
     if db_account:
         raise HTTPException(status_code=400, detail="Account already Exists")
     else:
-        user = {
-            'username': account.username,
-            'email': account.email,
-            'password': get_hashed_password(account.password),
-            'password_confirmation': get_hashed_password(account.password_confirmation)
-        }
-        return repository.create_account(db=db, user=user)
+        return repository.create_account(db=db, account=account)
 
 
 # Delete an account
@@ -452,8 +446,7 @@ def create_order(order: schemas.OrderCreate, db: Session = Depends(get_db)):
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(get_db)):
     username = form_data.username
     password = form_data.password
-    print(username, password)
-    db_account = repository.get_account_by_username(db=db, username=username)
+    db_account = repository.get_user_by_username(db=db, username=username)
     if not db_account:
         raise HTTPException(status_code=400, detail="Account not found")
     else:
@@ -494,3 +487,16 @@ def create_recipe(recipe: schemas.RecipeCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Recipe already Exists, Use put for updating")
     else:
         return repository.create_recipe(db=db, recipe=recipe)
+
+@app.post("/user/", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = repository.get_user_by_uq(db,username=user.username,password=user.password,email=user.email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Recipe already Exists, Use put for updating")
+    else:
+        newUser = {
+            'username': user.username,
+            'password': get_hashed_password(user.password),
+            'email': user.email
+        }
+        return repository.create_user(db=db, user=newUser)

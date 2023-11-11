@@ -1,28 +1,28 @@
 <template>
-  <div class="mainContainer">
-    <div class="secondaryContainer">
-      <div class="titleContainerHP">
-        <div class="mainTitleHP">
-          <h1> Most Recent Recipes </h1>
+    <div class="mainContainer">
+        <div class="secondaryContainer">
+            <div class="titleContainerHP">
+                <div class="mainTitleHP">
+                    <h1> Most Recent Recipes </h1>
+                </div>
+            </div>
+            <AppCardCarousel :type="recent" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
+                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div>
-      </div>
-      <AppCardCarousel :type="recent" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                       :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-    </div>
-    <div class="secondaryContainer">
-      <div class="titleContainerHP">
-        <div class="mainTitleHP">
-          <h1> Most Liked Recipes </h1>
+        <div class="secondaryContainer">
+            <div class="titleContainerHP">
+                <div class="mainTitleHP">
+                    <h1> Most Liked Recipes </h1>
+                </div>
+            </div>
+            <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
+                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+        </div> <!-- Agregamos el cierre del div que faltaba -->
+        <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
+            <i class="fas fa-plus"></i>
+            <span class="text">Upload new recipe</span>
         </div>
-      </div>
-      <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                       :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-    </div> <!-- Agregamos el cierre del div que faltaba -->
-    <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
-      <i class="fas fa-plus"></i>
-      <span class="text">Upload new recipe</span>
     </div>
-  </div>
 </template>
 
 <script>
@@ -53,27 +53,13 @@ export default {
       this.$router.push('/addRecipe')
     },
     getRecipesByRate () {
-      // Axios para coger el template
-      axios
-        .get('/')
-        .then((response) => {
-          if (response.status === 200) {
-            const data = response.data
-            console.log('Data is:', data)
-          }
-        })
-        .catch((error) => {
-          console.error('Error al obtener las recetas:', error)
-        })
-
       // Axios para recibir las recetas
       axios
-        .get('recipe/rate/')
+        .get('http://localhost:8000/recipes/')
         .then((response) => {
           if (response.status === 200) {
-            const recipes = response.data.recipes
-            this.recipesByRate = recipes
-            console.log(response.data.recipes)
+            this.recipesByRate = response.data
+            console.log(this.recipesByRate)
           }
         })
         .catch((error) => {
@@ -81,27 +67,13 @@ export default {
         })
     },
     getRecipesByRecent () {
-      // Axios para coger el template
-      axios
-        .get('/')
-        .then((response) => {
-          if (response.status === 200) {
-            const data = response.data
-            console.log('Data is:', data)
-          }
-        })
-        .catch((error) => {
-          console.error('Error al obtener las recetas:', error)
-        })
-
       // Axios para recibir las recetas
       axios
-        .get('recipe/recent/')
+        .get('http://localhost:8000/recipes/')
         .then((response) => {
           if (response.status === 200) {
             const recipes = response.data.recipes
             this.recipesByDate = recipes
-            console.log(response.data.recipes)
           }
         })
         .catch((error) => {

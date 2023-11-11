@@ -61,7 +61,7 @@ class Account(Base):
     password = Column(String(), nullable=False)
     password_confirmation = Column(String(), nullable=False)
     # 0 not admin/ 1 is admin
-    is_admin = Column(Integer, nullable=False)
+    is_admin = Column(Integer, nullable=False, default = 0)
 
     def __init__(self, username, email, password, password_confirmation, is_admin=0):
         self.username = username
@@ -87,7 +87,44 @@ class Recipe(Base):
     creation_date = Column(Date, default=datetime.datetime.now())
     rating_average = Column(Float, default=0)
     rating_amount = Column(Integer, default=0)
-    rating_list = Column(Integer, default=0)
+    rating_list = Column(JSON)
+
+    def __init__(self, title, ingredients, instructions, preparation_time, servings, kcal,
+                 recipe_type, allergens, username_id, creation_date = datetime.datetime.now(), rating_average =0, rating_amount = 0, rating_list = []):
+        self.title = title
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.preparation_time = preparation_time
+        self.servings = servings
+        self.kcal = kcal
+        self.recipe_type = recipe_type if recipe_type else []
+        self.allergens = allergens if allergens else []
+        self.username_id = username_id
+        self.creation_date = creation_date
+        self.rating_average = rating_average if rating_average else 0
+        self.rating_amount = rating_amount if rating_amount else 0
+        self.rating_list = rating_list if rating_list else []
+
+
+class User(Base):
+    __tablename__ = 'users'
+
+    username = Column(String(30), primary_key=True, unique=True, nullable=False)
+    email = Column(String(), primary_key=True, unique=True, nullable=False)
+    password = Column(String(), nullable=False)
+    is_admin = Column(Integer, nullable=False, default=0)
+    own_recipes = Column(JSON)
+    saved_recipes = Column(JSON)
+    def __init__(self, username,email, password, own_recipes = [], saved_recipes = [], is_admin = 0 ):
+        self.username = username
+        self.email = email
+        self.password = password
+        self.own_recipes = own_recipes
+        self.saved_recipes = saved_recipes
+        self.is_admin = is_admin
+
+
+
 
 
 

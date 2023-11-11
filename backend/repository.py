@@ -319,8 +319,9 @@ def get_account_by_uq(db: Session, username: str, password: str, is_admin: int, 
 
 
 # Create an account
-def create_account(db: Session, user: dict):
-    db_account = models.Account(username=user['username'], password=user['password'])
+def create_account(db: Session, account: dict):
+    db_account = models.Account(username=account.username, password=account.password,
+                                password_confirmation=account.password_confirmation, email=account.email)
     try:
         db.add(db_account)
         db.commit()
@@ -448,3 +449,32 @@ def create_recipe(db: Session, recipe: schemas.RecipeCreate):
         db.rollback()
         # Devuelve un objeto que cumple con el modelo Recipe
         return {"message": "An error occurred inserting the recipe.", "error": str(e)}, 500
+
+def get_users(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.User).offset(skip).limit(limit).all()
+
+
+# Read an account by username
+def get_user_by_username(db: Session, username: str):
+    return db.query(models.User).filter((models.User.username == username)).first()
+
+def get_user_by_uq(db: Session, username: str, password: str, email:str):
+    db_user = db.query(models.User).filter((models.User.username == username)).first()
+    if(db_user):
+        coded_password = utils.verify_password(password, db_user.password)
+        if not coded_password:
+            return None
+    return db.query(models.User).filter((models.User.username == username) &
+                                            (models.User.email == email)).first()
+
+
+def create_user(db: Session, user: dict):
+    db_user= models.User(username=user['username'], password=user['password'], email=user['email'])
+    try:
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        return db_user
+    except:
+        db.rollback()
+        return {"message": "An error occurred inserting the account."}, 500

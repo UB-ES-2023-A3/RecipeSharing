@@ -159,7 +159,8 @@ export default {
       }
       try {
         // Send a registration request to the server
-        let response = await axios.post('http://localhost:8000/accounts/', {
+        alert('entra1')
+        let response = await axios.post('http://localhost:8000/user/', {
           username: this.username,
           email: this.email,
           password: this.password
@@ -168,7 +169,7 @@ export default {
             'Content-Type': 'application/json'
           }
         })
-
+        alert('entra')
         // Check the HTTP status code in the response
         if (response.status === 200) {
           // Registration successful, you can handle success here

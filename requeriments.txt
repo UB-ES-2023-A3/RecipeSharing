@@ -4,3 +4,7 @@ httpx
 requests
 pydantic
 pytest
+sqlalchemy
+passlib
+pydantic_settings
+jose

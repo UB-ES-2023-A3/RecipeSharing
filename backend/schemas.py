@@ -93,8 +93,6 @@ class Account(AccountBase):
     class Config:
         orm_mode = True
 
-from typing import List
-
 class RecipeBase(BaseModel):
     title: str
     ingredients: List[str]
@@ -114,10 +112,26 @@ class Recipe(RecipeBase):
     creation_date: datetime
     rating_average: float
     rating_amount: int
-    rating_list: int
+    rating_list: List[int]
 
     class Config:
         orm_mode = True
+
+class UserBase(BaseModel):
+    username: str
+    email: str
+    password: str
+
+class UserCreate(UserBase):
+    pass
+
+class User(UserBase):
+    is_admin: int
+    own_recipes: List[int]
+    saved_recipes: List[int]
+    class Config:
+        orm_mode = True
+
 
 
 class TokenSchema(BaseModel):

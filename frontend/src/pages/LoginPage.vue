@@ -59,61 +59,32 @@ export default {
   },
   methods: {
     async login () {
-      // Determine if the input is an email or username
-      if (this.usernameOrEmail === 0 || this.password.length === 0) {
-        alert('Complete the form')
-        return
-      }
-      let loginIdentifier = this.usernameOrEmail
-      if (loginIdentifier.match(/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)) {
-        // If it matches the email format, set it as an email
-        this.email = loginIdentifier
-      } else {
-        // Otherwise, set it as a username
-        this.username = loginIdentifier
-      }
+      const formData = new FormData()
+      formData.append('username', this.usernameOrEmail)
+      formData.append('password', this.password)
 
-      try {
-        let response = await axios.post('http://localhost:8000/login/', {
-          username: this.username,
-          email: this.email,
-          password: this.password
-        }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
+      const path = 'http://localhost:8000/login'
+
+      axios.post(path, formData)
+        .then((res) => {
+          this.logged = true
+          this.token = res.data.access_token
+          this.$router.push({
+            path: '/',
+            query: {
+              username: this.username,
+              logged: this.logged,
+              token: this.token
+            }
+          })
         })
-
-        if (response.status === 200) {
-          // Successful login, perform necessary actions
-          alert('Logged!') // Display a success message
-          this.logged = true // Set the logged flag to true
-          localStorage.setItem('logged', this.logged) // Store the logged status in local storage
-          localStorage.setItem('username', this.username)
-          this.$emit('login-success', this.logged) // Emit a custom event indicating login success
-          this.$emit('username-success', this.username)
-          this.$emit('email-success', this.email)
-          this.$emit('password-success', this.password)
-          this.$router.push('/') // Redirect to the home page
-        }
-      } catch (error) {
-        if (error.response) {
-          // Handle login failure (e.g., display an error message).
-          if (error.response.status === 400) {
-            alert(error.response.data.error)
-          } else if (error.response.status === 500) {
-            alert('An error occurred while registering.')
-          } else {
-            // Handle other status codes
-            alert('Unexpected error')
-          }
-        } else {
-          // Handle other errors.
-          console.error('An error occurred while logging in.')
-        }
-      }
+        .catch((error) => {
+          console.error(error)
+          alert('Username or Password incorrect')
+        })
     }
   }
+
 }
 
 </script>
