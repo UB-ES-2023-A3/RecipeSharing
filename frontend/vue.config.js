@@ -5,10 +5,11 @@ module.exports = {
 
   devServer: {
     allowedHosts: [
-      'https://frontend-rg5p.onrender.com/',
+      'frontend-rg5p.onrender.com',
     ],
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    port: 8080,  // Asegúrate de que el puerto coincida con el puerto de tu servidor local
   },
 };
