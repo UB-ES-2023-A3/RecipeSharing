@@ -159,7 +159,7 @@ export default {
             }
             try {
                 // Send a registration request to the server
-                let response = await axios.post('/register/', {
+                let response = await axios.post('https://backend-7stm.onrender.com/register/', {
                     username: this.username,
                     email: this.email,
                     password: this.password,
