@@ -8,3 +8,6 @@ sqlalchemy
 passlib
 pydantic_settings
 jose
+python-jose
+jinja2
+python-multipart
