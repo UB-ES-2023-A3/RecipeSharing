@@ -1,28 +1,40 @@
 <template>
-    <div class="mainContainer">
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Recent Recipes </h1>
-                </div>
-            </div>
-            <AppCardCarousel :type="recent" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+  <div class="mainContainer">
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Most Recent Recipes </h1>
         </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Liked Recipes </h1>
-                </div>
-            </div>
-            <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-        </div> <!-- Agregamos el cierre del div que faltaba -->
-        <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
-            <i class="fas fa-plus"></i>
-            <span class="text">Upload new recipe</span>
-        </div>
+      </div>
+      <AppCardCarousel
+        :type="recent"
+        :recipes="recipesByRate"
+        :visibleRecipes="8"
+        :logged="logged"
+        :username="username"
+        v-if="recipesByRate.length > 0"
+      ></AppCardCarousel>
     </div>
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Most Liked Recipes </h1>
+        </div>
+      </div>
+      <AppCardCarousel
+        :type="rate"
+        :recipes="recipesByRate"
+        :visibleRecipes="8"
+        :logged="logged"
+        :username="username"
+        v-if="recipesByRate.length > 0"
+      ></AppCardCarousel>
+    </div>
+    <div v-if="logged" class="floating-button" @click="redirectToRecipePage">
+      <i class="fas fa-plus"></i>
+      <span class="text">Upload new recipe</span>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,7 +45,7 @@ import AppCardCarousel from '@/components/AppCardCarousel.vue'
 export default {
   name: 'HomePage.vue',
 
-  components: {AppCardCarousel},
+  components: { AppCardCarousel },
   props: {
     logged: Boolean,
     username: String,
@@ -52,38 +64,31 @@ export default {
     redirectToRecipePage () {
       this.$router.push('/addRecipe')
     },
-    getRecipesByRate () {
-      // Axios para recibir las recetas
-      axios
-        .get('http://localhost:8000/recipes/')
-        .then((response) => {
-          if (response.status === 200) {
-            this.recipesByRate = response.data
-            console.log(this.recipesByRate)
-          }
-        })
-        .catch((error) => {
-          console.error('Error al obtener las recetas:', error)
-        })
+    async getRecipesByRate () {
+      try {
+        const response = await axios.get('http://localhost:8000/recipes/')
+        if (response.status === 200) {
+          this.recipesByRate = response.data
+        }
+      } catch (error) {
+        console.error('Error al obtener las recetas:', error)
+      }
     },
-    getRecipesByRecent () {
-      // Axios para recibir las recetas
-      axios
-        .get('http://localhost:8000/recipes/')
-        .then((response) => {
-          if (response.status === 200) {
-            const recipes = response.data.recipes
-            this.recipesByDate = recipes
-          }
-        })
-        .catch((error) => {
-          console.error('Error al obtener las recetas:', error)
-        })
+    async getRecipesByRecent () {
+      try {
+        const response = await axios.get('http://localhost:8000/recipes/')
+        if (response.status === 200) {
+          const recipes = response.data.recipes
+          this.recipesByDate = recipes
+        }
+      } catch (error) {
+        console.error('Error al obtener las recetas:', error)
+      }
     }
   },
-  created () {
-    this.getRecipesByRate()
-    this.getRecipesByRecent()
+  async created () {
+    await this.getRecipesByRate()
+    await this.getRecipesByRecent()
   }
 }
 </script>

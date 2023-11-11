@@ -7,9 +7,9 @@
       <AppCardRecipe
         v-for="(recipe, index) in displayedRecipes"
         :key="index"
-        :type="this.type"
+        :type="recipe.type"
         :recipe="recipe"
-        :logged="this.logged"
+        :logged="recipe.logged"
         :username="username"
       ></AppCardRecipe>
       <button @click="moveCarousel(1)" class="arrow-button right-arrow" :class="{ 'disabled-button': isAtEnd }">
@@ -56,6 +56,10 @@ export default {
         this.currentCardIndex = newIndex
       }
     }
+  },
+  created () {
+    console.log('AAaaa')
+    console.log(this.recipes)
   }
 }
 </script>
