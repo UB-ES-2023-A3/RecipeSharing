@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppTextField.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppTextField.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppTextFieldPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppTextFieldPassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/dist/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" afterDir="false" />
     </list>
