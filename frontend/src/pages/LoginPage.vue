@@ -1,36 +1,34 @@
 <template>
-    <div class="mainContainer" style="color: black">
-        <div class="form-background">
-            <div class="mainTitle">
-                <!-- Main title for the login page with custom color -->
-                <h1 style="color: #ff5733">Login</h1>
-            </div>
-            <form @submit.prevent="login" class="form">
-                <div class="form-group">
+    <div id="loginMainContainer">
+        <div id="loginCenteredContainer">
+            <div id="login">
+                <form @submit.prevent="login" id="loginForm">
                     <label for="usernameOrEmail">Username or Email:</label>
                     <!-- AppTextField component for username or email input -->
                     <AppTextField
                             :defaultMessage="defaultMessageUsernameOrEmail"
                             @update:textValue="usernameOrEmail = $event"
                     />
-                </div>
-                <div class="form-group">
                     <label for="password">Password:</label>
                     <!-- AppTextFieldPassword component for password input -->
                     <AppTextFieldPassword
                             :defaultMessage="defaultMessagePassword"
                             @update:textValue="password = $event"
                     />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+            <div id="loginRight">
+                <div class="loginTitle">
+                    Login
                 </div>
-                <p>
-                    <!-- Router link to navigate to the registration page if the user doesn't have an account -->
+                <hr>
+                <div class="loginRightForm">
                     <router-link to="/register">Don't have an account? Register here</router-link>
-                </p>
-                <div class="secondaryContainer" style="background-color: white">
-                    <!-- Login button to submit the form -->
-                    <button type="submit" class="submit-button">Login</button>
+                    <hr>
+                    <router-link to="/">« Return</router-link>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -119,5 +117,151 @@ export default {
 </script>
 
 <style scoped>
+
+#loginMainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+
+    background-position: center;
+    background-size: cover;
+}
+
+#loginCenteredContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    min-width: 380px;
+    max-width: 900px;
+    width: 90%;
+
+    background-color: #f39a3d;
+
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+#login {
+    width: 100%;
+    padding: 30px 30px 50px 30px;
+    background-color: #efb378;
+
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+    -webkit-border-radius: 3px 3px 3px 3px;
+
+    box-sizing: border-box;
+
+    opacity: 1;
+}
+
+#loginRight {
+    text-align: center;
+    width: 100%;
+
+    padding: 20px 20px 20px 50px;
+    box-sizing: border-box;
+}
+
+.loginTitle {
+    font-size: 300%;
+    color: #ffffff;
+}
+
+hr {
+    border-top: 1px solid #df8500;
+    border-bottom: 1px solid #ffbf00;
+
+}
+
+.loginRightForm {
+    font-size: 90%;
+    text-align: center;
+    margin-top: 15px;
+    color: #ffffff;
+}
+
+.loginRightForm a {
+    display: block;
+    text-decoration: none;
+    color: #e7d6c6;
+    margin-bottom: 3px;
+}
+
+.loginRightForm a:hover {
+    color: #ffffff;
+}
+
+#login button {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color: #e7d6c6;
+    width: 100%;
+    height: 40px;
+    border: none;
+
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+
+    background-color: #ffa500;
+
+    margin-top: 10px;
+}
+
+#login button:hover {
+    background-color: #ff8c00;
+    color: #ffffff;
+}
+
+@media all and (max-width: 775px) {
+    #loginMainContainer {
+        flex-direction: column-reverse;
+
+        min-width: 380px;
+        max-width: 900px;
+        width: 90%;
+
+        background-color: #5f6769;
+
+        border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    #login {
+        margin: 0 auto;
+    }
+
+    #loginRight {
+        padding: 20px 20px 20px 20px;
+    }
+}
 
 </style>
