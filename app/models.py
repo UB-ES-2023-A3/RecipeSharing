@@ -5,8 +5,19 @@ from django.utils import timezone
 
 # User model
 class Profile(User):
+
+    # create a filed to store a list of integer values named favorite_list
+    favorite_list = models.JSONField(default=dict)
+
     def __str__(self):
         return self.username
+    
+    def toJson(self):
+        return {
+            'username': self.username,
+            'email': self.email,
+            'favorite_list': self.favorite_list
+        }
 
 
 # Recipe model
@@ -27,9 +38,9 @@ class Recipe(models.Model):
     username_id = models.TextField()
     creation_date = models.DateField(default=timezone.now)
     # Rating fileds
-    rating_average = models.DecimalField(max_digits=5, decimal_places=1)
+    rating_average = models.DecimalField(max_digits=5, decimal_places=1, default=0.0)
     rating_amount = models.IntegerField(default=0)
-    rating_list = models.JSONField(default={})
+    rating_list = models.JSONField(default=dict)
 
     def __str__(self):
         return self.title
@@ -49,5 +60,6 @@ class Recipe(models.Model):
             'creation_date': self.creation_date.strftime('%Y-%m-%d'),
             'rating_average': self.rating_average,
             'rating_amount': self.rating_amount,
-            'rating_list': self.rating_list
+            'rating_list': self.rating_list,
         }
+    

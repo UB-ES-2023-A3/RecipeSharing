@@ -1,3 +1,4 @@
+from cProfile import Profile
 import json
 from app.models import Recipe
 
@@ -389,3 +390,31 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
+
+def add_favorite_logic(request):
+    body = json.loads(request.body.decode('utf-8'))
+    user_id = body.get("user_id")
+    recipe_id = body.get("recipe_id")
+
+    recipe = Recipe.objects.get(id=recipe_id)
+    user = Profile.objects.get(id=user_id)
+
+    if recipe is None:
+        return {'error': 'Recipe not found.'}
+    if user is None:
+        return {'error': 'User not found.'}
+    else:
+        if recipe_id in user.favorite_list:
+            user.favorite_list.remove(recipe_id)
+            user.save()
+            favorite_recipes = [recipe.toJson() for recipe in user.favorite_list]
+
+            return {'message': 'Favorite list updated.',
+                    'favorite_list': favorite_recipes}                
+        else:
+            user.favorite_list[user_id] = recipe.toJson
+            user.save()
+            favorite_recipes = [recipe.toJson() for recipe in user.favorite_list]
+            return {'message': 'Favorite list updated.',
+                    'favorite_list': favorite_recipes}                
+        
