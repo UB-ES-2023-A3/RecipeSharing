@@ -1,12 +1,38 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-<html lang="en">
-  <head>
-  <script defer src="http://localhost:8080/js/chunk-vendors.js"></script><script defer src="http://localhost:8080/js/app.js"></script></head>
-  <body>
-    <noscript>
-      <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
-</html>
+<style>
+    .invisible-content {
+        display: none; /* Oculta el contenido */
+    }
+</style>
+<div class="invisible-content">
+    {% extends '_base.html' %}
+    {% block html %}
+        </div>
+        <html lang="en">
+        <head>
+            <div class="invisible-content">
+                {% block head %}{{ block.super }}{% endblock %}
+            </div>
+            <script defer src="http://localhost:8080/js/chunk-vendors.js"></script>
+            <script defer src="http://localhost:8080/js/app.js"></script>
+        </head>
+        <body>
+        <div class="invisible-content">
+            {% block body %}
+                {{ block.super }}
+                </div>
+                <noscript>
+                    <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it
+                        to
+                        continue.</strong>
+                </noscript>
+                <div id="app"></div>
+                <!-- built files will be auto injected -->
+                <div class="invisible-content">
+            {% endblock body %}
+            </div>
+        </body>
+        </html>
+        <div class="invisible-content">
+    {% endblock html %}
+    </div>
