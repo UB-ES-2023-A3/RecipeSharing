@@ -207,8 +207,6 @@ export default {
     padding: 0;
     min-width: 100vw;
     min-height: 100vh;
-    width: 100%;
-    height: 100%;
 
     background-position: center;
     background-size: cover;
@@ -223,6 +221,9 @@ export default {
     min-width: 380px;
     max-width: 900px;
     width: 90%;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
 
     background-color: #f39a3d;
 
@@ -263,7 +264,7 @@ export default {
 }
 
 .registerTitle {
-    font-size: 300%;
+    font-size: 500%;
     color: #ffffff;
 }
 
@@ -285,6 +286,7 @@ hr {
     text-decoration: none;
     color: #e7d6c6;
     margin-bottom: 3px;
+    font-size: 120%;
 }
 
 .registerRightForm a:hover {
