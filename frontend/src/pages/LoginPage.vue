@@ -183,7 +183,7 @@ export default {
 }
 
 .loginTitle {
-    font-size: 300%;
+    font-size: 500%;
     color: #ffffff;
 }
 
@@ -205,6 +205,7 @@ hr {
     text-decoration: none;
     color: #e7d6c6;
     margin-bottom: 3px;
+    font-size: 120%;
 }
 
 .loginRightForm a:hover {
