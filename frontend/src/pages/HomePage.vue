@@ -3,7 +3,7 @@
         <div id="homeFilterContainer">
             <HomeFilterDropdown
                     :options="preparationTimeOptions"
-                    v-model="preparationTime"
+                    v-model="selectedPreparationTime"
                     label="Preparation Time Filter"
                     groupTitle="Selected Preparation Time"
                     @update:selectedValue="handlePrepTimeUpdate"
@@ -83,9 +83,9 @@ export default {
             recipesByFilter: [],
             rate: "rate",
             recent: "recent",
-            prepTime: "prepTime",
+            prepTime: "preparation_time",
             showRecipesFilter: false,
-            preparationTime: "",
+            selectedPreparationTime: "",
             preparationTimeOptions: prepTimeData,
         };
     },
