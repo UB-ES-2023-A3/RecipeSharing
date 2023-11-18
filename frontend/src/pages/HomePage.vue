@@ -94,7 +94,7 @@ export default {
             this.$router.push('/addRecipe');
         },
         handleTypeUpdate(value) {
-            this.selectedRecipeType = value;
+            this.selectedTypes = value;
             this.getRecipesByTypes()
         },
         getRecipesByRate() {
