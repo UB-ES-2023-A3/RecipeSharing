@@ -37,8 +37,7 @@ export default {
                 width: "100%",
                 minWidth: "300px",
                 display: "block",
-                margin: "0 auto",
-                marginTop: "10px",
+                marginBottom: "10px"
             };
         },
     },
