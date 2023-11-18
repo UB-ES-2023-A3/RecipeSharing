@@ -1,9 +1,6 @@
 <template>
     <div id="homeMainContainer">
         <div id="homeFilterContainer">
-            <!--            <button type="button" class="homeFilterButton" :class="{ 'activeButton': isButtonActive }"-->
-            <!--                    @click="getRecipesByPrepTime">Preparation Time-->
-            <!--            </button>-->
             <HomeFilterDropdown
                     :options="preparationTimeOptions"
                     v-model="preparationTime"
@@ -24,7 +21,7 @@
             </div>
             <div id="homeSectionFilterError">
                 <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by that
-                    name.</p>
+                    filter.</p>
             </div>
             <div id="homeSectionSeparatorContainer">
                 <hr>
