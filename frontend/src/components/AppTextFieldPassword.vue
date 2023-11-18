@@ -12,7 +12,8 @@
                     @keydown="handleEnterKey"
             >
         </div>
-        <button @click.prevent="togglePasswordVisibility" :class="{ 'password-toggle-button-visible': isPasswordVisible, 'password-toggle-button-hidden': !isPasswordVisible }">
+        <button @click.prevent="togglePasswordVisibility"
+                :class="{ 'password-toggle-button-visible': isPasswordVisible, 'password-toggle-button-hidden': !isPasswordVisible }">
             <i :class="isPasswordVisible ? 'far fa-eye' : 'far fa-eye-slash'"></i>
         </button>
     </div>
@@ -82,13 +83,14 @@ export default {
     margin-bottom: 5px;
 }
 
-
 .password-toggle-button-visible {
   background-color: #eea94d; /* Cambio de color cuando la contraseña es visible */
 }
-
 .password-toggle-button-hidden {
   background-color: #FCE4A4; /* Cambio de color cuando la contraseña está oculta */
 }
 
+button {
+    margin-bottom: 5px;
+}
 </style>
