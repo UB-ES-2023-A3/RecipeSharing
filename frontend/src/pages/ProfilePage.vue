@@ -1,45 +1,52 @@
 <template>
-    <div class="mainContainer">
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Username </h1>
-                </div>
-            </div>
+  <div class="mainContainer">
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Username </h1>
         </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Name </h1>
-                </div>
-            </div>
-        </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Email </h1>
-                </div>
-            </div>
-        </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Favourite Recipes </h1>
-                </div>
-            </div>
-            <AppCardCarousel :type="recent" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-        </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Own Recipes </h1>
-                </div>
-            </div>
-            <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-        </div>
+      </div>
+      <h3 class="profileInfo">{{ this.profileInfo.username }}</h3>
     </div>
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Email </h1>
+        </div>
+      </div>
+      <h3 class="profileInfo">{{ this.profileInfo.email }}</h3>
+    </div>
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Favourite Recipes </h1>
+        </div>
+      </div>
+      <AppCardCarousel
+        :type="recent"
+        :recipes="this.recipesByRate"
+        :visibleRecipes="8"
+        :logged="this.logged"
+        :username="this.username"
+        v-if="recipesByRate.length > 0"
+      ></AppCardCarousel>
+    </div>
+    <div class="secondaryContainer">
+      <div class="titleContainerHP">
+        <div class="mainTitleHP">
+          <h1> Own Recipes </h1>
+        </div>
+      </div>
+      <AppCardCarousel
+        :type="rate"
+        :recipes="this.recipesByRate"
+        :visibleRecipes="8"
+        :logged="this.logged"
+        :username="this.username"
+        v-if="recipesByRate.length > 0"
+      ></AppCardCarousel>
+    </div>
+  </div>
 </template>
 
 
@@ -64,23 +71,12 @@ export default {
             recipesByRate: [],
             rate: "rate",
             recent: "recent",
+            profileInfo: {},
         };
     },
     methods: {
-        getRecipesByRate() {
-            // Axios para coger el template
-            axios
-                .get("/")
-                .then((response) => {
-                    if (response.status === 200) {
-                        const data = response.data
-                        console.log("Data is:", data)
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener las recetas:", error);
-                });
 
+        getRecipesByRate() {
             // Axios para recibir las recetas
             axios
                 .get("recipe/rate/")
@@ -96,19 +92,6 @@ export default {
                 });
         },
         getRecipesByRecent() {
-            // Axios para coger el template
-            axios
-                .get("/")
-                .then((response) => {
-                    if (response.status === 200) {
-                        const data = response.data
-                        console.log("Data is:", data)
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener las recetas:", error);
-                });
-
             // Axios para recibir las recetas
             axios
                 .get("recipe/recent/")
@@ -122,15 +105,35 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-        }
+        },
+        getUserInformation() {
+            // Axios para recibir las recetas
+            axios
+                .get(`user/${this.username}/`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const info = response.data.user;
+                        this.profileInfo = info;
+                        console.log(response.data.user)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
     },
     created() {
+        
         this.getRecipesByRate();
         this.getRecipesByRecent();
+        this.getUserInformation();
     }
 };
 </script>
 
 <style scoped>
-
+.profileInfo {
+  text-align: left;
+  color: black;
+}
 </style>

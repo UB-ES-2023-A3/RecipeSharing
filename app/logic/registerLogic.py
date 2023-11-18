@@ -4,8 +4,6 @@ import re
 # Import necessary functions and models from Django's authentication module
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-
-
 from app.models import CustomUser
 
 def register_user(username, email, password, request):
