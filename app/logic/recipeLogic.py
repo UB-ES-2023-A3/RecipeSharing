@@ -1,3 +1,4 @@
+from cProfile import Profile
 import json
 from app.models import Recipe
 
@@ -389,3 +390,10 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
+
+def get_user_by_id(id):
+    try:
+        user = Profile.objects.get(id=id)
+        return {'user': user.toJson()}
+    except Profile.DoesNotExist:
+        return {'error': 'User not found.'}
