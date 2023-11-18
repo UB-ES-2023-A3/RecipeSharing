@@ -18,7 +18,7 @@ def recipe_logic(title, ingredients, instructions, prep_time, username_id, servi
                         rating_average=0,
                         rating_list={})
     new_recipe.save()
-    return {'message': 'Recipe created.'}
+    return {'message': 'User created.'}
 
 
 def add_rating_logic(request):
@@ -390,10 +390,3 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
-
-def get_user_by_id(id):
-    try:
-        user = Profile.objects.get(id=id)
-        return {'user': user.toJson()}
-    except Profile.DoesNotExist:
-        return {'error': 'User not found.'}

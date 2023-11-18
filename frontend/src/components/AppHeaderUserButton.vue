@@ -68,7 +68,7 @@ export default {
         async logout() {
             try {
                 let response = await axios.post('/login/', {
-                    username: this.username,
+                    username: "Logout",
                     email: this.email,
                     password: this.password,
                 }, {
