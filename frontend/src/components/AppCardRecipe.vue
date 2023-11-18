@@ -8,8 +8,8 @@
                 <span v-if="type === 'recent'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
                 </span>
-                <span v-if="type === 'prepTime'">
-                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.preparationTime }}</h3>
+                <span v-if="type === 'recipe_type'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.recipe_type }}</h3>
                 </span>
             </div>
             <div v-if="showPopup" class="popup">
@@ -100,8 +100,8 @@
                 <span v-if="type === 'recent'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
                 </span>
-                <span v-if="type === 'prepTime'">
-                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.preparationTime }}</h3>
+                <span v-if="type === 'recipe_type'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.recipe_type }}</h3>
                 </span>
             </div>
         </div>

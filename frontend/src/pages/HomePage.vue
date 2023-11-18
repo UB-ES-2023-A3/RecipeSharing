@@ -2,10 +2,10 @@
     <div id="homeMainContainer">
         <div id="homeFilterContainer">
             <HomeFilterDropdown
-                    :options="recipeTypesOptions"
-                    v-model="selectedRecipeType"
-                    label="Recipe Type Filter"
-                    groupTitle="Selected Recipe Types"
+                    :options="typesOptions"
+                    v-model="selectedTypes"
+                    label="Type Filter"
+                    groupTitle="Selected Types"
                     @update:selectedValue="handleTypeUpdate"
                     :choose="false"
             />
@@ -15,7 +15,7 @@
                 <h1> Searched Recipes </h1>
             </div>
             <div id="homeSectionCarrouselContainer">
-                <AppCardCarousel :type="prepTime" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                <AppCardCarousel :type="recipe_type" :recipes="this.recipesByFilter" :visibleRecipes="8"
                                  :logged="this.logged"
                                  :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
             </div>
@@ -63,7 +63,7 @@
 import '../assets/styles/appStyles.css';
 import axios from 'axios';
 import AppCardCarousel from '@/components/AppCardCarousel.vue';
-import recipeTypes from "@/assets/lists/Types.json";
+import typesData from "@/assets/lists/Types.json";
 import HomeFilterDropdown from "@/components/HomeFilterDropdown.vue";
 
 export default {
@@ -83,10 +83,10 @@ export default {
             recipesByFilter: [],
             rate: "rate",
             recent: "recent",
-            prepTime: "prepTime",
+            recipe_type: "recipe_type",
             showRecipesFilter: false,
-            selectedRecipeType: "",
-            recipeTypesOptions: recipeTypes,
+            selectedTypes: "",
+            typesOptions: typesData,
         };
     },
     methods: {
@@ -170,7 +170,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get(`recipe/filter/types/${this.selectedRecipeType}`)
+                .get(`recipe/filter/types/${this.selectedTypes}`)
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
