@@ -94,7 +94,7 @@ export default {
             this.$router.push('/addRecipe');
         },
         handlePrepTimeUpdate(value) {
-            this.preparationTime = parseInt(value);
+            this.selectedPreparationTime = parseInt(value);
             this.getRecipesByPrepTime()
         },
         getRecipesByRate() {
