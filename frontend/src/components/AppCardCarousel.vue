@@ -8,6 +8,7 @@
                     v-for="(recipe, index) in displayedRecipes"
                     :key="index"
                     :type="this.type"
+                    :recipeName="this.recipeName"
                     :recipe="recipe"
                     :logged="this.logged"
                     :username="username"
@@ -31,6 +32,7 @@ export default {
         username: String,
         logged: Boolean,
         type: String,
+        recipeName: String,
     },
     data() {
         return {
@@ -76,7 +78,7 @@ export default {
     padding: 40px;
     border-radius: 4px;
     height: auto;
-    width: 100%;
+    width: 96%;
     margin: 15px auto 10px;
     max-width: 100%;
 }
@@ -85,14 +87,17 @@ export default {
     flex: 0 0 auto;
 }
 
-button {
-    margin-top: 10px;
+.arrow-button {
     background-color: #ff5733;
     color: white;
     border: none;
     border-radius: 4px;
     padding: 10px;
     cursor: pointer;
+    flex: 0 0 auto; /* Evita que los botones de flecha se expandan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .arrow-button:hover {
