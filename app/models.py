@@ -29,7 +29,7 @@ class Recipe(models.Model):
     # Rating fileds
     rating_average = models.DecimalField(max_digits=5, decimal_places=1)
     rating_amount = models.IntegerField(default=0)
-    rating_list = models.JSONField(default={})
+    rating_list = models.JSONField(default=dict)
 
     def __str__(self):
         return self.title

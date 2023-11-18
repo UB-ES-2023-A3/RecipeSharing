@@ -5,97 +5,103 @@
                 <span v-if="type === 'rate'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ 'Rating: ' + this.CurrRating }}</h3>
                 </span>
-                <span v-else>
+                <span v-if="type === 'recent'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
+                </span>
+                <span v-if="type === 'ingredients'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.ingredients }}</h3>
                 </span>
             </div>
             <div v-if="showPopup" class="popup">
-            <div class="popup-content">
-                <div class="scrollable-content">
-                    <div class="recipe-header">
-                        <div class="recipe-card-title">
-                            <h2>{{ "Title: " + this.recipe.title }}</h2>
-                            <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
-                        </div>
-                        <div class="recipe-card-rating">
-                            <div class="recipe-card-rating-title">
-                                <h3>Current Rating</h3>
-                                <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
+                <div class="popup-content">
+                    <div class="scrollable-content">
+                        <div class="recipe-header">
+                            <div class="recipe-card-title">
+                                <h2>{{ "Title: " + this.recipe.title }}</h2>
+                                <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
                             </div>
-                            <div class="rating-stars">
-                                <span v-if="username !== this.recipe.username_id"   >
+                            <div class="recipe-card-rating">
+                                <div class="recipe-card-rating-title">
+                                    <h3>Current Rating</h3>
+                                    <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
+                                </div>
+                                <div class="rating-stars">
+                                <span v-if="username !== this.recipe.username_id">
                                     <h3>Add your rating:</h3>
                                 </span>
-                                <span
+                                    <span
                                             v-for="star in [1, 2, 3, 4, 5]"
                                             :key="star"
                                             @click="setRating(star)"
                                             @mouseover="hoverStars(star)"
                                             @mouseout="resetStars"
                                             :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
-                                >
+                                    >
                                     ★
                                 </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Ingredients</h3>
-                            <ul>
-                                <li v-for="(step, index) in this.parseText(this.recipe.ingredients)" :key="index">
-                                    {{ step }}
-                                </li>
-                            </ul>
+                        <div class="section">
+                            <div class="recipe-card-section">
+                                <h3>Ingredients</h3>
+                                <ul>
+                                    <li v-for="(step, index) in this.parseText(this.recipe.ingredients)" :key="index">
+                                        {{ step }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Instructions</h3>
-                            <ol>
-                                <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
-                                    {{ step }}
-                                </li>
-                            </ol>
+                        <div class="section">
+                            <div class="recipe-card-section">
+                                <h3>Instructions</h3>
+                                <ol>
+                                    <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
+                                        {{ step }}
+                                    </li>
+                                </ol>
+                            </div>
                         </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Allergens</h3>
-                            <ul>
-                                <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">
-                                    {{ step }}
-                                </li>
-                            </ul>
+                        <div class="section">
+                            <div class="recipe-card-section">
+                                <h3>Allergens</h3>
+                                <ul>
+                                    <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">
+                                        {{ step }}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Type</h3> {{ this.recipe.recipe_type }}
+                        <div class="section">
+                            <div class="recipe-card-section">
+                                <h3>Type</h3> {{ this.recipe.recipe_type }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
+                        <div class="section">
+                            <div class="recipe-card-section">
+                                <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Servings</h3> {{ this.recipe.servings }}
+                        <div class="section">
+                            <div class="recipe-card-section">
+                                <h3>Servings</h3> {{ this.recipe.servings }}
+                            </div>
                         </div>
+                        <button class="submit-button" @click="togglePopup">Close</button>
                     </div>
-                    <button class="submit-button" @click="togglePopup">Close</button>
                 </div>
             </div>
-        </div>
         </div>
         <div v-else>
             <div @click="goToLogin" class="recipe-title">
                 <span v-if="type === 'rate'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ 'Rating: ' + this.CurrRating }}</h3>
                 </span>
-                <span v-else>
+                <span v-if="type === 'recent'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
+                </span>
+                <span v-if="type === 'ingredients'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.ingredients }}</h3>
                 </span>
             </div>
         </div>
@@ -114,7 +120,8 @@ export default {
         recipe: Object,
         username: String,
         logged: Boolean,
-        type: String
+        type: String,
+        recipeName: String,
     },
     data() {
         return {
@@ -153,7 +160,6 @@ export default {
         },
         getRating() {
             // Axios para recibir los ratings
-            axios
             axios.get(`recipes/getratings/${this.recipe_id}/`)
                 .then((response) => {
                     if (response.status === 200) {
@@ -195,7 +201,9 @@ export default {
 <style scoped>
 .recipe-card {
     cursor: pointer;
-    text-align: center;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: calc(12.5% - 1.7%);
 }
 
 .recipe-title {
@@ -208,6 +216,7 @@ export default {
     max-width: 250px;
     padding: 10px;
     margin-bottom: 10px; /* Añadido margen inferior */
+    height: 88%;
 }
 
 .recipe-title:hover {
@@ -313,6 +322,13 @@ h3 {
     margin-inline-end: 0px;
     font-weight: bold;
     color: white;
+}
+
+hr {
+    border-top: 1px solid #df8500;
+    border-bottom: 1px solid #ffbf00;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 </style>
