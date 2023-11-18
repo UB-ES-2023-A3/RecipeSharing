@@ -6,7 +6,7 @@
             <!--            </button>-->
             <HomeFilterDropdown
                     :options="[{ 'groupName': 'Servings', 'options': [1,2,3,4,5,6,7,8,9,10] }]"
-                    v-model="servings"
+                    v-model="selectedServing"
                     label="Servings Filter"
                     groupTitle="Selected Serving"
                     @update:selectedValue="handleServingUpdate"
@@ -18,7 +18,7 @@
                 <h1> Searched Recipes </h1>
             </div>
             <div id="homeSectionCarrouselContainer">
-                <AppCardCarousel :type="prepTime" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                <AppCardCarousel :type="servings" :recipes="this.recipesByFilter" :visibleRecipes="8"
                                  :logged="this.logged"
                                  :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
             </div>
@@ -85,9 +85,9 @@ export default {
             recipesByFilter: [],
             rate: "rate",
             recent: "recent",
-            prepTime: "prepTime",
+            servings: "servings",
             showRecipesFilter: false,
-            servings: "",
+            selectedServings: "",
         };
     },
     methods: {
@@ -95,7 +95,7 @@ export default {
             this.$router.push('/addRecipe');
         },
         handleServingUpdate(value) {
-            this.servings = parseInt(value);
+            this.selectedServings = parseInt(value);
             this.getRecipesByServings()
         },
         getRecipesByRate() {
@@ -171,7 +171,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get(`recipe/filter/servings/${this.servings}`)
+                .get(`recipe/filter/servings/${this.selectedServings}`)
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
