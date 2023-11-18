@@ -1,24 +1,55 @@
 <template>
-    <div class="mainContainer">
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Recent Recipes </h1>
-                </div>
+    <div id="homeMainContainer">
+        <div id="homeNameSearcherContainer">
+            <div class="searchContainer">
+                <input class="homeNameSearcher" type="text" v-model="searchName" placeholder="Search by name"
+                       @keyup.enter="getRecipesByName"/>
             </div>
-            <AppCardCarousel :type="recent" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Liked Recipes </h1>
-                </div>
+        <div id="homeFilterContainer">
+
+        </div>
+        <div id="homeSectionContainer" v-if="this.showRecipesFilter">
+            <div id="homeSectionTitleContainer">
+                <h1> Searched Recipes </h1>
             </div>
-            <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-        </div> <!-- Agregamos el cierre del div que faltaba -->
-        <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
+            <div id="homeSectionCarrouselContainer">
+                <AppCardCarousel :type="name" :recipeName="searchName" :recipes="this.recipesByName" :visibleRecipes="8"
+                                 :logged="this.logged"
+                                 :username="this.username" v-if="recipesByName.length > 0"></AppCardCarousel>
+            </div>
+            <div id="homeSectionFilterError">
+                <p v-if="this.recipesByName.length === 0" class="homeSectionFilterError">No recipes found by that name.</p>
+            </div>
+            <div id="homeSectionSeparatorContainer">
+                <hr>
+            </div>
+        </div>
+        <div id="homeSectionContainer">
+            <div id="homeSectionTitleContainer">
+                <h1> Most Recent Recipes </h1>
+            </div>
+            <div id="homeSectionCarrouselContainer">
+                <AppCardCarousel :type="recent" :recipes="this.recipesByDate" :visibleRecipes="8" :logged="this.logged"
+                                 :username="this.username" v-if="recipesByDate.length > 0"></AppCardCarousel>
+            </div>
+            <div id="homeSectionSeparatorContainer">
+                <hr>
+            </div>
+        </div>
+        <div id="homeSectionContainer">
+            <div id="homeSectionTitleContainer">
+                <h1> Most Liked Recipes </h1>
+            </div>
+            <div id="homeSectionCarrouselContainer">
+                <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
+                                 :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+            </div>
+            <div id="homeSectionSeparatorContainer">
+                <hr>
+            </div>
+        </div>
+        <div v-if="this.logged" class="homeFloatingButton" @click="redirectToRecipePage">
             <i class="fas fa-plus"></i>
             <span class="text">Upload new recipe</span>
         </div>
@@ -45,8 +76,12 @@ export default {
         return {
             recipesByDate: [],
             recipesByRate: [],
+            recipesByName: [],
             rate: "rate",
             recent: "recent",
+            searchName: "",
+            name: "name",
+            showRecipesFilter: false,
         };
     },
     methods: {
@@ -108,7 +143,37 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-        }
+        },
+        getRecipesByName() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/name/${this.searchName}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const recipes = response.data.recipes;
+                        this.recipesByName = recipes;
+                        this.showRecipesFilter = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+
     },
     created() {
         this.getRecipesByRate();
@@ -119,10 +184,44 @@ export default {
 
 <style scoped>
 
-.floating-button {
+#homeSectionTitleContainer {
+    background-color: #ff5733;
+    border: 1px solid #b69b70;
+    border-radius: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding-left: 1%;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px; /* Ajusta el tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+}
+
+#homeNameSearcherContainer {
+    text-align: center;
+}
+
+.homeNameSearcher {
+    position: relative;
+    padding: 8px 35px 8px 12px;
+}
+
+/* Estilos para el campo de búsqueda */
+.homeNameSearcher {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 50%;
+    margin: 2% auto;
+    position: relative;
+}
+
+.homeFloatingButton {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 5%;
+    right: 5%;
     background-color: #ff5733;
     color: white;
     border: none;
@@ -138,33 +237,50 @@ export default {
     transition: all 0.3s;
 }
 
-.floating-button i {
+.homeFloatingButton i {
     font-size: 24px;
 }
 
-.floating-button .text {
+.homeFloatingButton .text {
     display: none;
     opacity: 0;
     font-size: 14px;
-    margin-left: 10px;
     transition: opacity 0.3s, font-size 0.3s;
 }
 
-.floating-button:hover {
-    width: 150px;
+.homeFloatingButton:hover {
+    width: 10%;
     border-radius: 5px; /* Cambiar el borde para que sea más rectangular */
 }
 
-.floating-button:hover i {
+.homeFloatingButton:hover i {
     display: none;
     font-size: 0;
 }
 
-.floating-button:hover .text {
+.homeFloatingButton:hover .text {
     display: inline;
     opacity: 1;
     font-size: 14px;
-    margin-left: 10px;
     transition: opacity 0.3s, font-size 0.3s;
 }
+
+hr {
+    border-top: 1px solid #df8500;
+    border-bottom: 1px solid #ffbf00;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2.5%;
+}
+
+#homeSectionFilterError {
+    text-align: center;
+}
+
+#homeSectionFilterError {
+    color: red;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
 </style>
