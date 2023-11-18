@@ -1,24 +1,60 @@
 <template>
-    <div class="mainContainer">
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Recent Recipes </h1>
-                </div>
-            </div>
-            <AppCardCarousel :type="recent" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+    <div id="homeMainContainer">
+        <div id="homeFilterContainer">
+            <!--            <button type="button" class="homeFilterButton" :class="{ 'activeButton': isButtonActive }"-->
+            <!--                    @click="getRecipesByPrepTime">Preparation Time-->
+            <!--            </button>-->
+            <HomeFilterDropdown
+                    :options="preparationTimeOptions"
+                    v-model="preparationTime"
+                    label="Preparation Time Filter"
+                    groupTitle="Selected Preparation Time"
+                    @update:selectedValue="handlePrepTimeUpdate"
+                    :choose="false"
+            />
         </div>
-        <div class="secondaryContainer">
-            <div class="titleContainerHP">
-                <div class="mainTitleHP">
-                    <h1> Most Liked Recipes </h1>
-                </div>
+        <div id="homeSectionContainer" v-if="showRecipesFilter">
+            <div id="homeSectionTitleContainer">
+                <h1> Searched Recipes </h1>
             </div>
-            <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
-                             :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
-        </div> <!-- Agregamos el cierre del div que faltaba -->
-        <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">
+            <div id="homeSectionCarrouselContainer">
+                <AppCardCarousel :type="prepTime" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                                 :logged="this.logged"
+                                 :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
+            </div>
+            <div id="homeSectionFilterError">
+                <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by that
+                    name.</p>
+            </div>
+            <div id="homeSectionSeparatorContainer">
+                <hr>
+            </div>
+        </div>
+        <div id="homeSectionContainer">
+            <div id="homeSectionTitleContainer">
+                <h1> Most Recent Recipes </h1>
+            </div>
+            <div id="homeSectionCarrouselContainer">
+                <AppCardCarousel :type="recent" :recipes="this.recipesByDate" :visibleRecipes="8" :logged="this.logged"
+                                 :username="this.username" v-if="recipesByDate.length > 0"></AppCardCarousel>
+            </div>
+            <div id="homeSectionSeparatorContainer">
+                <hr>
+            </div>
+        </div>
+        <div id="homeSectionContainer">
+            <div id="homeSectionTitleContainer">
+                <h1> Most Liked Recipes </h1>
+            </div>
+            <div id="homeSectionCarrouselContainer">
+                <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
+                                 :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
+            </div>
+            <div id="homeSectionSeparatorContainer">
+                <hr>
+            </div>
+        </div>
+        <div v-if="this.logged" class="homeFloatingButton" @click="redirectToRecipePage">
             <i class="fas fa-plus"></i>
             <span class="text">Upload new recipe</span>
         </div>
@@ -30,11 +66,13 @@
 import '../assets/styles/appStyles.css';
 import axios from 'axios';
 import AppCardCarousel from '@/components/AppCardCarousel.vue';
+import prepTimeData from "@/assets/lists/prepTime.json";
+import HomeFilterDropdown from "@/components/HomeFilterDropdown.vue";
 
 export default {
     name: "HomePage.vue",
 
-    components: {AppCardCarousel},
+    components: {AppCardCarousel, HomeFilterDropdown},
     props: {
         logged: Boolean,
         username: String,
@@ -45,13 +83,22 @@ export default {
         return {
             recipesByDate: [],
             recipesByRate: [],
+            recipesByFilter: [],
             rate: "rate",
             recent: "recent",
+            prepTime: "prepTime",
+            showRecipesFilter: false,
+            preparationTime: "",
+            preparationTimeOptions: prepTimeData,
         };
     },
     methods: {
         redirectToRecipePage() {
             this.$router.push('/addRecipe');
+        },
+        handlePrepTimeUpdate(value) {
+            this.preparationTime = parseInt(value);
+            this.getRecipesByPrepTime()
         },
         getRecipesByRate() {
             // Axios para coger el template
@@ -108,21 +155,67 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-        }
+        },
+        getRecipesByPrepTime() {
+            // Axios para coger el template
+
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/filter/preparation_time/${this.preparationTime}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const recipes = response.data.recipes;
+                        this.recipesByFilter = recipes;
+                        this.showRecipesFilter = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+
     },
     created() {
         this.getRecipesByRate();
         this.getRecipesByRecent();
     }
-};
+}
+;
 </script>
 
 <style scoped>
 
-.floating-button {
+#homeSectionTitleContainer {
+    background-color: #ff5733;
+    border: 1px solid #b69b70;
+    border-radius: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding-left: 1%;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px; /* Ajusta el tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.homeFloatingButton {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 5%;
+    right: 5%;
     background-color: #ff5733;
     color: white;
     border: none;
@@ -138,33 +231,56 @@ export default {
     transition: all 0.3s;
 }
 
-.floating-button i {
+.homeFloatingButton i {
     font-size: 24px;
 }
 
-.floating-button .text {
+.homeFloatingButton .text {
     display: none;
     opacity: 0;
     font-size: 14px;
-    margin-left: 10px;
     transition: opacity 0.3s, font-size 0.3s;
 }
 
-.floating-button:hover {
-    width: 150px;
+.homeFloatingButton:hover {
+    width: 10%;
     border-radius: 5px; /* Cambiar el borde para que sea más rectangular */
 }
 
-.floating-button:hover i {
+.homeFloatingButton:hover i {
     display: none;
     font-size: 0;
 }
 
-.floating-button:hover .text {
+.homeFloatingButton:hover .text {
     display: inline;
     opacity: 1;
     font-size: 14px;
-    margin-left: 10px;
     transition: opacity 0.3s, font-size 0.3s;
 }
+
+hr {
+    border-top: 1px solid #df8500;
+    border-bottom: 1px solid #ffbf00;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2.5%;
+}
+
+#homeSectionFilterError {
+    text-align: center;
+}
+
+#homeSectionFilterError {
+    color: red;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+#homeFilterContainer {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+}
+
 </style>
