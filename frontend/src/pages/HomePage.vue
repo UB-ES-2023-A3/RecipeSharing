@@ -170,7 +170,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get(`recipe/filter/preparation_time/${this.preparationTime}`)
+                .get(`recipe/filter/preparation_time/${this.selectedPreparationTime}`)
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
