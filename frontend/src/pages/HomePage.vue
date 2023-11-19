@@ -28,6 +28,7 @@
                     :reset="showRecipesFilterServings"
             />
             <HomeFilterDropdown
+                    class="homeFilterDropdown"
                     :options="typesOptions"
                     v-model="selectedTypes"
                     label="Type Filter"
@@ -35,6 +36,16 @@
                     @update:selectedValue="handleTypeUpdate"
                     :choose="false"
                     :reset="showRecipesFilterTypes"
+            />
+            <HomeFilterDropdown
+                    class="homeFilterDropdown"
+                    :options="allergensOptions"
+                    v-model="selectedAllergens"
+                    label="Allergens Filter"
+                    groupTitle="Selected Allergens"
+                    @update:selectedValue="handleAllergensUpdate"
+                    :choose="false"
+                    :reset="showRecipesFilterAllergens"
             />
         </div>
         <div id="homeSectionContainer" v-if="showRecipesFilter">
@@ -82,6 +93,16 @@
                             filter.</p>
                     </div>
                 </div>
+                <div v-if="showRecipesFilterAllergens">
+                    <AppCardCarousel :type="allergens" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                                     :logged="this.logged"
+                                     :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
+                    <div id="homeSectionFilterError">
+                        <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by
+                            that
+                            filter.</p>
+                    </div>
+                </div>
             </div>
             <div id="homeSectionSeparatorContainer">
                 <hr>
@@ -92,7 +113,8 @@
                 <h1> Most Recent Recipes </h1>
             </div>
             <div id="homeSectionCarrouselContainer">
-                <AppCardCarousel :type="recent" :recipes="this.recipesByDate" :visibleRecipes="8" :logged="this.logged"
+                <AppCardCarousel :type="recent" :recipes="this.recipesByDate" :visibleRecipes="8"
+                                 :logged="this.logged"
                                  :username="this.username" v-if="recipesByDate.length > 0"></AppCardCarousel>
             </div>
             <div id="homeSectionSeparatorContainer">
@@ -104,7 +126,8 @@
                 <h1> Most Liked Recipes </h1>
             </div>
             <div id="homeSectionCarrouselContainer">
-                <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
+                <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8"
+                                 :logged="this.logged"
                                  :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
             </div>
             <div id="homeSectionSeparatorContainer">
@@ -125,6 +148,7 @@ import axios from 'axios';
 import AppCardCarousel from '@/components/AppCardCarousel.vue';
 import prepTimeData from "@/assets/lists/prepTime.json";
 import typesData from "@/assets/lists/Types.json";
+import allergensOptions from "@/assets/lists/Allergens.json";
 import HomeFilterDropdown from "@/components/HomeFilterDropdown.vue";
 
 export default {
@@ -155,18 +179,21 @@ export default {
             recipe_type: "recipe_type",
             selectedTypes: "",
             typesOptions: typesData,
+            allergens: "allergens",
+            selectedAllergens: "",
+            allergensOptions: allergensOptions,
             showRecipesFilter: false,
             showRecipesFilterName: false,
             showRecipesFilterPrepTime: false,
             showRecipesFilterServings: false,
             showRecipesFilterTypes: false,
+            showRecipesFilterAllergens: false,
         };
     },
     methods: {
         redirectToRecipePage() {
             this.$router.push('/addRecipe');
         },
-
         handlePrepTimeUpdate(value) {
             this.preparationTime = parseInt(value);
             this.getRecipesByPrepTime()
@@ -180,11 +207,15 @@ export default {
             this.showRecipesFilterPrepTime = false;
             this.showRecipesFilterServings = false;
             this.showRecipesFilterTypes = false;
+            this.showRecipesFilterAllergens = false;
         },
         handleTypeUpdate(value) {
             this.selectedTypes = value;
             this.getRecipesByTypes()
-
+        },
+        handleAllergensUpdate(value) {
+            this.selectedAllergens = value;
+            this.getRecipesByAllergens()
         },
         getRecipesByRate() {
             // Axios para coger el template
@@ -255,7 +286,6 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-
             // Axios para recibir las recetas
             axios
                 .get(`recipe/name/${this.selectedName}`)
@@ -266,6 +296,37 @@ export default {
                         this.recipesByName = recipes;
                         this.showRecipesFilter = true;
                         this.showRecipesFilterName = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+        getRecipesByAllergens() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/filter/allergens/${this.selectedAllergens}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.resetFlags()
+                        const recipes = response.data.recipes;
+                        this.recipesByFilter = recipes;
+                        this.showRecipesFilter = true;
+                        this.showRecipesFilterAllergens = true;
                         console.log(response.data.recipes)
                     }
                 })
@@ -337,7 +398,6 @@ export default {
         },
         getRecipesByServings() {
             // Axios para coger el template
-
             axios
                 .get("/")
                 .then((response) => {
@@ -372,8 +432,7 @@ export default {
         this.getRecipesByRate();
         this.getRecipesByRecent();
     }
-}
-;
+};
 </script>
 
 <style scoped>
@@ -492,3 +551,4 @@ hr {
 }
 
 </style>
+
