@@ -14,6 +14,9 @@
                 <span v-if="type === 'name'">
                   <h2>{{ this.recipe.title }}</h2>
                 </span>
+                <span v-if="type === 'servings'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.servings }}</h3>
+                </span>
             </div>
             <div v-if="showPopup" class="popup">
                 <div class="popup-content">
@@ -108,6 +111,9 @@
                 </span>
                 <span v-if="type === 'name'">
                   <h2>{{ this.recipe.title }}</h2>
+                </span>
+                <span v-if="type === 'servings'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.servings }}</h3>
                 </span>
             </div>
         </div>

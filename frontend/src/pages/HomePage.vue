@@ -8,12 +8,24 @@
         </div>
         <div id="homeFilterContainer">
             <HomeFilterDropdown
+                    class="homeFilterDropdown"
                     :options="preparationTimeOptions"
                     v-model="selectedPreparationTime"
                     label="Preparation Time Filter"
                     groupTitle="Selected Preparation Time"
                     @update:selectedValue="handlePrepTimeUpdate"
                     :choose="false"
+                    :reset="showRecipesFilterPrepTime"
+            />
+            <HomeFilterDropdown
+                    class="homeFilterDropdown"
+                    :options="[{ 'groupName': 'Servings', 'options': [1,2,3,4,5,6,7,8,9,10] }]"
+                    v-model="selectedServings"
+                    label="Servings Filter"
+                    groupTitle="Selected Serving"
+                    @update:selectedValue="handleServingUpdate"
+                    :choose="false"
+                    :reset="showRecipesFilterServings"
             />
         </div>
         <div id="homeSectionContainer" v-if="showRecipesFilter">
@@ -33,6 +45,16 @@
                 </div>
                 <div v-if="showRecipesFilterPrepTime">
                     <AppCardCarousel :type="prepTime" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                                     :logged="this.logged"
+                                     :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
+                    <div id="homeSectionFilterError">
+                        <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by
+                            that
+                            filter.</p>
+                    </div>
+                </div>
+                <div v-if="showRecipesFilterServings">
+                    <AppCardCarousel :type="servings" :recipes="this.recipesByFilter" :visibleRecipes="8"
                                      :logged="this.logged"
                                      :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
                     <div id="homeSectionFilterError">
@@ -108,9 +130,12 @@ export default {
             prepTime: "preparation_time",
             selectedPreparationTime: "",
             preparationTimeOptions: prepTimeData,
+            servings: "servings",
+            selectedServings: "",
             showRecipesFilter: false,
             showRecipesFilterName: false,
             showRecipesFilterPrepTime: false,
+            showRecipesFilterServings: false,
         };
     },
     methods: {
@@ -121,9 +146,14 @@ export default {
             this.preparationTime = parseInt(value);
             this.getRecipesByPrepTime()
         },
+        handleServingUpdate(value) {
+            this.selectedServings = parseInt(value);
+            this.getRecipesByServings()
+        },
         resetFlags() {
             this.showRecipesFilterName = false;
             this.showRecipesFilterPrepTime = false;
+            this.showRecipesFilterServings = false;
         },
         getRecipesByRate() {
             // Axios para coger el template
@@ -225,17 +255,53 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-
+            this.resetFlags()
+this.showRecipesFilter = true;
+                        this.showRecipesFilterPrepTime = true;
             // Axios para recibir las recetas
             axios
-                .get(`recipe/filter/preparation_time/${this.preparationTime}`)
+            .get(`recipe/filter/preparation_time/${this.preparationTime}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.resetFlags();
                         const recipes = response.data.recipes;
                         this.recipesByFilter = recipes;
                         this.showRecipesFilter = true;
-                        this.showRecipesFilterName = true;
+                        this.showRecipesFilterPrepTime = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+        getRecipesByServings() {
+            // Axios para coger el template
+
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+            this.resetFlags()
+this.showRecipesFilter = true;
+                        this.showRecipesFilterServings = true;
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/filter/servings/${this.selectedServings}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.resetFlags()
+                        const recipes = response.data.recipes;
+                        this.recipesByFilter = recipes;
+                        this.showRecipesFilter = true;
+                        this.showRecipesFilterServings = true;
                         console.log(response.data.recipes)
                     }
                 })
@@ -248,7 +314,8 @@ export default {
         this.getRecipesByRate();
         this.getRecipesByRecent();
     }
-};
+}
+;
 </script>
 
 <style scoped>
@@ -360,5 +427,10 @@ hr {
     margin: 0 0 2%;
 }
 
-</style>
+.homeFilterDropdown {
+    width: 100%;
+    max-width: calc(16.7% - 1.7%);
+    margin-right: 2%;
+}
 
+</style>

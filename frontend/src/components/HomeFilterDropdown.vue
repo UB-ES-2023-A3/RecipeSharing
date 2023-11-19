@@ -30,7 +30,8 @@ export default {
         selectedValue: Array, // Change the prop type to Array for multiple selections
         label: String, // Label for the select dropdown
         groupTitle: String, // Title for the selected group
-        choose: Boolean
+        choose: Boolean,
+        reset: Boolean,
     },
     data() {
         return {
@@ -52,8 +53,17 @@ export default {
         },
         removeSelectedOption(index) {
             this.selectedOptions.splice(index, 1);
+            this.localSelectedValue = '';
         },
     },
+    watch: {
+        reset(newVal) {
+            if (newVal == false) {
+                this.localSelectedValue = '';
+                this.selectedOptions = [];
+            }
+        }
+    }
 };
 
 </script>
