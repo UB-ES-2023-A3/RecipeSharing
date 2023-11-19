@@ -6,10 +6,9 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from app.logic.loginLogic import login_logic
-from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic, \
-    get_rating_by_id
+from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic,get_rating_by_id
 from app.logic.registerLogic import register_user
-from app.logic.recipeLogic import get_all_recipes
+from app.logic.userLogic import get_user_by_username
 
 
 # Home Page
@@ -175,4 +174,12 @@ class GetRecipeRatingView(TemplateView):
             else:
                 return JsonResponse(response_data, status=200)
 
+class GetUserView(TemplateView):
 
+    def get(self, request, username):
+        if request.method == 'GET':
+            response_data = get_user_by_username(username)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)

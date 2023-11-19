@@ -1,3 +1,4 @@
+from cProfile import Profile
 import json
 from app.models import Recipe
 
@@ -17,7 +18,7 @@ def recipe_logic(title, ingredients, instructions, prep_time, username_id, servi
                         rating_average=0,
                         rating_list={})
     new_recipe.save()
-    return {'message': 'Recipe created.'}
+    return {'message': 'User created.'}
 
 
 def add_rating_logic(request):

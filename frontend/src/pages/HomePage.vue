@@ -538,7 +538,7 @@ export default {
     position: fixed;
     bottom: 5%;
     right: 5%;
-    background-color: #ff5733;
+    background-color: #fd9846;
     color: white;
     border: none;
     border-radius: 50%;
