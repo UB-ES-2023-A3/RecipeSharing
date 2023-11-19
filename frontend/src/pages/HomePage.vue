@@ -1,5 +1,11 @@
 <template>
     <div id="homeMainContainer">
+        <div id="homeNameSearcherContainer">
+            <div class="searchContainer">
+                <input class="homeNameSearcher" type="text" v-model="selectedName" placeholder="Search by name"
+                       @keyup.enter="getRecipesByName"/>
+            </div>
+        </div>
         <div id="homeFilterContainer">
             <HomeFilterDropdown
                     :options="preparationTimeOptions"
@@ -15,13 +21,26 @@
                 <h1> Searched Recipes </h1>
             </div>
             <div id="homeSectionCarrouselContainer">
-                <AppCardCarousel :type="prepTime" :recipes="this.recipesByFilter" :visibleRecipes="8"
-                                 :logged="this.logged"
-                                 :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
-            </div>
-            <div id="homeSectionFilterError">
-                <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by that
-                    filter.</p>
+                <div v-if="showRecipesFilterName">
+                    <AppCardCarousel :type="name" :recipeName="selectedName" :recipes="this.recipesByName"
+                                     :visibleRecipes="8"
+                                     :logged="this.logged"
+                                     :username="this.username" v-if="recipesByName.length > 0"></AppCardCarousel>
+                    <div id="homeSectionFilterError">
+                        <p v-if="this.recipesByName.length === 0" class="homeSectionFilterError">No recipes found by
+                            that name.</p>
+                    </div>
+                </div>
+                <div v-if="showRecipesFilterPrepTime">
+                    <AppCardCarousel :type="prepTime" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                                     :logged="this.logged"
+                                     :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
+                    <div id="homeSectionFilterError">
+                        <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by
+                            that
+                            filter.</p>
+                    </div>
+                </div>
             </div>
             <div id="homeSectionSeparatorContainer">
                 <hr>
@@ -80,13 +99,18 @@ export default {
         return {
             recipesByDate: [],
             recipesByRate: [],
+            recipesByName: [],
             recipesByFilter: [],
             rate: "rate",
             recent: "recent",
+            name: "name",
+            selectedName: "",
             prepTime: "preparation_time",
-            showRecipesFilter: false,
             selectedPreparationTime: "",
             preparationTimeOptions: prepTimeData,
+            showRecipesFilter: false,
+            showRecipesFilterName: false,
+            showRecipesFilterPrepTime: false,
         };
     },
     methods: {
@@ -96,6 +120,10 @@ export default {
         handlePrepTimeUpdate(value) {
             this.preparationTime = parseInt(value);
             this.getRecipesByPrepTime()
+        },
+        resetFlags() {
+            this.showRecipesFilterName = false;
+            this.showRecipesFilterPrepTime = false;
         },
         getRecipesByRate() {
             // Axios para coger el template
@@ -153,9 +181,39 @@ export default {
                     console.error("Error al obtener las recetas:", error);
                 });
         },
+        getRecipesByName() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+            
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/name/${this.selectedName}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const recipes = response.data.recipes;
+                        this.resetFlags();
+                        this.recipesByName = recipes;
+                        this.showRecipesFilter = true;
+                        this.showRecipesFilterName = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
         getRecipesByPrepTime() {
             // Axios para coger el template
-
             axios
                 .get("/")
                 .then((response) => {
@@ -173,9 +231,11 @@ export default {
                 .get(`recipe/filter/preparation_time/${this.preparationTime}`)
                 .then((response) => {
                     if (response.status === 200) {
+                        this.resetFlags();
                         const recipes = response.data.recipes;
                         this.recipesByFilter = recipes;
                         this.showRecipesFilter = true;
+                        this.showRecipesFilterName = true;
                         console.log(response.data.recipes)
                     }
                 })
@@ -183,14 +243,12 @@ export default {
                     console.error("Error al obtener las recetas:", error);
                 });
         },
-
     },
     created() {
         this.getRecipesByRate();
         this.getRecipesByRecent();
     }
-}
-;
+};
 </script>
 
 <style scoped>
@@ -207,6 +265,27 @@ export default {
     color: white;
     font-size: 12px; /* Ajusta el tamaño del texto */
     font-weight: bold; /* Texto en negrita */
+}
+
+#homeNameSearcherContainer {
+    text-align: center;
+    margin-top: 5%;
+}
+
+.homeNameSearcher {
+    position: relative;
+    padding: 8px 35px 8px 12px;
+}
+
+/* Estilos para el campo de búsqueda */
+.homeNameSearcher {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 50%;
+    margin: 2% auto;
+    position: relative;
 }
 
 .homeFloatingButton {
@@ -278,7 +357,8 @@ hr {
     display: flex;
     justify-content: center; /* Centrado horizontal */
     align-items: center; /* Centrado vertical */
-    margin: 10% 0 2%;
+    margin: 0 0 2%;
 }
 
 </style>
+
