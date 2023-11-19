@@ -27,6 +27,15 @@
                     :choose="false"
                     :reset="showRecipesFilterServings"
             />
+            <HomeFilterDropdown
+                    :options="typesOptions"
+                    v-model="selectedTypes"
+                    label="Type Filter"
+                    groupTitle="Selected Types"
+                    @update:selectedValue="handleTypeUpdate"
+                    :choose="false"
+                    :reset="showRecipesFilterTypes"
+            />
         </div>
         <div id="homeSectionContainer" v-if="showRecipesFilter">
             <div id="homeSectionTitleContainer">
@@ -55,6 +64,16 @@
                 </div>
                 <div v-if="showRecipesFilterServings">
                     <AppCardCarousel :type="servings" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                                     :logged="this.logged"
+                                     :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
+                    <div id="homeSectionFilterError">
+                        <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by
+                            that
+                            filter.</p>
+                    </div>
+                </div>
+                <div v-if="showRecipesFilterTypes">
+                    <AppCardCarousel :type="recipe_type" :recipes="this.recipesByFilter" :visibleRecipes="8"
                                      :logged="this.logged"
                                      :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
                     <div id="homeSectionFilterError">
@@ -105,6 +124,7 @@ import '../assets/styles/appStyles.css';
 import axios from 'axios';
 import AppCardCarousel from '@/components/AppCardCarousel.vue';
 import prepTimeData from "@/assets/lists/prepTime.json";
+import typesData from "@/assets/lists/Types.json";
 import HomeFilterDropdown from "@/components/HomeFilterDropdown.vue";
 
 export default {
@@ -132,16 +152,21 @@ export default {
             preparationTimeOptions: prepTimeData,
             servings: "servings",
             selectedServings: "",
+            recipe_type: "recipe_type",
+            selectedTypes: "",
+            typesOptions: typesData,
             showRecipesFilter: false,
             showRecipesFilterName: false,
             showRecipesFilterPrepTime: false,
             showRecipesFilterServings: false,
+            showRecipesFilterTypes: false,
         };
     },
     methods: {
         redirectToRecipePage() {
             this.$router.push('/addRecipe');
         },
+
         handlePrepTimeUpdate(value) {
             this.preparationTime = parseInt(value);
             this.getRecipesByPrepTime()
@@ -154,6 +179,12 @@ export default {
             this.showRecipesFilterName = false;
             this.showRecipesFilterPrepTime = false;
             this.showRecipesFilterServings = false;
+            this.showRecipesFilterTypes = false;
+        },
+        handleTypeUpdate(value) {
+            this.selectedTypes = value;
+            this.getRecipesByTypes()
+
         },
         getRecipesByRate() {
             // Axios para coger el template
@@ -224,7 +255,7 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-            
+
             // Axios para recibir las recetas
             axios
                 .get(`recipe/name/${this.selectedName}`)
@@ -258,7 +289,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-            .get(`recipe/filter/preparation_time/${this.preparationTime}`)
+                .get(`recipe/filter/preparation_time/${this.preparationTime}`)
                 .then((response) => {
                     if (response.status === 200) {
                         this.resetFlags();
@@ -266,6 +297,37 @@ export default {
                         this.recipesByFilter = recipes;
                         this.showRecipesFilter = true;
                         this.showRecipesFilterPrepTime = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+        getRecipesByTypes() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/filter/types/${this.selectedTypes}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.resetFlags()
+                        const recipes = response.data.recipes;
+                        this.recipesByFilter = recipes;
+                        this.showRecipesFilter = true;
+                        this.showRecipesFilterTypes = true;
                         console.log(response.data.recipes)
                     }
                 })
@@ -287,7 +349,7 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-            
+
             // Axios para recibir las recetas
             axios
                 .get(`recipe/filter/servings/${this.selectedServings}`)

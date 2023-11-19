@@ -7,6 +7,7 @@
     <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="test">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" afterDir="false" />
@@ -18,9 +19,12 @@
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" afterDir="false" />
+=======
+>>>>>>> US021_FE
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
 >>>>>>> US018_FE
       <change beforePath="$PROJECT_DIR$/static/dist/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/AddRecipePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/AddRecipePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/HomePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/HomePage.html" afterDir="false" />
@@ -30,6 +34,8 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
 >>>>>>> US020_FE
+=======
+>>>>>>> US021_FE
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +116,10 @@
     &quot;vue.recent.templates&quot;: [
       &quot;Vue Composition API Component&quot;
     ]
+<<<<<<< HEAD
 >>>>>>> US020_FE
+=======
+>>>>>>> US021_FE
   }
 }]]></component>
   <component name="RecentsManager">
