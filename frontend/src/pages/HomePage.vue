@@ -255,9 +255,7 @@ export default {
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-            this.resetFlags()
-this.showRecipesFilter = true;
-                        this.showRecipesFilterPrepTime = true;
+
             // Axios para recibir las recetas
             axios
             .get(`recipe/filter/preparation_time/${this.preparationTime}`)
@@ -289,9 +287,7 @@ this.showRecipesFilter = true;
                 .catch((error) => {
                     console.error("Error al obtener las recetas:", error);
                 });
-            this.resetFlags()
-this.showRecipesFilter = true;
-                        this.showRecipesFilterServings = true;
+            
             // Axios para recibir las recetas
             axios
                 .get(`recipe/filter/servings/${this.selectedServings}`)
