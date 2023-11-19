@@ -18,7 +18,7 @@ def recipe_logic(title, ingredients, instructions, prep_time, username_id, servi
                         rating_average=0,
                         rating_list={})
     new_recipe.save()
-    return {'message': 'Recipe created.'}
+    return {'message': 'User created.'}
 
 
 def add_rating_logic(request):
@@ -391,30 +391,10 @@ CALORIES = {
     "Vinegars": 19
 }
 
-def add_favorite_logic(request):
-    body = json.loads(request.body.decode('utf-8'))
-    user_id = body.get("user_id")
-    recipe_id = body.get("recipe_id")
-
-    recipe = Recipe.objects.get(id=recipe_id)
-    user = Profile.objects.get(id=user_id)
-
-    if recipe is None:
-        return {'error': 'Recipe not found.'}
-    if user is None:
-        return {'error': 'User not found.'}
-    else:
-        if recipe_id in user.favorite_list:
-            user.favorite_list.remove(recipe_id)
-            user.save()
-            favorite_recipes = [recipe.toJson() for recipe in user.favorite_list]
-
-            return {'message': 'Favorite list updated.',
-                    'favorite_list': favorite_recipes}                
-        else:
-            user.favorite_list[user_id] = recipe.toJson
-            user.save()
-            favorite_recipes = [recipe.toJson() for recipe in user.favorite_list]
-            return {'message': 'Favorite list updated.',
-                    'favorite_list': favorite_recipes}                
         
+def get_recipe_by_id(recipe_id):
+    try:
+        recipe = Recipe.objects.get(id=recipe_id)  # Supongo que el campo para el ID de la receta se llama 'id'
+        return {'recipe': recipe.toJson()}  # Supongo que tienes un método toJson() en tu modelo Recipe para convertirlo en un diccionario.
+    except Recipe.DoesNotExist:
+        return {'error': 'Recipe not found'}

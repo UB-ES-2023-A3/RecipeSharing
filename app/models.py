@@ -4,6 +4,31 @@ from django.utils import timezone
 
 
 # User model
+class CustomUser(models.Model):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)  
+    name = models.CharField(max_length=100, default='')
+    list_favorite_recipes = models.JSONField(default=dict)
+    list_favorite_ingredients = models.JSONField(default=dict)
+    list_favorite_recipe_types = models.JSONField(default=dict)
+    list_allergens = models.JSONField(default=dict)
+
+    def __str__(self):
+        return self.username
+
+    def toJson(self):
+        return {
+            'username': self.username,
+            'name': self.name,
+            'email': self.email,
+            'list_favorite_recipes': self.list_favorite_recipes,
+            'list_favorite_ingredients': self.list_favorite_ingredients,
+            'list_favorite_recipe_types': self.list_favorite_recipe_types,
+            'list_allergens': self.list_allergens
+        }
+    
 class Profile(User):
 
     # create a filed to store a list of integer values named favorite_list
@@ -58,7 +83,7 @@ class Recipe(models.Model):
             'allergens': self.allergens,
             'username_id': self.username_id,
             'creation_date': self.creation_date.strftime('%Y-%m-%d'),
-            'rating_average': self.rating_average,
+            'rating_average': str(self.rating_average),
             'rating_amount': self.rating_amount,
             'rating_list': self.rating_list,
         }
