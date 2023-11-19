@@ -69,7 +69,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get("recipe/rate/")
+                .get("recipes/rate/")
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;
@@ -97,7 +97,7 @@ export default {
 
             // Axios para recibir las recetas
             axios
-                .get("recipe/recent/")
+                .get("recipes/recent/")
                 .then((response) => {
                     if (response.status === 200) {
                         const recipes = response.data.recipes;

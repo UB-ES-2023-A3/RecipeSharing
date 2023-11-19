@@ -73,6 +73,9 @@ class Recipe(models.Model):
     rating_average = models.DecimalField(max_digits=5, decimal_places=1, default=0.0)
     rating_amount = models.IntegerField(default=0)
     rating_list = models.JSONField(default=dict)
+    # Comments fields
+    comments_list = models.JSONField(default=dict)
+    comments_amount = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -90,7 +93,9 @@ class Recipe(models.Model):
             'allergens': self.allergens,
             'username_id': self.username_id,
             'creation_date': self.creation_date.strftime('%Y-%m-%d'),
-            'rating_average': self.rating_average,
+            'rating_average': str(self.rating_average),
             'rating_amount': self.rating_amount,
-            'rating_list': self.rating_list
+            'rating_list': self.rating_list,
+            'comments_list': self.comments_list,
+            'comments_amount': self.comments_amount
         }

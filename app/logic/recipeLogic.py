@@ -390,3 +390,36 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
+
+
+def get_recipe_by_id(recipe_id):
+    try:
+        recipe = Recipe.objects.get(id=recipe_id)  # Supongo que el campo para el ID de la receta se llama 'id'
+        return {'recipe': recipe.toJson()}  # Supongo que tienes un método toJson() en tu modelo Recipe para convertirlo en un diccionario.
+    except Recipe.DoesNotExist:
+        return {'error': 'Recipe not found'}
+    
+def add_comment_logic(request):
+    body = json.loads(request.body.decode('utf-8'))
+    user_id = body.get("user_id")
+    recipe_id = body.get("recipe_id")
+    comment = body.get("comment")
+
+    recipe = Recipe.objects.get(id=recipe_id)
+
+    if recipe is None:
+        return {'error': 'Recipe not found.'}
+    if user_id in recipe.comments_list:
+        recipe.comments_list[user_id] = comment
+        recipe.save()
+        return {'message': 'Comment updated.',
+                'comments_list': recipe.comments_list,
+                'comments_amount': recipe.comments_amount}
+    else:
+        recipe.comments_list[user_id] = comment
+        recipe.comments_amount += 1
+        recipe.save()
+        return {'message': 'Comment updated.',
+                'comments_list': recipe.comments_list,
+                'comments_amount': recipe.comments_amount}
+

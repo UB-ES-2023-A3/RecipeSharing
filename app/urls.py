@@ -9,10 +9,11 @@ urlpatterns = [
     path('addRecipe/', AddRecipeView.as_view(), name='addRecipe'),
 
     # path('getRecipes/', HomeView.get_recipes, name= 'get_recipes'),
-    path('recipe/<str:query>/', QueryListRecipesView.as_view(), name='queryListRecipes'),
+    path('recipes/<str:query>/', QueryListRecipesView.as_view(), name='queryListRecipes'),
     path('recipes/postratings/', PostRecipeRatingView.as_view(), name='postRatingRecipe'),
     path('recipes/getratings/<str:query>/', GetRecipeRatingView.as_view(), name='getRatingRecipe'),
     path('user/<str:username>/', GetUserView.as_view(), name='getUser'),
+    path('recipe/<int:recipe_id>/', RecipeView.as_view(), name='recipe')
 
     # path('new/', views.create_new_recipe, name='create_new_recipe'),
     # path('recipes/<int:recipe_id>/', views.update_recipe, name='update_recipe'),
