@@ -1,3 +1,4 @@
+from cProfile import Profile
 import json
 from app.models import Recipe
 
@@ -17,7 +18,7 @@ def recipe_logic(title, ingredients, instructions, prep_time, username_id, servi
                         rating_average=0,
                         rating_list={})
     new_recipe.save()
-    return {'message': 'Recipe created.'}
+    return {'message': 'User created.'}
 
 
 def add_rating_logic(request):
@@ -389,3 +390,11 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
+
+        
+def get_recipe_by_id(recipe_id):
+    try:
+        recipe = Recipe.objects.get(id=recipe_id)  # Supongo que el campo para el ID de la receta se llama 'id'
+        return {'recipe': recipe.toJson()}  # Supongo que tienes un método toJson() en tu modelo Recipe para convertirlo en un diccionario.
+    except Recipe.DoesNotExist:
+        return {'error': 'Recipe not found'}
