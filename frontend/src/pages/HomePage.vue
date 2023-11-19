@@ -47,6 +47,16 @@
                     :choose="false"
                     :reset="showRecipesFilterAllergens"
             />
+            <HomeFilterDropdown
+                    class="homeFilterDropdown"
+                    :options="ingredientsOptions"
+                    v-model="selectedIngredients"
+                    label="Ingredients Filter"
+                    groupTitle="Selected Ingredients"
+                    @update:selectedValue="handleIngredientsUpdate"
+                    :choose="false"
+                    :reset="showRecipesFilterIngredients"
+            />
         </div>
         <div id="homeSectionContainer" v-if="showRecipesFilter">
             <div id="homeSectionTitleContainer">
@@ -103,6 +113,16 @@
                             filter.</p>
                     </div>
                 </div>
+                <div v-if="showRecipesFilterIngredients">
+                    <AppCardCarousel :type="ingredients" :recipes="this.recipesByFilter" :visibleRecipes="8"
+                                     :logged="this.logged"
+                                     :username="this.username" v-if="recipesByFilter.length > 0"></AppCardCarousel>
+                    <div id="homeSectionFilterError">
+                        <p v-if="this.recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by
+                            that
+                            filter.</p>
+                    </div>
+                </div>
             </div>
             <div id="homeSectionSeparatorContainer">
                 <hr>
@@ -149,6 +169,7 @@ import AppCardCarousel from '@/components/AppCardCarousel.vue';
 import prepTimeData from "@/assets/lists/prepTime.json";
 import typesData from "@/assets/lists/Types.json";
 import allergensOptions from "@/assets/lists/Allergens.json";
+import ingredientsData from "@/assets/lists/Ingredients.json";
 import HomeFilterDropdown from "@/components/HomeFilterDropdown.vue";
 
 export default {
@@ -182,12 +203,16 @@ export default {
             allergens: "allergens",
             selectedAllergens: "",
             allergensOptions: allergensOptions,
+            ingredients: "ingredients",
+            selectedIngredients: "",
+            ingredientsOptions: ingredientsData,
             showRecipesFilter: false,
             showRecipesFilterName: false,
             showRecipesFilterPrepTime: false,
             showRecipesFilterServings: false,
             showRecipesFilterTypes: false,
             showRecipesFilterAllergens: false,
+            showRecipesFilterIngredients: false,
         };
     },
     methods: {
@@ -208,6 +233,7 @@ export default {
             this.showRecipesFilterServings = false;
             this.showRecipesFilterTypes = false;
             this.showRecipesFilterAllergens = false;
+            this.showRecipesFilterIngredients = false;
         },
         handleTypeUpdate(value) {
             this.selectedTypes = value;
@@ -216,6 +242,10 @@ export default {
         handleAllergensUpdate(value) {
             this.selectedAllergens = value;
             this.getRecipesByAllergens()
+        },
+        handleIngredientsUpdate(value) {
+            this.selectedIngredients = value;
+            this.getRecipesByIngredients()
         },
         getRecipesByRate() {
             // Axios para coger el template
@@ -322,11 +352,42 @@ export default {
                 .get(`recipe/filter/allergens/${this.selectedAllergens}`)
                 .then((response) => {
                     if (response.status === 200) {
-                        this.resetFlags()
+                        this.resetFlags();
                         const recipes = response.data.recipes;
                         this.recipesByFilter = recipes;
                         this.showRecipesFilter = true;
                         this.showRecipesFilterAllergens = true;
+                        console.log(response.data.recipes)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+        },
+        getRecipesByIngredients() {
+            // Axios para coger el template
+            axios
+                .get("/")
+                .then((response) => {
+                    if (response.status === 200) {
+                        const data = response.data
+                        console.log("Data is:", data)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las recetas:", error);
+                });
+
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/filter/ingredients/${this.selectedIngredients}`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.resetFlags()
+                        const recipes = response.data.recipes;
+                        this.recipesByFilter = recipes;
+                        this.showRecipesFilter = true;
+                        this.showRecipesFilterIngredients = true;
                         console.log(response.data.recipes)
                     }
                 })
@@ -432,7 +493,8 @@ export default {
         this.getRecipesByRate();
         this.getRecipesByRecent();
     }
-};
+}
+;
 </script>
 
 <style scoped>

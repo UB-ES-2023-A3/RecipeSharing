@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" afterDir="false" />
@@ -18,15 +19,21 @@
       <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeFilterDropdown.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/recipeSharing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/recipeSharing.iml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeFilterDropdown.vue" afterDir="false" />
+>>>>>>> US023_FE
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" afterDir="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> US021_FE
 =======
 >>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
 >>>>>>> US018_FE
       <change beforePath="$PROJECT_DIR$/static/dist/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
@@ -73,14 +80,18 @@
   </component>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     "last_opened_file_path": "C:/Users/Usuario/Desktop/Adri/UB/4º/1º/Ingeniería de Software/Practica/LogIn_HTML_modern_gray",
@@ -90,6 +101,9 @@
 =======
     "last_opened_file_path": "C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb",
 >>>>>>> US022_FE
+=======
+    "last_opened_file_path": "C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb",
+>>>>>>> US023_FE
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,11 +111,14 @@
     "nodejs_package_manager_path": "npm",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
 =======
 =======
 >>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
@@ -110,6 +127,7 @@
     "vue.recent.templates": [
       "Vue Composition API Component"
     ]
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> US018_FE
 =======
@@ -139,6 +157,8 @@
 >>>>>>> US021_FE
 =======
 >>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
   }
 }]]></component>
   <component name="RecentsManager">

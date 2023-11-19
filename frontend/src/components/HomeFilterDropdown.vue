@@ -1,5 +1,5 @@
 <template>
-    <div class="filterContainer">
+        <div :class="['filterContainer', { 'filterContainerDark': selectedOptions && selectedOptions.length > 0 }]">
         <div class="titleFilterContainer">
             <h2>{{ label }}</h2>
         </div>
@@ -80,6 +80,10 @@ export default {
     border: 1px solid #b69b70;
     border-radius: 10px;
     padding: 1%;
+}
+
+.filterContainerDark {
+  background-color: #ec8c2c;
 }
 
 .remove-button {

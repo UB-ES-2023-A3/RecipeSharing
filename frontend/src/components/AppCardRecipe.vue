@@ -23,6 +23,9 @@
                 <span v-if="type === 'allergens'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.allergens }}</h3>
                 </span>
+                <span v-if="type === 'ingredients'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.ingredients }}</h3>
+                </span>
             </div>
             <div v-if="showPopup" class="popup">
                 <div class="popup-content">
@@ -127,9 +130,11 @@
                 <span v-if="type === 'allergens'">
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.allergens }}</h3>
                 </span>
+                <span v-if="type === 'ingredients'">
+                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.ingredients }}</h3>
+                </span>
             </div>
         </div>
-
     </div>
 </template>
 
