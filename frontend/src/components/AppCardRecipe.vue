@@ -107,7 +107,7 @@ export default {
       this.$router.push('/login');
     },
     displaySecondaryInfo(type) {
-      return ['rate', 'recent', 'preparation_time', 'name', 'servings', 'recipe_type', 'allergens', 'ingredients'].includes(type);
+      return ['rate', 'recent'].includes(type);
     },
     getSecondaryInfo(type) {
       switch (type) {
@@ -115,18 +115,6 @@ export default {
           return 'Rating: ' + this.CurrRating;
         case 'recent':
           return this.recipe.creation_date;
-        case 'preparation_time':
-          return this.recipe.preparation_time;
-        case 'name':
-          return '';
-        case 'servings':
-          return this.recipe.servings;
-        case 'recipe_type':
-          return this.recipe.recipe_type;
-        case 'allergens':
-          return this.recipe.allergens;
-        case 'ingredients':
-          return this.recipe.ingredients;
         default:
           return '';
       }

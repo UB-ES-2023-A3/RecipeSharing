@@ -3,7 +3,7 @@
         <div id="homeNameSearcherContainer">
             <div class="searchContainer">
                 <input class="homeNameSearcher" type="text" v-model="selectedName" placeholder="Search by name"
-                       @keyup.enter="getRecipesByName"/>
+                       @keyup.enter="applyFilters"/>
             </div>
         </div>
         <div id="homeFilterContainer">
@@ -14,7 +14,7 @@
                     label="Preparation Time Filter"
                     groupTitle="Selected Preparation Time"
                     @update:selectedValue="handlePrepTimeUpdate"
-                    :choose="false"
+                    :choose="true"
                     :reset="showRecipesFilterPrepTime"
             />
             <HomeFilterDropdown
@@ -24,7 +24,7 @@
                     label="Servings Filter"
                     groupTitle="Selected Serving"
                     @update:selectedValue="handleServingUpdate"
-                    :choose="false"
+                    :choose="true"
                     :reset="showRecipesFilterServings"
             />
             <HomeFilterDropdown
@@ -34,7 +34,7 @@
                     label="Type Filter"
                     groupTitle="Selected Types"
                     @update:selectedValue="handleTypeUpdate"
-                    :choose="false"
+                    :choose="true"
                     :reset="showRecipesFilterTypes"
             />
             <HomeFilterDropdown
@@ -44,7 +44,7 @@
                     label="Allergens Filter"
                     groupTitle="Selected Allergens"
                     @update:selectedValue="handleAllergensUpdate"
-                    :choose="false"
+                    :choose="true"
                     :reset="showRecipesFilterAllergens"
             />
             <HomeFilterDropdown
@@ -54,21 +54,22 @@
                     label="Ingredients Filter"
                     groupTitle="Selected Ingredients"
                     @update:selectedValue="handleIngredientsUpdate"
-                    :choose="false"
+                    :choose="true"
                     :reset="showRecipesFilterIngredients"
             />
         </div>
+        <div id="homeFilterButtonsContainer">
+            <button type="submit" @click="resetFlags">Reset filters</button>
+            <button type="submit" @click="applyFilters">Apply filters</button>
+        </div>
         <div v-if="showRecipesFilter">
-            <div v-if="showRecipesFilterName">
-                <AppCardCarousel :type="name" :recipeName="selectedName" :recipes="recipesByName" :visibleRecipes="8"
-                                 :logged="logged" :username="username"
-                                 v-if="recipesByName.length > 0"></AppCardCarousel>
-                <div id="homeSectionFilterError">
-                    <p v-if="recipesByName.length === 0" class="homeSectionFilterError">No recipes found by that
-                        name.</p>
-                </div>
+            <AppCardCarousel :recipes="recipesByFilter" :visibleRecipes="8"
+                             :logged="logged" :username="username"
+                             v-if="recipesByFilter.length > 0"></AppCardCarousel>
+            <div id="homeSectionFilterError">
+                <p v-if="recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by those
+                    filters.</p>
             </div>
-            <!-- ... Repetir el patrón para otras secciones de filtros ... -->
         </div>
         <div id="homeSectionContainer">
             <div id="homeSectionTitleContainer">
@@ -123,25 +124,18 @@ export default {
         return {
             recipesByDate: [],
             recipesByRate: [],
-            recipesByName: [],
             recipesByFilter: [],
             rate: "rate",
             recent: "recent",
-            name: "name",
             selectedName: "",
-            prepTime: "preparation_time",
-            selectedPreparationTime: "",
+            selectedPreparationTime: [],
             preparationTimeOptions: prepTimeData,
-            servings: "servings",
-            selectedServings: "",
-            recipe_type: "recipe_type",
-            selectedTypes: "",
+            selectedServings: [],
+            selectedTypes: [],
             typesOptions: typesData,
-            allergens: "allergens",
-            selectedAllergens: "",
+            selectedAllergens: [],
             allergensOptions: allergensOptions,
-            ingredients: "ingredients",
-            selectedIngredients: "",
+            selectedIngredients: [],
             ingredientsOptions: ingredientsData,
             showRecipesFilter: false,
             showRecipesFilterName: false,
@@ -157,12 +151,24 @@ export default {
             this.$router.push('/addRecipe');
         },
         handlePrepTimeUpdate(value) {
-            this.selectedPreparationTime = parseInt(value);
-            this.getRecipesByPrepTime();
+            this.selectedPreparationTime = value;
+            this.showRecipesFilterPrepTime = true;
         },
         handleServingUpdate(value) {
-            this.selectedServings = parseInt(value);
-            this.getRecipesByServings();
+            this.selectedServings = value;
+            this.showRecipesFilterServings = true;
+        },
+        handleTypeUpdate(value) {
+            this.selectedTypes = value;
+            this.showRecipesFilterTypes = true;
+        },
+        handleAllergensUpdate(value) {
+            this.selectedAllergens = value;
+            this.showRecipesFilterAllergens = true;
+        },
+        handleIngredientsUpdate(value) {
+            this.selectedIngredients = value;
+            this.showRecipesFilterIngredients = true;
         },
         resetFlags() {
             this.showRecipesFilterName = false;
@@ -172,17 +178,184 @@ export default {
             this.showRecipesFilterAllergens = false;
             this.showRecipesFilterIngredients = false;
         },
-        handleTypeUpdate(value) {
-            this.selectedTypes = value;
-            this.getRecipesByTypes();
-        },
-        handleAllergensUpdate(value) {
-            this.selectedAllergens = value;
-            this.getRecipesByAllergens();
-        },
-        handleIngredientsUpdate(value) {
-            this.selectedIngredients = value;
-            this.getRecipesByIngredients();
+        async applyFilters() {
+            await this.fetchData();
+            try {
+                let prev = false;
+                let endpoint = 'recipes/';
+                if (this.selectedName != "") {
+                    endpoint += `name=${this.selectedName}`;
+                    prev = true;
+                }
+                if (this.showRecipesFilterPrepTime) {
+                    if (prev) {
+                        if (this.selectedPreparationTime.length > 1) {
+                            for (let i = 0; i < this.selectedPreparationTime.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `%A2preparation_time=${this.selectedPreparationTime[i]}+`
+                                } else if (i == this.selectedPreparationTime.length - 1) {
+                                    endpoint += `${this.selectedPreparationTime[i]}`
+                                } else {
+                                    endpoint += `${this.selectedPreparationTime[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `%A2preparation_time=${this.selectedPreparationTime[0]}`
+                        }
+                    } else {
+                        if (this.selectedPreparationTime.length > 1) {
+                            for (let i = 0; i < this.selectedPreparationTime.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `preparation_time=${this.selectedPreparationTime[i]}+`
+                                } else if (i == this.selectedPreparationTime.length - 1) {
+                                    endpoint += `${this.selectedPreparationTime[i]}`
+                                } else {
+                                    endpoint += `${this.selectedPreparationTime[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `preparation_time=${this.selectedPreparationTime[0]}`
+                        }
+                        prev = true;
+                    }
+                }
+                if (this.showRecipesFilterServings) {
+                    if (prev) {
+                        if (this.selectedServings.length > 1) {
+                            for (let i = 0; i < this.selectedServings.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `%A2servings=${this.selectedServings[i]}+`
+                                } else if (i == this.selectedServings.length - 1) {
+                                    endpoint += `${this.selectedServings[i]}`
+                                } else {
+                                    endpoint += `${this.selectedServings[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `%A2servings=${this.selectedServings[0]}`
+                        }
+                    } else {
+                        if (this.selectedServings.length > 1) {
+                            for (let i = 0; i < this.selectedServings.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `servings=${this.selectedServings[i]}+`
+                                } else if (i == this.selectedServings.length - 1) {
+                                    endpoint += `${this.selectedServings[i]}`
+                                } else {
+                                    endpoint += `${this.selectedServings[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `servings=${this.selectedServings[0]}`
+                        }
+                        prev = true;
+                    }
+                }
+                if (this.showRecipesFilterTypes) {
+                    if (prev) {
+                        if (this.selectedTypes.length > 1) {
+                            for (let i = 0; i < this.selectedTypes.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `%A2recipe_type=${this.selectedTypes[i]}+`
+                                } else if (i == this.selectedTypes.length - 1) {
+                                    endpoint += `${this.selectedTypes[i]}`
+                                } else {
+                                    endpoint += `${this.selectedTypes[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `%A2recipe_type=${this.selectedTypes[0]}`
+                        }
+                    } else {
+                        if (this.selectedTypes.length > 1) {
+                            for (let i = 0; i < this.selectedTypes.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `recipe_type=${this.selectedTypes[i]}+`
+                                } else if (i == this.selectedTypes.length - 1) {
+                                    endpoint += `${this.selectedTypes[i]}`
+                                } else {
+                                    endpoint += `${this.selectedTypes[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `recipe_type=${this.selectedTypes[0]}`
+                        }
+                        prev = true;
+                    }
+                }
+                if (this.showRecipesFilterAllergens) {
+                    if (prev) {
+                        if (this.selectedAllergens.length > 1) {
+                            for (let i = 0; i < this.selectedAllergens.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `%A2allergens=${this.selectedAllergens[i]}+`
+                                } else if (i == this.selectedAllergens.length - 1) {
+                                    endpoint += `${this.selectedAllergens[i]}`
+                                } else {
+                                    endpoint += `${this.selectedAllergens[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `%A2allergens=${this.selectedAllergens[0]}`
+                        }
+                    } else {
+                        if (this.selectedAllergens.length > 1) {
+                            for (let i = 0; i < this.selectedAllergens.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `allergens=${this.selectedAllergens[i]}+`
+                                } else if (i == this.selectedAllergens.length - 1) {
+                                    endpoint += `${this.selectedAllergens[i]}`
+                                } else {
+                                    endpoint += `${this.selectedAllergens[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `allergens=${this.selectedAllergens[0]}`
+                        }
+                        prev = true;
+                    }
+                }
+                if (this.showRecipesFilterIngredients) {
+                    if (prev) {
+                        if (this.selectedIngredients.length > 1) {
+                            for (let i = 0; i < this.selectedIngredients.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `%A2ingredients=${this.selectedIngredients[i]}+`
+                                } else if (i == this.selectedIngredients.length - 1) {
+                                    endpoint += `${this.selectedIngredients[i]}`
+                                } else {
+                                    endpoint += `${this.selectedIngredients[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `%A2ingredients=${this.selectedIngredients[0]}`
+                        }
+                    } else {
+                        if (this.selectedIngredients.length > 1) {
+                            for (let i = 0; i < this.selectedIngredients.length; i++) {
+                                if (i == 0) {
+                                    endpoint += `ingredients=${this.selectedIngredients[i]}+`
+                                } else if (i == this.selectedIngredients.length - 1) {
+                                    endpoint += `${this.selectedIngredients[i]}`
+                                } else {
+                                    endpoint += `${this.selectedIngredients[i]}+`
+                                }
+                            }
+                        } else {
+                            endpoint += `ingredients=${this.selectedIngredients[0]}`
+                        }
+                        prev = true;
+                    }
+                }
+                const response = await axios.get(endpoint);
+                if (response.status === 200) {
+                    const recipes = response.data.recipes;
+                    this.recipesByFilter = recipes;
+                    console.log(response.data.recipes);
+                }
+            } catch (error) {
+                console.error("Error fetching recipes by name:", error);
+            }
         },
         async fetchData() {
             try {
@@ -218,102 +391,6 @@ export default {
                 }
             } catch (error) {
                 console.error("Error fetching recent recipes:", error);
-            }
-        },
-        async getRecipesByName() {
-            await this.fetchData();
-            try {
-                const response = await axios.get(`recipe/name/${this.selectedName}`);
-                if (response.status === 200) {
-                    const recipes = response.data.recipes;
-                    this.resetFlags();
-                    this.recipesByName = recipes;
-                    this.showRecipesFilter = true;
-                    this.showRecipesFilterName = true;
-                    console.log(response.data.recipes);
-                }
-            } catch (error) {
-                console.error("Error fetching recipes by name:", error);
-            }
-        },
-        async getRecipesByAllergens() {
-            await this.fetchData();
-            try {
-                const response = await axios.get(`recipe/filter/allergens/${this.selectedAllergens}`);
-                if (response.status === 200) {
-                    this.resetFlags();
-                    const recipes = response.data.recipes;
-                    this.recipesByFilter = recipes;
-                    this.showRecipesFilter = true;
-                    this.showRecipesFilterAllergens = true;
-                    console.log(response.data.recipes);
-                }
-            } catch (error) {
-                console.error("Error fetching recipes by allergens:", error);
-            }
-        },
-        async getRecipesByIngredients() {
-            await this.fetchData();
-            try {
-                const response = await axios.get(`recipe/filter/ingredients/${this.selectedIngredients}`);
-                if (response.status === 200) {
-                    this.resetFlags();
-                    const recipes = response.data.recipes;
-                    this.recipesByFilter = recipes;
-                    this.showRecipesFilter = true;
-                    this.showRecipesFilterIngredients = true;
-                    console.log(response.data.recipes);
-                }
-            } catch (error) {
-                console.error("Error fetching recipes by ingredients:", error);
-            }
-        },
-        async getRecipesByPrepTime() {
-            await this.fetchData();
-            try {
-                const response = await axios.get(`recipe/filter/preparation_time/${this.selectedPreparationTime}`);
-                if (response.status === 200) {
-                    this.resetFlags();
-                    const recipes = response.data.recipes;
-                    this.recipesByFilter = recipes;
-                    this.showRecipesFilter = true;
-                    this.showRecipesFilterPrepTime = true;
-                    console.log(response.data.recipes);
-                }
-            } catch (error) {
-                console.error("Error fetching recipes by preparation time:", error);
-            }
-        },
-        async getRecipesByTypes() {
-            await this.fetchData();
-            try {
-                const response = await axios.get(`recipe/filter/types/${this.selectedTypes}`);
-                if (response.status === 200) {
-                    this.resetFlags();
-                    const recipes = response.data.recipes;
-                    this.recipesByFilter = recipes;
-                    this.showRecipesFilter = true;
-                    this.showRecipesFilterTypes = true;
-                    console.log(response.data.recipes);
-                }
-            } catch (error) {
-                console.error("Error fetching recipes by types:", error);
-            }
-        },
-        async getRecipesByServings() {
-            await this.fetchData();
-            try {
-                const response = await axios.get(`recipe/filter/servings/${this.selectedServings}`);
-                if (response.status === 200) {
-                    this.resetFlags();
-                    const recipes = response.data.recipes;
-                    this.recipesByFilter = recipes;
-                    this.showRecipesFilter = true;
-                    this.showRecipesFilterServings = true;
-                    console.log(response.data.recipes);
-                }
-            } catch (error) {
-                console.error("Error fetching recipes by servings:", error);
             }
         },
     },
@@ -437,6 +514,28 @@ hr {
     width: 100%;
     max-width: calc(16.7% - 1.7%);
     margin-right: 2%;
+}
+
+#homeFilterButtonsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 2%;
+}
+
+button {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    text-align: center;
+    background-color: #ffa500;
+    border: 1px solid #b69b70;
+    border-radius: 10px;
+    padding: 1%;
+    margin-right: 2%;
+}
+
+button:hover {
+    background-color: #f5680a;
 }
 
 </style>
