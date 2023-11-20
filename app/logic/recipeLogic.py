@@ -66,17 +66,206 @@ def get_recipes_main():
 
 
 def get_list_recipes_by_query(query):
-    if query == "rate":
-        recipes = Recipe.objects.order_by("-rating_average")
-        recipes_list = [recipe.toJson() for recipe in recipes]
-        return {'recipes': recipes_list}
-    elif query == "recent":
-        recipes = Recipe.objects.order_by("-creation_date")
-        recipes_list = [recipe.toJson() for recipe in recipes]
-        return {'recipes': recipes_list}
-    else:
-        return {'error': 'Query not valid.'}
 
+    if not query is None:
+        #try:
+
+        recipes = Recipe.objects
+        # separate the string query by the string "%A3"
+
+        if "%A3" in query:
+
+            filters_order = query.split("%A3")
+            order = filters_order[0]
+            if order.split("=")[0] != "order_by":
+                return {'error': 'Query not valid.'}
+
+            ordering = order.split("=")[1].split("+")[0]
+
+            if ordering in ["rate", "recent"]:
+                
+                if ordering == "recent":
+                    ordering = "creation_date"
+                elif ordering == "rate":
+                    ordering = "rating_average"
+
+                if order.split("=")[1].split("+")[1] == "desc":
+                    recipes.order_by("-" + ordering)
+                elif order.split("=")[1].split("+")[1] == "asc":
+                    recipes.order_by(ordering)
+                else:
+                    return {'error': 'Query not valid.'}
+            else:
+                return {'error': 'Query not valid.'}
+            
+            # separate the string query by the string "%A2"
+            if "%A2" in filters_order[1]:
+                list_filters = filters_order[1].split("%A2")     
+                # iterate the list of filters and create a dictionary with the filters, setting the index as the value before the character "=" and the value after the character "=" as a list of values separated by the character "+"
+                filters = {}
+
+                for filter in list_filters:
+                    if "+" in filter:
+                        filters[filter.split("=")[0]] = filter.split("=")[1].split("+")
+                    else:
+                        filters[filter.split("=")[0]] = filter.split("=")[1]
+                
+                for filter in filters:
+                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+                        return {'error': 'Query not valid.'}
+                    if filter == "ingredients":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(ingredients__contains=f)
+                    elif filter == "allergens":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(allergens__contains=f)
+                    elif filter == "recipe_type":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(recipe_type__contains=f)
+                    elif filter == "servings":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(servings__contains=f)
+                    elif filter == "kcal":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(kcal__contains=f)
+                    elif filter == "preparation_time":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(preparation_time__contains=f)
+                    elif filter == "title":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(title__contains=f)
+            else:
+                filters = {}
+                    
+                if "+" in filters_order[1]:
+                    filters[filters_order[1].split("=")[0]] = filters_order[1].split("=")[1].split("+")
+                else:
+                    filters[filters_order[1].split("=")[0]] = filters_order[1].split("=")[1]
+
+                filter = filters_order[1].split("=")[0]
+                
+                if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+                    return {'error': 'Query not valid.'}
+                if filter == "ingredients":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(ingredients__contains=f)
+                elif filter == "allergens":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(allergens__contains=f)
+                elif filter == "recipe_type":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(recipe_type__contains=f)
+                elif filter == "servings":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(servings__contains=f)
+                elif filter == "kcal":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(kcal__contains=f)
+                elif filter == "preparation_time":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(preparation_time__contains=f)
+                elif filter == "title":
+                    for f in filters[filter]:
+                        recipes = recipes.filter(title__contains=f)
+            return {'recipes': [recipe.toJson() for recipe in recipes]}
+        else:
+            if "order_by" in query:
+                order = query
+                ordering = order.split("=")[1].split("+")[0]
+
+                if ordering in ["rate", "recent"]:
+                    
+                    if ordering == "recent":
+                        ordering = "creation_date"
+                    elif ordering == "rate":
+                        ordering = "rating_average"
+
+                    if order.split("=")[1].split("+")[1] == "desc":
+                        recipes.order_by("-" + ordering)
+                    elif order.split("=")[1].split("+")[1] == "asc":
+                        recipes.order_by(ordering)
+                    else:
+                        return {'error': 'Query not valid.'}
+                else:
+                    return {'error': 'Query not valid.'}
+                return {'recipes': [recipe.toJson() for recipe in recipes]}
+            #check if the string query contains any of the valid filters using in operator
+            elif "ingredients" in query or "allergens" in query or "recipe_type" in query or "servings" in query or "kcal" in query or "preparation_time" in query or "title" in query:
+
+                if not "%A2" in query:
+                    filters = {}
+                    
+                    if "+" in query:
+                        filters[query.split("=")[0]] = query.split("=")[1].split("+")
+                    else:
+                        filters[query.split("=")[0]] = query.split("=")[1]
+
+                    filter = query.split("=")[0]
+                    
+                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+                        return {'error': 'Query not valid.'}
+                    if filter == "ingredients":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(ingredients__contains=f)
+                    elif filter == "allergens":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(allergens__contains=f)
+                    elif filter == "recipe_type":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(recipe_type__contains=f)
+                    elif filter == "servings":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(servings__contains=f)
+                    elif filter == "kcal":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(kcal__contains=f)
+                    elif filter == "preparation_time":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(preparation_time__contains=f)
+                    elif filter == "title":
+                        for f in filters[filter]:
+                            recipes = recipes.filter(title__contains=f)
+                    return {'recipes': [recipe.toJson() for recipe in recipes]}
+
+                else:
+
+                    list_filters = query.split("%A2")
+                    # iterate the list of filters and create a dictionary with the filters, setting the index as the value before the character "=" and the value after the character "=" as a list of values separated by the character "+"
+                    filters = {}
+
+                    for filter in list_filters:
+                        if "+" in filter:
+                            filters[filter.split("=")[0]] = filter.split("=")[1].split("+")
+                        else:
+                            filters[filter.split("=")[0]] = filter.split("=")[1]
+                    
+                    for filter in filters:
+                        if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+                            return {'error': 'Query not valid.'}
+                        if filter == "ingredients":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(ingredients__contains=f)
+                        elif filter == "allergens":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(allergens__contains=f)
+                        elif filter == "recipe_type":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(recipe_type__contains=f)
+                        elif filter == "servings":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(servings__contains=f)
+                        elif filter == "kcal":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(kcal__contains=f)
+                        elif filter == "preparation_time":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(preparation_time__contains=f)
+                        elif filter == "title":
+                            for f in filters[filter]:
+                                recipes = recipes.filter(title__contains=f)
+                    return {'recipes': [recipe.toJson() for recipe in recipes]}
+    #    except:
+     #       return {'error': 'Query not valid.'}
 
 def get_rating_by_id(recipe_id):
     try:
