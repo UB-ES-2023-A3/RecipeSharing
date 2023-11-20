@@ -6,15 +6,9 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from app.logic.loginLogic import login_logic
-<<<<<<< HEAD
 from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipe_by_id, get_recipes_main, recipe_logic,get_rating_by_id
 from app.logic.registerLogic import register_user
-from app.logic.userLogic import get_user_by_id, add_favorite_logic
-=======
-from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipes_main, recipe_logic,get_rating_by_id
-from app.logic.registerLogic import register_user
-from app.logic.userLogic import get_user_by_username
->>>>>>> origin/US008-put-recipe-in-favorites-frontend
+from app.logic.userLogic import add_favorite_logic,  get_user_by_username
 
 
 # Home Page
@@ -193,6 +187,16 @@ class RecipeView(TemplateView):
     def post(self, request, recipe_id):
         if request.method == 'POST':
             response_data = add_favorite_logic(request)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+class GetUserByID(TemplateView):
+      
+      def get(self, request, username):
+        if request.method == 'GET':
+            response_data = get_user_by_username(username)
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:

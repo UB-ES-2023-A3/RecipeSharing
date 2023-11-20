@@ -1,17 +1,21 @@
 <template>
-    <div class="scrollable-content">
+    <div class="mainContainer" v-if="recipe">
         <div class="recipe-header">
             <div class="recipe-card-title">
                 <h2>{{ "Title: " + this.recipe.title }}</h2>
                 <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
+                <button @click="addToFavorites" :class="{ 'favorited': isFavorited }" v-if="this.username !== this.recipe.username_id" >
+                        {{ isFavorited ? 'Favorited' : 'Add to Favorites' }}
+                </button>
             </div>
             <div class="recipe-card-rating">
                 <div class="recipe-card-rating-title">
                     <h3>Current Rating</h3>
+                    <p>{{ this.recipe.rating_average + " from " + this.recipe.rating_amount + " ratings" }}</p>
                     
                 </div>
                 <div class="rating-stars">
-                    <span v-if="username !== this.recipe.username_id"   >
+                    <span v-if="this.username !== this.recipe.username_id"   >
                         <h3>Add your rating:</h3>
                     </span>
                     <span
@@ -88,9 +92,12 @@ export default {
             rating: 0, // Valoración inicial
             NumRatings: 0,
             CurrRating: 0,
-            recipe_id: 1,
+            recipe_id: 0,
             hoveredStar: 0,
-            recipe: Object,
+            username: null,
+            recipe: null,
+            profileInfo:null,
+            isFavorited: false,
             
         };
     },
@@ -121,7 +128,6 @@ export default {
         },
         getRating() {
             // Axios para recibir los ratings
-            axios
             axios.get(`recipes/getratings/${this.recipe_id}/`)
                 .then((response) => {
                     if (response.status === 200) {
@@ -135,12 +141,11 @@ export default {
                     console.error("Error al obtener los ratings:", error);
                 });
         },
-
         addRating() {
             //axios para postear el rating de una receta
             axios
-                .post("recipes/postratings/", {
-                    user_id: this.username,
+                .post("recipesPostRatings/", {
+                    user_id: this.username, 
                     recipe_id: this.recipe.id,
                     rating: this.rating
                 })
@@ -148,70 +153,94 @@ export default {
                     if (response.status === 200) {
                         console.log("Rating added");
                         alert("Rating added.");
-                        this.getRating();
+                        this.getRecipeInformation();
                     }
                 })
                 .catch((error) => {
                     alert(error.response);
                 });
+        },
+        getRecipeInformation() {
+            // Axios para recibir las recetas
+            axios
+                .get(`recipe/${this.recipe_id}/`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const info = response.data.recipe;
+                        this.recipe = info;
+                        console.log(this.recipe)
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener la información de la receta:", error);
+                });
+        },
+        addToFavorites() {
+            // Lógica para agregar o quitar de favoritos
+            this.isFavorited = !this.isFavorited;
+            axios
+                .post(`recipe/${this.username}/`, {
+                    user_id: this.username,
+                    recipe_id: this.recipe.id,
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        console.log("Recipe added");
+                        this.isFavorited = this.recipe_id in this.profileInfo.list_favorite_recipes
+                        this.getRecipeInformation();
+                    }
+                })
+                .catch((error) => {
+                    alert(error.response);
+                });
+        },
+        getUserInformation() {
+            // Axios para recibir lla información del usuario
+            axios
+                .get(`user/${this.username}/`)
+                .then((response) => {
+                    if (response.status === 200) {
+                        const info = response.data.user;
+                        this.profileInfo = info;
+                        console.log(response.data.user)
+                        this.checkFavorite()
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener las información del usuario:", error);
+                });
+        },
+
+        checkFavorite(){
+            this.isFavorited = this.recipe_id in this.profileInfo.list_favorite_recipes
         }
+        
     },
     created(){
-    const tempRecipe = this.$route.query.recipe;
-    console.log(tempRecipe)
-    this.recipe = tempRecipe;
-
+        const query = this.$route.query;
+        this.recipe_id = query.recipe_id;
+        this.username = query.username;
+        this.getRecipeInformation();
+        this.getUserInformation();
+        console.log(query)
     }
 };
 
 </script>
 
 <style scoped>
-.recipe-card {
-    cursor: pointer;
-    text-align: center;
-}
 
-.recipe-title {
-    cursor: pointer;
-    text-align: center;
-    border-radius: 4px;
-    background-color: #a51d1de7;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 250px;
-    padding: 10px;
-    margin-bottom: 10px; /* Añadido margen inferior */
+.scrollable-content {
+    max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+    padding: 10px; /* Añade un relleno interno para separar el contenido del borde */
+    border: 2px solid #d44d31; /* Agrega un borde alrededor del contenido */
+    border-radius: 10px; /* Ajusta la curvatura de las esquinas */
+    background-color: #fff; /* Cambia el color de fondo según tus preferencias */
 }
 
 .recipe-title:hover {
     background-color: #ff5733;
-}
-
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
-    background: rgba(0, 0, 0, 0.8);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background-color: #FCE4A4;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-height: 500px;
-    padding: 20px;
-    overflow-y: auto;
-    margin-top: 100px;
 }
 
 .section h2 {
@@ -226,6 +255,7 @@ export default {
 
 .section {
     color: black;
+    width: 75%;
 }
 
 .rating-stars span {
@@ -255,6 +285,7 @@ export default {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px; /* Añadido margen inferior */
+     width: 75%;
 }
 
 .recipe-card-title {
@@ -263,6 +294,8 @@ export default {
     padding: 10px;
     border: 2px solid #d44d31;
     margin: 5px;
+     width: 100%;
+    
 }
 
 .recipe-card-section {
@@ -270,12 +303,14 @@ export default {
     padding: 10px;
     border: 2px solid #d44d31;
     margin: 5px;
+     width: 100%;
 }
 
 .recipe-card-rating {
     border: 2px solid #d44d31;
     border-radius: 5px;
     padding: 10px;
+    width: 100%;
 }
 
 h3 {
@@ -287,6 +322,11 @@ h3 {
     margin-inline-end: 0px;
     font-weight: bold;
     color: white;
+}
+
+.favorited {
+    background-color: #ffcc00; /* Cambia el color de fondo cuando está marcado como favorito */
+    color: #333; /* Cambia el color del texto cuando está marcado como favorito */
 }
 
 </style>
