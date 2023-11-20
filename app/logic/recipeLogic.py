@@ -118,7 +118,7 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(ingredients__contains=f)
                     elif filter == "allergens":
                         for f in filters[filter]:
-                            recipes = recipes.filter(allergens__contains=f)
+                            recipes = recipes.exclude(ingredients__contains=f)
                     elif filter == "recipe_type":
                         for f in filters[filter]:
                             recipes = recipes.filter(recipe_type__contains=f)
@@ -151,7 +151,7 @@ def get_list_recipes_by_query(query):
                         recipes = recipes.filter(ingredients__contains=f)
                 elif filter == "allergens":
                     for f in filters[filter]:
-                        recipes = recipes.filter(allergens__contains=f)
+                        recipes = recipes.exclude(ingredients__contains=f)
                 elif filter == "recipe_type":
                     for f in filters[filter]:
                         recipes = recipes.filter(recipe_type__contains=f)
@@ -209,7 +209,7 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(ingredients__contains=f)
                     elif filter == "allergens":
                         for f in filters[filter]:
-                            recipes = recipes.filter(allergens__contains=f)
+                            recipes = recipes.exclude(ingredients__contains=f)
                     elif filter == "recipe_type":
                         for f in filters[filter]:
                             recipes = recipes.filter(recipe_type__contains=f)
@@ -247,7 +247,7 @@ def get_list_recipes_by_query(query):
                                 recipes = recipes.filter(ingredients__contains=f)
                         elif filter == "allergens":
                             for f in filters[filter]:
-                                recipes = recipes.filter(allergens__contains=f)
+                                recipes = recipes.exclude(ingredients__contains=f)
                         elif filter == "recipe_type":
                             for f in filters[filter]:
                                 recipes = recipes.filter(recipe_type__contains=f)
