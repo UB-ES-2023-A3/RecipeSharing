@@ -63,13 +63,12 @@ export default {
             this.$router.push('/login'); // Navigate to the login page
         },
         goToProfile() {
-            // Add logic to navigate to the user's profile page if needed
-            // Example: this.$router.push('/profile');
+            this.$router.push('/profile');
         },
         async logout() {
             try {
                 let response = await axios.post('/login/', {
-                    username: this.username,
+                    username: "Logout",
                     email: this.email,
                     password: this.password,
                 }, {

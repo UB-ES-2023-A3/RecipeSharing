@@ -4,6 +4,7 @@ import re
 # Import necessary functions and models from Django's authentication module
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from app.models import CustomUser
 
 
 from app.models import CustomUser
@@ -28,8 +29,6 @@ def register_user(username, email, password, request):
                     password = password
                 )
                 new_user.save()
-                return {'message': 'Recipe created.'}
-
                 # Return a success message indicating that registration was successful
                 return {'message': 'Registration successful.'}
             else:
@@ -38,6 +37,8 @@ def register_user(username, email, password, request):
             return {'error': 'Email not valid'}
     else:
         return {'error': 'Username not valid'}
+
+
 
 
 # Function to check the validity of a username

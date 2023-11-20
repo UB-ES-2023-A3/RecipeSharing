@@ -12,6 +12,10 @@ urlpatterns = [
     path('recipes/<str:query>/', QueryListRecipesView.as_view(), name='queryListRecipes'),
     path('recipes/postratings/', PostRecipeRatingView.as_view(), name='postRatingRecipe'),
     path('recipes/getratings/<str:query>/', GetRecipeRatingView.as_view(), name='getRatingRecipe'),
+<<<<<<< HEAD
+=======
+    path('user/<str:username>/', GetUserView.as_view(), name='getUser'),
+>>>>>>> origin/US008-put-recipe-in-favorites-frontend
 
     path('recipe/<int:recipe_id>/', RecipeView.as_view(), name='recipe')
     # path('new/', views.create_new_recipe, name='create_new_recipe'),

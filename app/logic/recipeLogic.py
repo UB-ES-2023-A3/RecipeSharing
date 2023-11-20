@@ -94,6 +94,13 @@ def calculateCalories(ingredients):
             total_calories += CALORIES[i]
     return total_calories
 
+def get_recipe_by_id(recipe_id):
+    try:
+        recipe = Recipe.objects.get(id=recipe_id)  # Supongo que el campo para el ID de la receta se llama 'id'
+        return {'recipe': recipe.toJson()}  # Supongo que tienes un método toJson() en tu modelo Recipe para convertirlo en un diccionario.
+    except Recipe.DoesNotExist:
+        return {'error': 'Recipe not found'}
+
 
 CALORIES = {
     "Apple": 52,
@@ -390,11 +397,3 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
-
-        
-def get_recipe_by_id(recipe_id):
-    try:
-        recipe = Recipe.objects.get(id=recipe_id)  # Supongo que el campo para el ID de la receta se llama 'id'
-        return {'recipe': recipe.toJson()}  # Supongo que tienes un método toJson() en tu modelo Recipe para convertirlo en un diccionario.
-    except Recipe.DoesNotExist:
-        return {'error': 'Recipe not found'}

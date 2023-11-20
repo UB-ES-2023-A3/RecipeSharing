@@ -31,8 +31,16 @@ class CustomUser(models.Model):
     
 class Profile(User):
 
+<<<<<<< HEAD
     # create a filed to store a list of integer values named favorite_list
     favorite_list = models.JSONField(default=dict)
+=======
+    name = models.CharField(max_length=100, default='')
+    list_favorite_recipes = models.JSONField(default=dict)
+    list_favorite_ingredients = models.JSONField(default=dict)
+    list_favorite_recipe_types = models.JSONField(default=dict)
+    list_allergens = models.JSONField(default=dict)
+>>>>>>> origin/US008-put-recipe-in-favorites-frontend
 
     def __str__(self):
         return self.username
@@ -40,8 +48,17 @@ class Profile(User):
     def toJson(self):
         return {
             'username': self.username,
+<<<<<<< HEAD
             'email': self.email,
             'favorite_list': self.favorite_list
+=======
+            'name': self.name,
+            'email': self.email,
+            'list_favorite_recipes': self.list_favorite_recipes,
+            'list_favorite_ingredients': self.list_favorite_ingredients,
+            'list_favorite_recipe_types': self.list_favorite_recipe_types,
+            'list_allergens': self.list_allergens
+>>>>>>> origin/US008-put-recipe-in-favorites-frontend
         }
 
 
