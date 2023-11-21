@@ -75,8 +75,7 @@
                              :logged="logged" :username="username"
                              v-if="recipesByFilter.length > 0"></AppCardCarousel>
             <div id="homeSectionFilterError">
-                <p v-if="recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by those
-                    filters.</p>
+                <p v-if="recipesByFilter.length === 0" class="homeSectionFilterError">No recipes found by those filters.</p>
             </div>
         </div>
 
@@ -164,6 +163,8 @@ export default {
             showRecipesFilterTypes: false,
             showRecipesFilterAllergens: false,
             showRecipesFilterIngredients: false,
+
+            error: "",
         };
     },
     methods: {
@@ -172,32 +173,59 @@ export default {
         },
         handlePrepTimeUpdate(value) {
             this.selectedPreparationTime = value;
-            if (this.selectedPreparationTime != "") {
+            if (this.selectedPreparationTime.length !== 0) {
                 this.showRecipesFilterPrepTime = true;
+            } else {
+                this.showRecipesFilterPrepTime = false;
+                this.hideSearchRecipes()
             }
+            this.applyFilters()
         },
         handleServingUpdate(value) {
             this.selectedServings = value;
-            if (this.selectedServings !== "") {
+            if (this.selectedServings.length !== 0) {
                 this.showRecipesFilterServings = true;
+            } else {
+                this.showRecipesFilterServings = false;
+                this.hideSearchRecipes()
             }
+            this.applyFilters()
         },
         handleTypeUpdate(value) {
             this.selectedTypes = value;
-            if (this.selectedTypes !== "") {
+            if (this.selectedTypes.length !== 0) {
                 this.showRecipesFilterTypes = true;
+            } else {
+                this.showRecipesFilterTypes = false;
+                this.hideSearchRecipes()
             }
+            this.applyFilters()
         },
         handleAllergensUpdate(value) {
             this.selectedAllergens = value;
-            if (this.selectedAllergens !== "") {
+            if (this.selectedAllergens.length !== 0) {
                 this.showRecipesFilterAllergens = true;
+            } else {
+                this.showRecipesFilterAllergens = false;
+                this.hideSearchRecipes()
             }
+            this.applyFilters()
         },
         handleIngredientsUpdate(value) {
             this.selectedIngredients = value;
-            if (this.selectedIngredients !== "") {
+            if (this.selectedIngredients.length !== 0) {
                 this.showRecipesFilterIngredients = true;
+            } else {
+                this.showRecipesFilterIngredients = false;
+                this.hideSearchRecipes()
+            }
+            this.applyFilters()
+        },
+        hideSearchRecipes() {
+            if (this.showRecipesFilterTitle || this.showRecipesFilterIngredients || this.showRecipesFilterAllergens || this.showRecipesFilterTypes || this.showRecipesFilterServings || this.showRecipesFilterPrepTime) {
+                this.showRecipesFilter = true;
+            } else {
+                this.showRecipesFilter = false;
             }
         },
         resetFlags() {
@@ -387,7 +415,20 @@ export default {
                     console.log(response.data.recipes);
                 }
             } catch (error) {
-                console.error("Error fetching recipes by name:", error);
+                if (error.response) {
+                    // Handle login failure (e.g., display an error message).
+                    if (error.response.status === 400) {
+                        console.error(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        console.error("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        console.error("Unexpected error");
+                    }
+                } else {
+                    // Handle other errors.
+                    console.error("An error occurred while logging in.");
+                }
             }
         },
         async fetchData() {
