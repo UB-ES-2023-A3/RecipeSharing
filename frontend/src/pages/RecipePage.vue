@@ -76,6 +76,12 @@
                 <h3>Servings</h3> {{ this.recipe.servings }}
             </div>
         </div>
+        <div class="section">
+            <AppComments>
+            </AppComments>
+
+        </div>
+
         <button class="submit-button" @click="closeRecipe">Close</button>
     </div>
 </template>
@@ -83,7 +89,8 @@
 <script>
 
 import axios from 'axios';
-import '../assets/styles/appStyles.css';
+import '../assets/styles/appStyles.css'
+import AppComments from '@/components/AppComments.vue';
 
 export default {
     data() {
@@ -101,6 +108,7 @@ export default {
             
         };
     },
+    components: {AppComments},
     methods: {
         closeRecipe() {
             this.$router.push('/');
