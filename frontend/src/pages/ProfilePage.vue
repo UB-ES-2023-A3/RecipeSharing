@@ -23,12 +23,12 @@
         </div>
       </div>
       <AppCardCarousel
-        :type="recent"
-        :recipes="this.recipesByRate"
+        :type="rate"
+        :recipes="this.favoriteRecipes"
         :visibleRecipes="8"
         :logged="this.logged"
         :username="this.username"
-        v-if="recipesByRate.length > 0"
+        v-if="favoriteRecipes.length > 0"
       ></AppCardCarousel>
     </div>
     <div class="secondaryContainer">
@@ -39,11 +39,11 @@
       </div>
       <AppCardCarousel
         :type="rate"
-        :recipes="this.recipesByRate"
+        :recipes="this.ownRecipes"
         :visibleRecipes="8"
         :logged="this.logged"
         :username="this.username"
-        v-if="recipesByRate.length > 0"
+        v-if="ownRecipes.length > 0"
       ></AppCardCarousel>
     </div>
   </div>
@@ -67,65 +67,34 @@ export default {
     },
     data() {
         return {
-            recipesByDate: [],
-            recipesByRate: [],
+            ownRecipes: [],
+            favoriteRecipes: [],
             rate: "rate",
             recent: "recent",
             profileInfo: {},
         };
     },
     methods: {
-
-        getRecipesByRate() {
-            // Axios para recibir las recetas
-            axios
-                .get("recipe/rate/")
-                .then((response) => {
-                    if (response.status === 200) {
-                        const recipes = response.data.recipes;
-                        this.recipesByRate = recipes;
-                        console.log(response.data.recipes)
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener las recetas:", error);
-                });
-        },
-        getRecipesByRecent() {
-            // Axios para recibir las recetas
-            axios
-                .get("recipe/recent/")
-                .then((response) => {
-                    if (response.status === 200) {
-                        const recipes = response.data.recipes;
-                        this.recipesByDate = recipes;
-                        console.log(response.data.recipes)
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener las recetas:", error);
-                });
-        },
         getUserInformation() {
-            // Axios para recibir las recetas
+            // Axios para recibir lla información del usuario
             axios
                 .get(`user/${this.username}/`)
                 .then((response) => {
                     if (response.status === 200) {
                         const info = response.data.user;
                         this.profileInfo = info;
+                        this.favoriteRecipes = Object.values(this.profileInfo.list_favorite_recipes)
+                        this.ownRecipes = Object.values(this.profileInfo.list_own_recipes)
                         console.log(response.data.user)
+                      
                     }
                 })
                 .catch((error) => {
-                    console.error("Error al obtener las recetas:", error);
+                    console.error("Error al obtener las información del usuario:", error);
                 });
         },
     },
     created() {
-        
-        this.getRecipesByRate();
-        this.getRecipesByRecent();
         this.getUserInformation();
     }
 };

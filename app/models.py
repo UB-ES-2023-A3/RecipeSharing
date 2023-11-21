@@ -14,6 +14,7 @@ class CustomUser(models.Model):
     list_favorite_ingredients = models.JSONField(default=dict)
     list_favorite_recipe_types = models.JSONField(default=dict)
     list_allergens = models.JSONField(default=dict)
+    list_own_recipes = models.JSONField(default=dict)
 
     def __str__(self):
         return self.username
@@ -26,16 +27,14 @@ class CustomUser(models.Model):
             'list_favorite_recipes': self.list_favorite_recipes,
             'list_favorite_ingredients': self.list_favorite_ingredients,
             'list_favorite_recipe_types': self.list_favorite_recipe_types,
-            'list_allergens': self.list_allergens
+            'list_allergens': self.list_allergens,
+            'list_own_recipes': self.list_own_recipes,
+
         }
     
 class Profile(User):
-
-    name = models.CharField(max_length=100, default='')
-    list_favorite_recipes = models.JSONField(default=dict)
-    list_favorite_ingredients = models.JSONField(default=dict)
-    list_favorite_recipe_types = models.JSONField(default=dict)
-    list_allergens = models.JSONField(default=dict)
+    # create a filed to store a list of integer values named favorite_list
+    favorite_list = models.JSONField(default=dict)
 
     def __str__(self):
         return self.username
@@ -43,12 +42,8 @@ class Profile(User):
     def toJson(self):
         return {
             'username': self.username,
-            'name': self.name,
             'email': self.email,
-            'list_favorite_recipes': self.list_favorite_recipes,
-            'list_favorite_ingredients': self.list_favorite_ingredients,
-            'list_favorite_recipe_types': self.list_favorite_recipe_types,
-            'list_allergens': self.list_allergens
+            'favorite_list': self.favorite_list
         }
 
 
@@ -96,6 +91,11 @@ class Recipe(models.Model):
             'rating_average': str(self.rating_average),
             'rating_amount': self.rating_amount,
             'rating_list': self.rating_list,
+<<<<<<< HEAD
             'comments_list': self.comments_list,
             'comments_amount': self.comments_amount
         }
+=======
+        }
+    
+>>>>>>> origin/66-us-005-comment-a-recipe-frontend

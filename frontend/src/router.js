@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import AddRecipePage from "./pages/AddRecipePage.vue";
 import ProfilePage from "./pages/ProfilePage.vue"
+import RecipePage from "./pages/RecipePage.vue"
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: "/profile",
     component: ProfilePage,
     name: "profile",
+  },
+  {
+    path: "/recipePage",
+    component: RecipePage,
+    name: "recipePage",
   },
 ];
 

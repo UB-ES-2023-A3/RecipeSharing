@@ -23,4 +23,4 @@ def login_logic(username, email, password, request):
     else:
         # If the user is not found or the password is incorrect, return an error message
         return {'error': 'Invalid username, email, or password.'}
-
+    

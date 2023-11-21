@@ -6,6 +6,9 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from app.models import CustomUser
 
+
+from app.models import CustomUser
+
 def register_user(username, email, password, request):
     # Check if the provided username already exists in the database
     if CustomUser.objects.filter(username=username).exists():
@@ -26,8 +29,6 @@ def register_user(username, email, password, request):
                     password = password
                 )
                 new_user.save()
-                return {'message': 'Recipe created.'}
-                
                 # Return a success message indicating that registration was successful
                 return {'message': 'Registration successful.'}
             else:

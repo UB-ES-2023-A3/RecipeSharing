@@ -1,6 +1,6 @@
-from cProfile import Profile
 import json
 from app.models import Recipe
+from app.models import CustomUser
 
 
 # Recipe logic
@@ -18,7 +18,10 @@ def recipe_logic(title, ingredients, instructions, prep_time, username_id, servi
                         rating_average=0,
                         rating_list={})
     new_recipe.save()
-    return {'message': 'User created.'}
+    user = CustomUser.objects.get(username=new_recipe.username_id)
+    user.list_own_recipes[new_recipe.id] = new_recipe.toJson()
+    user.save()
+    return {'message': 'Recipe created.'}
 
 
 def add_rating_logic(request):
@@ -44,7 +47,7 @@ def add_rating_logic(request):
     else:
         recipe.rating_list[user_id] = rating
         recipe.rating_amount += 1
-        recipe.rating_average = recipe.rating_average + (rating / recipe.rating_amount)
+        recipe.rating_average = (recipe.rating_average + rating) / recipe.rating_amount
         recipe.save()
         return {'message': 'Rating added.',
                 'rating_average': recipe.rating_average,
@@ -93,6 +96,13 @@ def calculateCalories(ingredients):
         if CALORIES[i]:
             total_calories += CALORIES[i]
     return total_calories
+
+def get_recipe_by_id(recipe_id):
+    try:
+        recipe = Recipe.objects.get(id=recipe_id)  # Supongo que el campo para el ID de la receta se llama 'id'
+        return {'recipe': recipe.toJson()} 
+    except Recipe.DoesNotExist:
+        return {'error': 'Recipe not found'}
 
 
 CALORIES = {
@@ -390,6 +400,7 @@ CALORIES = {
     "Sofrito": 101,
     "Vinegars": 19
 }
+<<<<<<< HEAD
 
 
 def get_recipe_by_id(recipe_id):
@@ -423,3 +434,5 @@ def add_comment_logic(request):
                 'comments_list': recipe.comments_list,
                 'comments_amount': recipe.comments_amount}
 
+=======
+>>>>>>> origin/66-us-005-comment-a-recipe-frontend

@@ -9,85 +9,6 @@
                   <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
                 </span>
             </div>
-            <div v-if="showPopup" class="popup">
-            <div class="popup-content">
-                <div class="scrollable-content">
-                    <div class="recipe-header">
-                        <div class="recipe-card-title">
-                            <h2>{{ "Title: " + this.recipe.title }}</h2>
-                            <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
-                        </div>
-                        <div class="recipe-card-rating">
-                            <div class="recipe-card-rating-title">
-                                <h3>Current Rating</h3>
-                                <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
-                            </div>
-                            <div class="rating-stars">
-                                <span v-if="username !== this.recipe.username_id"   >
-                                    <h3>Add your rating:</h3>
-                                </span>
-                                <span
-                                            v-for="star in [1, 2, 3, 4, 5]"
-                                            :key="star"
-                                            @click="setRating(star)"
-                                            @mouseover="hoverStars(star)"
-                                            @mouseout="resetStars"
-                                            :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
-                                >
-                                    ★
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Ingredients</h3>
-                            <ul>
-                                <li v-for="(step, index) in this.parseText(this.recipe.ingredients)" :key="index">
-                                    {{ step }}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Instructions</h3>
-                            <ol>
-                                <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
-                                    {{ step }}
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Allergens</h3>
-                            <ul>
-                                <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">
-                                    {{ step }}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Type</h3> {{ this.recipe.recipe_type }}
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="recipe-card-section">
-                            <h3>Servings</h3> {{ this.recipe.servings }}
-                        </div>
-                    </div>
-                    <button class="submit-button" @click="togglePopup">Close</button>
-                </div>
-            </div>
-        </div>
         </div>
         <div v-else>
             <div @click="goToLogin" class="recipe-title">
@@ -128,7 +49,10 @@ export default {
     },
     methods: {
         togglePopup() {
-            this.showPopup = !this.showPopup;
+            this.$router.push({
+            path: '/recipePage',
+            query: { recipe_id: this.recipe_id, username: this.username}
+            });
         },
         goToLogin() {
             alert('Log in to see the recipe!');

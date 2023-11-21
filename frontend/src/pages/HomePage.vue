@@ -15,7 +15,7 @@
                     <h1> Most Liked Recipes </h1>
                 </div>
             </div>
-            <AppCardCarousel :type="rate" :recipes="this.recipesByRate" :visibleRecipes="8" :logged="this.logged"
+            <AppCardCarousel :type="rate" :recipes="this.recipesByDate" :visibleRecipes="8" :logged="this.logged"
                              :username="this.username" v-if="recipesByRate.length > 0"></AppCardCarousel>
         </div> <!-- Agregamos el cierre del div que faltaba -->
         <div v-if="this.logged" class="floating-button" @click="redirectToRecipePage">

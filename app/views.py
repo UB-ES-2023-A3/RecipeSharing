@@ -6,9 +6,13 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from app.logic.loginLogic import login_logic
+<<<<<<< HEAD
 from app.logic.recipeLogic import add_comment_logic, add_rating_logic, get_list_recipes_by_query, get_recipe_by_id, get_recipes_main, recipe_logic,get_rating_by_id
+=======
+from app.logic.recipeLogic import add_rating_logic, get_list_recipes_by_query, get_recipe_by_id, get_recipes_main, recipe_logic,get_rating_by_id
+>>>>>>> origin/66-us-005-comment-a-recipe-frontend
 from app.logic.registerLogic import register_user
-from app.logic.userLogic import get_user_by_username
+from app.logic.userLogic import add_favorite_logic,  get_user_by_username
 
 
 # Home Page
@@ -174,14 +178,33 @@ class GetRecipeRatingView(TemplateView):
             else:
                 return JsonResponse(response_data, status=200)
 
-class GetUserView(TemplateView):
+class RecipeView(TemplateView):
 
-    def get(self, request, username):
+    def get(self, request, recipe_id):
+        if request.method == 'GET':
+            response_data = get_recipe_by_id(recipe_id)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+    
+    def post(self, request, recipe_id):
+        if request.method == 'POST':
+            response_data = add_favorite_logic(request)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+class GetUserByID(TemplateView):
+      
+      def get(self, request, username):
         if request.method == 'GET':
             response_data = get_user_by_username(username)
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
+<<<<<<< HEAD
                 return JsonResponse(response_data, status=200)
 
 class RecipeView(TemplateView):
@@ -208,3 +231,6 @@ class RecipeView(TemplateView):
             return JsonResponse(response_data, status=400)
         else:
             return JsonResponse(response_data, status=200)
+=======
+                return JsonResponse(response_data, status=200)
+>>>>>>> origin/66-us-005-comment-a-recipe-frontend
