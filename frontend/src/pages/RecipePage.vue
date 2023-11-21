@@ -185,9 +185,11 @@ export default {
                 })
                 .then((response) => {
                     if (response.status === 200) {
-                        console.log("Recipe added");
+                        console.log("Recipe updated");
                         this.isFavorited = this.recipe_id in this.profileInfo.list_favorite_recipes
                         this.getRecipeInformation();
+                        this.getUserInformation();
+                        alert("List of favorites updated")
                     }
                 })
                 .catch((error) => {
