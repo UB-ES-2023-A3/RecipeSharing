@@ -66,9 +66,8 @@ def get_recipes_main():
 
 
 def get_list_recipes_by_query(query):
-
     if not query is None:
-        #try:
+        # try:
         recipes = Recipe.objects.all()
         # separate the string query by the string "%A3"
 
@@ -80,13 +79,13 @@ def get_list_recipes_by_query(query):
                 return {'error': 'Query not valid.'}
 
             ordering = order.split("=")[1].split("+")[0]
-            
+
             if ordering in ["rate", "recent"]:
                 if ordering == "recent":
                     ordering = "creation_date"
                 elif ordering == "rate":
                     ordering = "rating_average"
-                #return {'error': ordering}    
+                # return {'error': ordering}
 
                 if order.split("=")[1].split("+")[1] == "desc":
                     recipes = Recipe.objects.all().order_by("-" + ordering)
@@ -96,10 +95,10 @@ def get_list_recipes_by_query(query):
                     return {'error': 'Query not valid.'}
             else:
                 return {'error': 'Query not valid.'}
-            
+
             # separate the string query by the string "%A2"
             if "%A2" in filters_order[1]:
-                list_filters = filters_order[1].split("%A2")     
+                list_filters = filters_order[1].split("%A2")
                 # iterate the list of filters and create a dictionary with the filters, setting the index as the value before the character "=" and the value after the character "=" as a list of values separated by the character "+"
                 filters = {}
 
@@ -108,12 +107,14 @@ def get_list_recipes_by_query(query):
                         filters[filter.split("=")[0]] = filter.split("=")[1].split("+")
                     else:
                         filters[filter.split("=")[0]] = filter.split("=")[1]
-                
+
                 for filter in filters:
-                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time",
+                                      "title"]:
                         return {'error': 'Query not valid.'}
-                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
-                            return {'error': 'Query not valid.'}
+                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time",
+                                      "title"]:
+                        return {'error': 'Query not valid.'}
                     if filter == "ingredients":
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
@@ -128,7 +129,6 @@ def get_list_recipes_by_query(query):
                                 f.replace("%20", " ")
                                 recipes = recipes.exclude(ingredients__contains=f)
                         else:
-                            # return {'error': filters[filter].replace("%20", " ")}
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.exclude(ingredients__contains=f)
                     elif filter == "recipe_type":
@@ -141,30 +141,45 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(recipe_type__contains=f)
                     elif filter == "servings":
                         if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(servings__contains=f)
+                                if final is None:
+                                    final = recipes.filter(servings__contains=f)
+                                else:
+                                    final = final | recipes.filter(servings__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(servings__contains=f)
                     elif filter == "kcal":
-                        if isinstance(filters[filter], list)  :
+                        if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(kcal__contains=f)
+                                if final is None:
+                                    final = recipes.filter(kcal__contains=f)
+                                else:
+                                    final = final | recipes.filter(kcal__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(kcal__contains=f)
                     elif filter == "preparation_time":
-                        if isinstance(filters[filter], list)  :
+                        if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(preparation_time__contains=f)
+                                if final is None:
+                                    final = recipes.filter(preparation_time__contains=f)
+                                else:
+                                    final = final | recipes.filter(preparation_time__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(preparation_time__contains=f)
                     elif filter == "title":
-                        if isinstance(filters[filter], list)  :
+                        if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
                                 recipes = recipes.filter(title__contains=f)
@@ -173,18 +188,20 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(title__contains=f)
             else:
                 filters = {}
-                    
+
                 if "+" in filters_order[1]:
                     filters[filters_order[1].split("=")[0]] = filters_order[1].split("=")[1].split("+")
                 else:
                     filters[filters_order[1].split("=")[0]] = filters_order[1].split("=")[1]
 
                 filter = filters_order[1].split("=")[0]
-                
-                if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+
+                if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time",
+                                  "title"]:
                     return {'error': 'Query not valid.'}
-                if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
-                            return {'error': 'Query not valid.'}
+                if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time",
+                                  "title"]:
+                    return {'error': 'Query not valid.'}
                 if filter == "ingredients":
                     if isinstance(filters[filter], list):
                         for f in filters[filter]:
@@ -199,7 +216,6 @@ def get_list_recipes_by_query(query):
                             f.replace("%20", " ")
                             recipes = recipes.exclude(ingredients__contains=f)
                     else:
-                        # return {'error': filters[filter].replace("%20", " ")}
                         f = filters[filter].replace("%20", " ")
                         recipes = recipes.exclude(ingredients__contains=f)
                 elif filter == "recipe_type":
@@ -212,30 +228,45 @@ def get_list_recipes_by_query(query):
                         recipes = recipes.filter(recipe_type__contains=f)
                 elif filter == "servings":
                     if isinstance(filters[filter], list):
+                        final = None
                         for f in filters[filter]:
                             f.replace("%20", " ")
-                            recipes = recipes.filter(servings__contains=f)
+                            if final is None:
+                                final = recipes.filter(servings__contains=f)
+                            else:
+                                final = final | recipes.filter(servings__contains=f)
+                        recipes = final
                     else:
                         f = filters[filter].replace("%20", " ")
                         recipes = recipes.filter(servings__contains=f)
                 elif filter == "kcal":
-                    if isinstance(filters[filter], list)  :
+                    if isinstance(filters[filter], list):
+                        final = None
                         for f in filters[filter]:
                             f.replace("%20", " ")
-                            recipes = recipes.filter(kcal__contains=f)
+                            if final is None:
+                                final = recipes.filter(kcal__contains=f)
+                            else:
+                                final = final | recipes.filter(kcal__contains=f)
+                        recipes = final
                     else:
                         f = filters[filter].replace("%20", " ")
                         recipes = recipes.filter(kcal__contains=f)
                 elif filter == "preparation_time":
-                    if isinstance(filters[filter], list)  :
+                    if isinstance(filters[filter], list):
+                        final = None
                         for f in filters[filter]:
                             f.replace("%20", " ")
-                            recipes = recipes.filter(preparation_time__contains=f)
+                            if final is None:
+                                final = recipes.filter(preparation_time__contains=f)
+                            else:
+                                final = final | recipes.filter(preparation_time__contains=f)
+                        recipes = final
                     else:
                         f = filters[filter].replace("%20", " ")
                         recipes = recipes.filter(preparation_time__contains=f)
                 elif filter == "title":
-                    if isinstance(filters[filter], list)  :
+                    if isinstance(filters[filter], list):
                         for f in filters[filter]:
                             f.replace("%20", " ")
                             recipes = recipes.filter(title__contains=f)
@@ -248,7 +279,7 @@ def get_list_recipes_by_query(query):
                 ordering = order.split("=")[1].split("+")[0]
 
                 if ordering in ["rate", "recent"]:
-                    
+
                     if ordering == "recent":
                         ordering = "creation_date"
                     elif ordering == "rate":
@@ -267,16 +298,17 @@ def get_list_recipes_by_query(query):
 
                 if not "%A2" in query:
                     filters = {}
-                    
+
                     if "+" in query:
                         filters[query.split("=")[0]] = query.split("=")[1].split("+")
                     else:
                         filters[query.split("=")[0]] = query.split("=")[1]
 
                     filter = query.split("=")[0]
-                    
-                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
-                            return {'error': 'Query not valid.'}
+
+                    if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time",
+                                      "title"]:
+                        return {'error': 'Query not valid.'}
                     if filter == "ingredients":
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
@@ -287,12 +319,10 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(ingredients__contains=filters[filter])
                     elif filter == "allergens":
                         if isinstance(filters[filter], list):
-                            return {'error': filters[filter]}
                             for f in filters[filter]:
                                 f.replace("%20", " ")
                                 recipes = recipes.exclude(ingredients__contains=f)
                         else:
-                            # return {'error': filters[filter].replace("%20", " ")}
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.exclude(ingredients__contains=f)
                     elif filter == "recipe_type":
@@ -305,30 +335,45 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(recipe_type__contains=f)
                     elif filter == "servings":
                         if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(servings__contains=f)
+                                if final is None:
+                                    final = recipes.filter(servings__contains=f)
+                                else:
+                                    final = final | recipes.filter(servings__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(servings__contains=f)
                     elif filter == "kcal":
-                        if isinstance(filters[filter], list)  :
+                        if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(kcal__contains=f)
+                                if final is None:
+                                    final = recipes.filter(kcal__contains=f)
+                                else:
+                                    final = final | recipes.filter(kcal__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(kcal__contains=f)
                     elif filter == "preparation_time":
-                        if isinstance(filters[filter], list)  :
+                        if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(preparation_time__contains=f)
+                                if final is None:
+                                    final = recipes.filter(preparation_time__contains=f)
+                                else:
+                                    final = final | recipes.filter(preparation_time__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(preparation_time__contains=f)
                     elif filter == "title":
-                        if isinstance(filters[filter], list)  :
+                        if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
                                 recipes = recipes.filter(title__contains=f)
@@ -348,9 +393,10 @@ def get_list_recipes_by_query(query):
                             filters[filter.split("=")[0]] = filter.split("=")[1].split("+")
                         else:
                             filters[filter.split("=")[0]] = filter.split("=")[1]
-                    
+
                     for filter in filters:
-                        if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal", "preparation_time", "title"]:
+                        if filter not in ["ingredients", "allergens", "recipe_type", "servings", "kcal",
+                                          "preparation_time", "title"]:
                             return {'error': 'Query not valid.'}
                         if filter == "ingredients":
                             if isinstance(filters[filter], list):
@@ -366,7 +412,6 @@ def get_list_recipes_by_query(query):
                                     f.replace("%20", " ")
                                     recipes = recipes.exclude(ingredients__contains=f)
                             else:
-                                # return {'error': filters[filter].replace("%20", " ")}
                                 f = filters[filter].replace("%20", " ")
                                 recipes = recipes.exclude(ingredients__contains=f)
                         elif filter == "recipe_type":
@@ -379,30 +424,45 @@ def get_list_recipes_by_query(query):
                                 recipes = recipes.filter(recipe_type__contains=f)
                         elif filter == "servings":
                             if isinstance(filters[filter], list):
+                                final = None
                                 for f in filters[filter]:
                                     f.replace("%20", " ")
-                                    recipes = recipes.filter(servings__contains=f)
+                                    if final is None:
+                                        final = recipes.filter(servings__contains=f)
+                                    else:
+                                        final = final | recipes.filter(servings__contains=f)
+                                recipes = final
                             else:
                                 f = filters[filter].replace("%20", " ")
                                 recipes = recipes.filter(servings__contains=f)
                         elif filter == "kcal":
-                            if isinstance(filters[filter], list)  :
+                            if isinstance(filters[filter], list):
+                                final = None
                                 for f in filters[filter]:
                                     f.replace("%20", " ")
-                                    recipes = recipes.filter(kcal__contains=f)
+                                    if final is None:
+                                        final = recipes.filter(kcal__contains=f)
+                                    else:
+                                        final = final | recipes.filter(kcal__contains=f)
+                                recipes = final
                             else:
                                 f = filters[filter].replace("%20", " ")
                                 recipes = recipes.filter(kcal__contains=f)
                         elif filter == "preparation_time":
-                            if isinstance(filters[filter], list)  :
+                            if isinstance(filters[filter], list):
+                                final = None
                                 for f in filters[filter]:
                                     f.replace("%20", " ")
-                                    recipes = recipes.filter(preparation_time__contains=f)
+                                    if final is None:
+                                        final = recipes.filter(preparation_time__contains=f)
+                                    else:
+                                        final = final | recipes.filter(preparation_time__contains=f)
+                                recipes = final
                             else:
                                 f = filters[filter].replace("%20", " ")
                                 recipes = recipes.filter(preparation_time__contains=f)
                         elif filter == "title":
-                            if isinstance(filters[filter], list)  :
+                            if isinstance(filters[filter], list):
                                 for f in filters[filter]:
                                     f.replace("%20", " ")
                                     recipes = recipes.filter(title__contains=f)
@@ -414,7 +474,8 @@ def get_list_recipes_by_query(query):
             filtered_recipes.append(recipe.toJson())
         return {'recipes': filtered_recipes}
     #    except:
-     #       return {'error': 'Query not valid.'}
+    #       return {'error': 'Query not valid.'}
+
 
 def get_rating_by_id(recipe_id):
     try:

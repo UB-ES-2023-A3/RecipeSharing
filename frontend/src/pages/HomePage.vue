@@ -173,13 +173,13 @@ export default {
         },
         handleAllergensUpdate(value) {
             this.selectedAllergens = value;
-            if (this.selectedAllergens) {
+            if (this.selectedAllergens != "") {
                 this.showRecipesFilterAllergens = true;
             }
         },
         handleIngredientsUpdate(value) {
             this.selectedIngredients = value;
-            if (this.selectedIngredients) {
+            if (this.selectedIngredients != "") {
                 this.showRecipesFilterIngredients = true;
             }
         },
@@ -202,6 +202,7 @@ export default {
                     endpoint += `title=${this.selectedTitle}`;
                     prev = true;
                 }
+                
                 if (this.showRecipesFilterPrepTime) {
                     if (prev) {
                         if (this.selectedPreparationTime.length > 1) {
