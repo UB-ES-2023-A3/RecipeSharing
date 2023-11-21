@@ -12,9 +12,8 @@
     </div>
     <div class="selected-values">
       <h2 class="selected-ingredients-title">{{ groupTitle }}</h2>
-      <button class="selected-value" v-for="(selected, index) in selectedOptions" :key="index"
-              @click="removeSelectedOption(index)">
-        {{ selected }} <span class="remove-button">✖</span>
+      <button class="selected-value" v-for="(selected, index) in selectedOptions" :key="index" style="pointer-events: none;">
+        {{ selected }}
       </button>
     </div>
   </div>
@@ -54,6 +53,7 @@ export default {
     removeSelectedOption(index) {
       this.selectedOptions.splice(index, 1);
       this.localSelectedValue = '';
+      this.$emit('update:selectedValue', this.selectedOptions);
     },
   },
   watch: {

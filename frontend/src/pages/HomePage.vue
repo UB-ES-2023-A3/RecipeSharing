@@ -178,25 +178,25 @@ export default {
         },
         handleServingUpdate(value) {
             this.selectedServings = value;
-            if (this.selectedServings != "") {
+            if (this.selectedServings !== "") {
                 this.showRecipesFilterServings = true;
             }
         },
         handleTypeUpdate(value) {
             this.selectedTypes = value;
-            if (this.selectedTypes != "") {
+            if (this.selectedTypes !== "") {
                 this.showRecipesFilterTypes = true;
             }
         },
         handleAllergensUpdate(value) {
             this.selectedAllergens = value;
-            if (this.selectedAllergens != "") {
+            if (this.selectedAllergens !== "") {
                 this.showRecipesFilterAllergens = true;
             }
         },
         handleIngredientsUpdate(value) {
             this.selectedIngredients = value;
-            if (this.selectedIngredients != "") {
+            if (this.selectedIngredients !== "") {
                 this.showRecipesFilterIngredients = true;
             }
         },
