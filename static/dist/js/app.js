@@ -1702,7 +1702,7 @@ module.exports = JSON.parse('[{"groupName":"Quick Meals","options":[15,30,45]},{
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "cfff28cd32408229"; }
+/******/ 		__webpack_require__.h = function() { return "cd1edb5c156d8558"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -2727,7 +2727,7 @@ module.exports = JSON.parse('[{"groupName":"Quick Meals","options":[15,30,45]},{
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	__webpack_require__.O(undefined, ["chunk-vendors"], function() { return __webpack_require__("../../../../../../../../../../usr/local/lib/node_modules/@vue/cli-service/node_modules/whatwg-fetch/fetch.js"); })
-/******/ 	__webpack_require__.O(undefined, ["chunk-vendors"], function() { return __webpack_require__("../../../../../../../../../../usr/local/lib/node_modules/@vue/cli-service/node_modules/webpack-dev-server/client/index.js?protocol=ws&hostname=10.111.139.55&port=8080&pathname=%2Fws&logging=none&progress=true&overlay=%7B%22errors%22%3Atrue%2C%22warnings%22%3Afalse%7D&reconnect=10&hot=true&live-reload=true"); })
+/******/ 	__webpack_require__.O(undefined, ["chunk-vendors"], function() { return __webpack_require__("../../../../../../../../../../usr/local/lib/node_modules/@vue/cli-service/node_modules/webpack-dev-server/client/index.js?protocol=ws&hostname=192.168.1.48&port=8080&pathname=%2Fws&logging=none&progress=true&overlay=%7B%22errors%22%3Atrue%2C%22warnings%22%3Afalse%7D&reconnect=10&hot=true&live-reload=true"); })
 /******/ 	__webpack_require__.O(undefined, ["chunk-vendors"], function() { return __webpack_require__("../../../../../../../../../../usr/local/lib/node_modules/@vue/cli-service/node_modules/webpack/hot/dev-server.js"); })
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["chunk-vendors"], function() { return __webpack_require__("./src/main.js"); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
