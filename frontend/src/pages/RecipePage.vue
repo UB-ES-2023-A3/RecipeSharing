@@ -77,8 +77,9 @@
             </div>
         </div>
         <div class="section">
-            <AppComments>
+            <AppComments :username="this.username" :recipe_id="this.recipe_id" :comments="this.recipe.comments_list">
             </AppComments>
+            
 
         </div>
 
@@ -155,7 +156,8 @@ export default {
                 .post("recipesPostRatings/", {
                     user_id: this.username, 
                     recipe_id: this.recipe.id,
-                    rating: this.rating
+                    rating: this.rating,
+                    review_type: "rate"
                 })
                 .then((response) => {
                     if (response.status === 200) {
@@ -187,7 +189,7 @@ export default {
             // Lógica para agregar o quitar de favoritos
             this.isFavorited = !this.isFavorited;
             axios
-                .post("recipes/addfavorite/", {
+                .post("recipesAddFavorites/", {
                     user_id: this.username,
                     recipe_id: this.recipe.id,
                 })

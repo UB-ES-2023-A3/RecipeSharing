@@ -11,9 +11,9 @@ urlpatterns = [
     #endpoint para obtener las recetas segun rate o date,
     path('recipes/<str:query>/', QueryListRecipes.as_view(), name='queryListRecipes'),
     #endpoint para post de valoracion o comentario de una receta
-    path('recipes/postratings/', RecipeView.as_view(), name='postRatingRecipe'),
+    path('recipesPostRatings/', RecipeView.as_view(), name='postRatingRecipe'),
     #endpoint para añadir a favoritos una receta
-    path('recipes/addfavorite/', PostFavoriteRecipe.as_view(), name='addRecipeToFavorite'),
+    path('recipesAddFavorites/', PostFavoriteRecipe.as_view(), name='addRecipeToFavorite'),
 
     path('recipes/getratings/<str:query>/', GetRatingsByID.as_view(), name='getRatingRecipe'),
     path('user/<str:username>/', GetUserByUsername.as_view(), name='getUser'),

@@ -174,7 +174,7 @@ class RecipeView(TemplateView):
             else:
                 return JsonResponse(response_data, status=200)
     
-    def post(self, request, recipe_id):
+    def post(self, request):
         # print "value" in the terminal
         body = json.loads(request.body.decode('utf-8'))
         if request.method == 'POST' and "review_type" in body:

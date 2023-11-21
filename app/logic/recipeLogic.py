@@ -111,6 +111,8 @@ def add_comment_logic(request):
     comment = body.get("comment")
 
     recipe = Recipe.objects.get(id=recipe_id)
+    # Convertir las claves a cadenas
+    str_recipe_id = str(user_id)
 
     if recipe is None:
         return {'error': 'Recipe not found.'}
