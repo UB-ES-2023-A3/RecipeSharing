@@ -91,11 +91,6 @@ class Recipe(models.Model):
             'rating_average': str(self.rating_average),
             'rating_amount': self.rating_amount,
             'rating_list': self.rating_list,
-<<<<<<< HEAD
             'comments_list': self.comments_list,
             'comments_amount': self.comments_amount
         }
-=======
-        }
-    
->>>>>>> origin/66-us-005-comment-a-recipe-frontend

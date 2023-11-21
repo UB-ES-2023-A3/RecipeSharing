@@ -187,7 +187,7 @@ export default {
             // Lógica para agregar o quitar de favoritos
             this.isFavorited = !this.isFavorited;
             axios
-                .post(`recipe/${this.username}/`, {
+                .post("recipes/addfavorite/", {
                     user_id: this.username,
                     recipe_id: this.recipe.id,
                 })
