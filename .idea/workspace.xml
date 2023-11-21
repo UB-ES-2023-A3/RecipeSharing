@@ -5,26 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57690ffd-1c5d-42fa-80e3-3d9007313fc3" name="Changes" comment="test">
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/styles/appStyles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/RegisterPage.vue" afterDir="false" />
+=======
+=======
+>>>>>>> US022_FE
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeFilterDropdown.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/recipeSharing.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/recipeSharing.iml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeFilterDropdown.vue" afterDir="false" />
+>>>>>>> US023_FE
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardCarousel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" afterDir="false" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> US021_FE
+=======
+>>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
+>>>>>>> US018_FE
       <change beforePath="$PROJECT_DIR$/static/dist/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/app.js" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/chunk-vendors.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/AddRecipePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/AddRecipePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/HomePage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/HomePage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/LoginPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/LoginPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_base.html" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppCardRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.vue" afterDir="false" />
+>>>>>>> US020_FE
+=======
+>>>>>>> US021_FE
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
         <option value="Vue Single File Component" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -39,20 +78,87 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     "last_opened_file_path": "C:/Users/Usuario/Desktop/Adri/UB/4º/1º/Ingeniería de Software/Practica/LogIn_HTML_modern_gray",
+=======
+    "last_opened_file_path": "C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb",
+>>>>>>> US018_FE
+=======
+    "last_opened_file_path": "C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb",
+>>>>>>> US022_FE
+=======
+    "last_opened_file_path": "C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb",
+>>>>>>> US023_FE
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+=======
+=======
+>>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
+    ]
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> US018_FE
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marmo/OneDrive/Escritorio/UB/4º/Aprenentatge Automàtic/Practicas/P2/P2.ipynb&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;vue.recent.templates&quot;: [
+      &quot;Vue Composition API Component&quot;
+    ]
+<<<<<<< HEAD
+>>>>>>> US020_FE
+=======
+>>>>>>> US021_FE
+=======
+>>>>>>> US022_FE
+=======
+>>>>>>> US023_FE
   }
 }]]></component>
   <component name="RecentsManager">
@@ -96,7 +202,16 @@
       <workItem from="1699479636784" duration="4011000" />
       <workItem from="1699521669023" duration="6229000" />
       <workItem from="1699539868326" duration="5465000" />
+<<<<<<< HEAD
+<<<<<<< HEAD
       <workItem from="1700062549763" duration="5390000" />
+=======
+      <workItem from="1700300895067" duration="10544000" />
+      <workItem from="1700312723637" duration="3165000" />
+>>>>>>> US018_FE
+=======
+      <workItem from="1700316881454" duration="654000" />
+>>>>>>> US020_FE
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1697389322821</created>
