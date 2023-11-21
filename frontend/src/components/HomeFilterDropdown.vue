@@ -61,6 +61,7 @@ export default {
       if (newVal == false) {
         this.localSelectedValue = '';
         this.selectedOptions = [];
+        this.$emit('update:selectedValue', this.selectedOptions);
       }
     },
   },
