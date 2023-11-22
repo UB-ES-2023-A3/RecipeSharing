@@ -1,6 +1,7 @@
 import json
 from app.models import CustomUser, Recipe
 
+
 def get_user_by_username(username):
     try:
         user = CustomUser.objects.get(username=username)

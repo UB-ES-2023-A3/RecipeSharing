@@ -7,7 +7,8 @@ urlpatterns = [
     # Define a URL pattern for the admin site
     path('admin/', admin.site.urls),
 
-    # Include URL patterns from the 'app' application (referenced via its 'urls.py')
+    # Include URL patterns from the 'app' application
+    # (referenced via its 'urls.py')
     path('', include("app.urls")),
 ]
 

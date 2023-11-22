@@ -6,9 +6,10 @@ from django.views.generic import TemplateView
 from django.views.generic import View
 
 from app.logic.loginLogic import login_logic
-from app.logic.recipeLogic import add_comment_logic, add_rating_logic, get_list_recipes_by_query, get_recipe_by_id, get_recipes_main, recipe_logic,get_rating_by_id
+from app.logic.recipeLogic import add_comment_logic, add_rating_logic, get_list_recipes_by_query, get_recipe_by_id, \
+    get_recipes_main, recipe_logic, get_rating_by_id
 from app.logic.registerLogic import register_user
-from app.logic.userLogic import add_favorite_logic,  get_user_by_username
+from app.logic.userLogic import add_favorite_logic, get_user_by_username
 
 
 # Home Page
@@ -134,6 +135,7 @@ class QueryListRecipes(TemplateView):
                 return JsonResponse(response_data, status=200)
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
+
 class GetRatingsByID(TemplateView):
 
     def get(self, request, query):
@@ -143,6 +145,7 @@ class GetRatingsByID(TemplateView):
                 return JsonResponse(response_data, status=400)
             else:
                 return JsonResponse(response_data, status=200)
+
 
 class PostFavoriteRecipe(TemplateView):
 
@@ -154,15 +157,17 @@ class PostFavoriteRecipe(TemplateView):
             else:
                 return JsonResponse(response_data, status=200)
 
+
 class GetUserByUsername(TemplateView):
-      
-      def get(self, request, username):
+
+    def get(self, request, username):
         if request.method == 'GET':
             response_data = get_user_by_username(username)
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
                 return JsonResponse(response_data, status=200)
+
 
 class RecipeView(TemplateView):
 
@@ -173,7 +178,7 @@ class RecipeView(TemplateView):
                 return JsonResponse(response_data, status=400)
             else:
                 return JsonResponse(response_data, status=200)
-    
+
     def post(self, request):
         # print "value" in the terminal
         body = json.loads(request.body.decode('utf-8'))
