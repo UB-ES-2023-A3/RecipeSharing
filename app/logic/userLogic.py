@@ -1,5 +1,6 @@
 from app.models import CustomUser
 
+
 def get_user_by_username(username):
     try:
         user = CustomUser.objects.get(username=username)

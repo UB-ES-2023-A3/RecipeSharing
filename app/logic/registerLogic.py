@@ -1,10 +1,8 @@
 # Import the 're' module for regular expressions
 import re
-
 # Import necessary functions and models from Django's authentication module
-from django.contrib.auth import login
-from django.contrib.auth.models import User
 from app.models import CustomUser
+
 
 def register_user(username, email, password, request):
     # Check if the provided username already exists in the database
@@ -21,14 +19,13 @@ def register_user(username, email, password, request):
             if password_check(password):
                 # Create a new CustomUser object with the provided data
                 new_user = CustomUser(
-                    username = username,
-                    email = email,
-                    password = password
+                    username=username,
+                    email=email,
+                    password=password
                 )
                 new_user.save()
-                return {'message': 'Recipe created.'}
-                
-                # Return a success message indicating that registration was successful
+                # Return a success message indicating
+                # that registration was successful
                 return {'message': 'Registration successful.'}
             else:
                 return {'error': 'Password not valid'}
@@ -36,8 +33,6 @@ def register_user(username, email, password, request):
             return {'error': 'Email not valid'}
     else:
         return {'error': 'Username not valid'}
-
-
 
 
 # Function to check the validity of a username

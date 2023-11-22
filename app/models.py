@@ -8,7 +8,7 @@ class CustomUser(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)  
+    password = models.CharField(max_length=128)
     name = models.CharField(max_length=100, default='')
     list_favorite_recipes = models.JSONField(default=dict)
     list_favorite_ingredients = models.JSONField(default=dict)
@@ -28,7 +28,8 @@ class CustomUser(models.Model):
             'list_favorite_recipe_types': self.list_favorite_recipe_types,
             'list_allergens': self.list_allergens
         }
-    
+
+
 class Profile(User):
 
     name = models.CharField(max_length=100, default='')
@@ -39,7 +40,7 @@ class Profile(User):
 
     def __str__(self):
         return self.username
-    
+
     def toJson(self):
         return {
             'username': self.username,
