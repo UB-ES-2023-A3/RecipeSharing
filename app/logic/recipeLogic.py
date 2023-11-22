@@ -130,10 +130,10 @@ def get_list_recipes_by_query(query):
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.exclude(ingredients__contains=f)
+                                recipes = recipes.exclude(allergens__contains=f)
                         else:
                             f = filters[filter].replace("%20", " ")
-                            recipes = recipes.exclude(ingredients__contains=f)
+                            recipes = recipes.exclude(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
@@ -217,10 +217,10 @@ def get_list_recipes_by_query(query):
                     if isinstance(filters[filter], list):
                         for f in filters[filter]:
                             f.replace("%20", " ")
-                            recipes = recipes.exclude(ingredients__contains=f)
+                            recipes = recipes.exclude(allergens__contains=f)
                     else:
                         f = filters[filter].replace("%20", " ")
-                        recipes = recipes.exclude(ingredients__contains=f)
+                        recipes = recipes.exclude(allergens__contains=f)
                 elif filter == "recipe_type":
                     if isinstance(filters[filter], list):
                         for f in filters[filter]:
@@ -324,10 +324,10 @@ def get_list_recipes_by_query(query):
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.exclude(ingredients__contains=f)
+                                recipes = recipes.exclude(allergens__contains=f)
                         else:
                             f = filters[filter].replace("%20", " ")
-                            recipes = recipes.exclude(ingredients__contains=f)
+                            recipes = recipes.exclude(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
@@ -413,10 +413,10 @@ def get_list_recipes_by_query(query):
                             if isinstance(filters[filter], list):
                                 for f in filters[filter]:
                                     f.replace("%20", " ")
-                                    recipes = recipes.exclude(ingredients__contains=f)
+                                    recipes = recipes.exclude(allergens__contains=f)
                             else:
                                 f = filters[filter].replace("%20", " ")
-                                recipes = recipes.exclude(ingredients__contains=f)
+                                recipes = recipes.exclude(allergens__contains=f)
                         elif filter == "recipe_type":
                             if isinstance(filters[filter], list):
                                 for f in filters[filter]:
