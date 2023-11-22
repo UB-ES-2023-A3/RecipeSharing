@@ -6,11 +6,13 @@
             </button>
             <AppCardRecipe
                     v-for="(recipe, index) in displayedRecipes"
-                    :key="index"
+                    :key="index + this.currentCardIndex"
                     :type="this.type"
+                    :recipeName="this.recipeName"
                     :recipe="recipe"
                     :logged="this.logged"
                     :username="username"
+                    :visibleRecipes="visibleRecipes"
             ></AppCardRecipe>
             <button @click="moveCarousel(1)" class="arrow-button right-arrow" :class="{ 'disabled-button': isAtEnd }">
                 ►
@@ -31,6 +33,7 @@ export default {
         username: String,
         logged: Boolean,
         type: String,
+        recipeName: String,
     },
     data() {
         return {
@@ -71,12 +74,11 @@ export default {
 .carousel-container {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
     gap: 20px;
     padding: 40px;
     border-radius: 4px;
     height: auto;
-    width: 100%;
+    width: 96%;
     margin: 15px auto 10px;
     max-width: 100%;
 }
@@ -85,14 +87,17 @@ export default {
     flex: 0 0 auto;
 }
 
-button {
-    margin-top: 10px;
+.arrow-button {
     background-color: #ff5733;
     color: white;
     border: none;
     border-radius: 4px;
     padding: 10px;
     cursor: pointer;
+    flex: 0 0 auto; /* Evita que los botones de flecha se expandan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .arrow-button:hover {

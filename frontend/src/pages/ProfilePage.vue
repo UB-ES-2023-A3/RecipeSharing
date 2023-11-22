@@ -25,7 +25,7 @@
       <AppCardCarousel
         :type="rate"
         :recipes="this.favoriteRecipes"
-        :visibleRecipes="8"
+        :visibleRecipes="10"
         :logged="this.logged"
         :username="this.username"
         v-if="favoriteRecipes.length > 0"

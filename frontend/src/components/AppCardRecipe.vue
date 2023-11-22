@@ -1,26 +1,69 @@
 <template>
-    <div class="recipe-card">
+    <div class="recipe-card" :style="{ 'max-width': calculatedMaxWidth }">
         <div v-if="logged">
-            <div @click="togglePopup" class="recipe-title">
-                <span v-if="type === 'rate'">
-                  <h2>{{ this.recipe.title }}</h2><h3>{{ 'Rating: ' + this.CurrRating }}</h3>
-                </span>
-                <span v-else>
-                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
-                </span>
+            <div @click="logged ? togglePopup() : goToLogin()" class="recipe-title">
+                <h2>{{ this.recipe.title }}</h2>
+                <h3 v-if="displaySecondaryInfo(type)">{{ getSecondaryInfo(type) }}</h3>
+            </div>
+            <div v-if="showPopup" class="popup">
+                <div class="popup-content">
+                    <div class="scrollable-content">
+                        <div class="recipe-header">
+                            <div class="recipe-card-title">
+                                <h2>{{ "Title: " + this.recipe.title }}</h2>
+                                <p><strong>Creation Date:</strong> {{ this.recipe.creation_date }}</p>
+                            </div>
+                            <div class="recipe-card-rating">
+                                <div class="recipe-card-rating-title">
+                                    <h3>Current Rating</h3>
+                                    <p>{{ this.CurrRating + " from " + this.NumRatings + " ratings" }}</p>
+                                </div>
+                                <div class="rating-stars">
+                  <span v-if="username !== this.recipe.username_id">
+                    <h3>Add your rating:</h3>
+                  </span>
+                                    <span
+                                            v-for="star in [1, 2, 3, 4, 5]"
+                                            :key="star"
+                                            @click="setRating(star)"
+                                            @mouseover="hoverStars(star)"
+                                            @mouseout="resetStars"
+                                            :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
+                                    >
+                    ★
+                  </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-for="(section, key) in recipeSections" :key="key" class="section">
+                            <div class="recipe-card-section">
+                                <h3>{{ section.title }}</h3>
+                                <ul v-if="key === 'ingredients' || key === 'allergens'">
+                                    <li v-for="(step, index) in parseText(section.content)" :key="index">
+                                        {{ step }}
+                                    </li>
+                                </ul>
+                                <ol v-else-if="key === 'instructions'">
+                                    <li v-for="(step, index) in section.content.split('\n')" :key="index">
+                                        {{ step }}
+                                    </li>
+                                </ol>
+                                <template v-else>
+                                    {{ section.content }}
+                                </template>
+                            </div>
+                        </div>
+                        <button class="submit-button" @click="togglePopup">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div v-else>
             <div @click="goToLogin" class="recipe-title">
-                <span v-if="type === 'rate'">
-                  <h2>{{ this.recipe.title }}</h2><h3>{{ 'Rating: ' + this.CurrRating }}</h3>
-                </span>
-                <span v-else>
-                  <h2>{{ this.recipe.title }}</h2><h3>{{ this.recipe.creation_date }}</h3>
-                </span>
+                <h2>{{ this.recipe.title }}</h2>
+                <h3 v-if="displaySecondaryInfo(type)">{{ getSecondaryInfo(type) }}</h3>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -35,7 +78,25 @@ export default {
         recipe: Object,
         username: String,
         logged: Boolean,
-        type: String
+        type: String,
+        visibleRecipes: Number,
+    },
+    computed: {
+        recipeSections() {
+            return {
+                ingredients: {title: 'Ingredients', content: this.recipe.ingredients},
+                instructions: {title: 'Instructions', content: this.recipe.instructions},
+                allergens: {title: 'Allergens', content: this.recipe.allergens},
+                recipe_type: {title: 'Type', content: this.recipe.recipe_type},
+                preparation_time: {title: 'Preparation time', content: this.recipe.preparation_time},
+                servings: {title: 'Servings', content: this.recipe.servings},
+            };
+        },
+        calculatedMaxWidth() {
+            const base = (100 / this.visibleRecipes);
+            const extra = 1.7;
+            return `${base - extra}%`;
+        }
     },
     data() {
         return {
@@ -50,8 +111,8 @@ export default {
     methods: {
         togglePopup() {
             this.$router.push({
-            path: '/recipePage',
-            query: { recipe_id: this.recipe_id, username: this.username}
+                path: '/recipePage',
+                query: {recipe_id: this.recipe_id, username: this.username}
             });
         },
         goToLogin() {
@@ -63,6 +124,31 @@ export default {
             const sinComillasSimples = sinCorchetes.replace(/'/g, '');
             const arrayIngredientes = sinComillasSimples.split(',');
             return arrayIngredientes;
+        },
+        displaySecondaryInfo(type) {
+            return ['rate', 'recent', 'preparation_time', 'name', 'servings', 'recipe_type', 'allergens', 'ingredients'].includes(type);
+        },
+        getSecondaryInfo(type) {
+            switch (type) {
+                case 'rate':
+                    return 'Rating: ' + this.CurrRating;
+                case 'recent':
+                    return this.recipe.creation_date;
+                case 'preparation_time':
+                    return this.recipe.preparation_time;
+                case 'name':
+                    return '';
+                case 'servings':
+                    return this.recipe.servings;
+                case 'recipe_type':
+                    return this.recipe.recipe_type;
+                case 'allergens':
+                    return this.recipe.allergens;
+                case 'ingredients':
+                    return this.recipe.ingredients;
+                default:
+                    return '';
+            }
         },
         setRating(rating) {
             this.rating = rating;
@@ -117,13 +203,18 @@ export default {
 </script>
 
 <style scoped>
-.recipe-card {
+.recipe-card,
+.recipe-title {
     cursor: pointer;
-    text-align: center;
+}
+
+.recipe-card {
+    flex: 0 0 auto;
+    width: 100%;
+//max-width: calc(12.5% - 1.7%);
 }
 
 .recipe-title {
-    cursor: pointer;
     text-align: center;
     border-radius: 4px;
     background-color: #a51d1de7;
@@ -132,6 +223,7 @@ export default {
     max-width: 250px;
     padding: 10px;
     margin-bottom: 10px; /* Añadido margen inferior */
+    height: 88%;
 }
 
 .recipe-title:hover {
@@ -153,7 +245,7 @@ export default {
 }
 
 .popup-content {
-    background-color: #FCE4A4;
+    background-color: #fce4a4;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -164,6 +256,10 @@ export default {
     margin-top: 100px;
 }
 
+.section {
+    color: black;
+}
+
 .section h2 {
     font-size: 1.5rem;
 }
@@ -171,11 +267,7 @@ export default {
 .section h3 {
     font-size: 1.3rem;
     margin-bottom: 10px;
-    color: #d44d31; /* Color personalizado para los títulos de sección */
-}
-
-.section {
-    color: black;
+    color: #d44d31;
 }
 
 .rating-stars span {
@@ -185,10 +277,7 @@ export default {
     margin-left: 5px;
 }
 
-.rating-stars span.filled {
-    color: #ffcc00;
-}
-
+.rating-stars span.filled,
 .rating-stars span.hovered {
     color: #ffcc00;
 }
@@ -198,28 +287,25 @@ export default {
 }
 
 .recipe-header {
-    background-color: #FF5733;
+    background-color: #ff5733;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 10px; /* Añadido margen inferior */
+    margin-bottom: 10px;
 }
 
-.recipe-card-title {
-    border-radius: 5px;
-    width: 60%;
-    padding: 10px;
-    border: 2px solid #d44d31;
-    margin: 5px;
-}
-
+.recipe-card-title,
 .recipe-card-section {
     border-radius: 5px;
     padding: 10px;
     border: 2px solid #d44d31;
     margin: 5px;
+}
+
+.recipe-card-title {
+    width: 60%;
 }
 
 .recipe-card-rating {
@@ -233,10 +319,16 @@ h3 {
     font-size: 20px;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     font-weight: bold;
     color: white;
 }
 
+hr {
+    border-top: 1px solid #df8500;
+    border-bottom: 1px solid #ffbf00;
+    margin-left: 2%;
+    margin-right: 2%;
+}
 </style>
