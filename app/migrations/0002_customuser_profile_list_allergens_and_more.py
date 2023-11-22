@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('list_favorite_ingredients', models.JSONField(default=dict)),
                 ('list_favorite_recipe_types', models.JSONField(default=dict)),
                 ('list_allergens', models.JSONField(default=dict)),
+                ('list_own_recipes', models.JSONField(default=dict)),
             ],
         ),
         migrations.AddField(

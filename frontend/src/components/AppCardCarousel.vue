@@ -6,12 +6,13 @@
             </button>
             <AppCardRecipe
                     v-for="(recipe, index) in displayedRecipes"
-                    :key="index"
+                    :key="index + this.currentCardIndex"
                     :type="this.type"
                     :recipeName="this.recipeName"
                     :recipe="recipe"
                     :logged="this.logged"
                     :username="username"
+                    :visibleRecipes="visibleRecipes"
             ></AppCardRecipe>
             <button @click="moveCarousel(1)" class="arrow-button right-arrow" :class="{ 'disabled-button': isAtEnd }">
                 ►
@@ -73,7 +74,6 @@ export default {
 .carousel-container {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
     gap: 20px;
     padding: 40px;
     border-radius: 4px;

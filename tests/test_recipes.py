@@ -19,7 +19,9 @@ class RecipeTestCase(TestCase):
                 allergens="['Rice']",
                 rating_amount=1,
                 rating_average=5.0,
-                rating_list={'jose': 5.0}
+                rating_list={'jose': 5.0},
+                comments_list = {'fav1':'fav'},
+                comments_amount = 1
             )
 
         # Recupera la receta de la base de datos
@@ -38,6 +40,8 @@ class RecipeTestCase(TestCase):
         self.assertEqual(saved_recipe.rating_amount, 1)
         self.assertEqual(saved_recipe.rating_average, 5.0)
         self.assertEqual(saved_recipe.rating_list, {'jose': 5.0})
+        self.assertEqual(saved_recipe.comments_list, {'fav1':'fav'})
+        self.assertEqual(saved_recipe.comments_amount, 1)
 
     def test_get_all_recipes(self):
         # Crea algunas recetas de ejemplo en la base de datos

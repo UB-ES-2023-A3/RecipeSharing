@@ -1,6 +1,5 @@
 <template>
     <div id="homeMainContainer">
-
         <div id="homeTitleSearcherContainer">
             <div class="searchContainer">
                 <input class="homeTitleSearcher" type="text" v-model="selectedTitle"
