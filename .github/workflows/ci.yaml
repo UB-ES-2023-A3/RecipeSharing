@@ -33,5 +33,5 @@ jobs:
       - name: Run flake8 (Linting)
         run: flake8 
 
-      - name: Run tests
+      - name: Run Unit Tests
         run: pytest
