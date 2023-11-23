@@ -9,7 +9,6 @@ from app.logic import recipeLogic
 class RecipeTestCase(TestCase):
 
     def test_add_recipe(self):
-
         CustomUser.objects.create(
             username="ExistingUser",
             email="existinguser@example.com",
@@ -86,18 +85,17 @@ class RecipeTestCase(TestCase):
 
         # Llama a la función add_rating_logic con la solicitud simulada
         # Envía la solicitud, no la respuesta
-        response_from_logic_1 = recipeLogic.add_rating_logic
-        (response_1.wsgi_request)
+        response_from_logic_1 = recipeLogic.add_rating_logic(
+            response_1.wsgi_request)
         # Envía la solicitud, no la respuesta
-        response_from_logic_2 = recipeLogic.add_rating_logic
-        (response_2.wsgi_request)
+        response_from_logic_2 = recipeLogic.add_rating_logic(
+            response_2.wsgi_request)
 
         # Verifica que la respuesta de la lógica sea la esperada
         self.assertEqual(response_from_logic_1['message'], 'Rating added.')
         self.assertEqual(response_from_logic_2['message'], 'Rating updated.')
 
     def test_add_comment_logic(self):
-
         Recipe.objects.create(
             title='Recipe 1',
             ingredients="['Ingredient 1', 'Ingredient 2']",
@@ -121,10 +119,9 @@ class RecipeTestCase(TestCase):
         response = self.client.post('/recipesPostRatings/',
                                     json.dumps(request_data),
                                     content_type='application/json')
-        # Llama a la función add_rating_logic con la solicitud simulada
         # Envía la solicitud, no la respuesta
-        response_from_logic = recipeLogic.add_comment_logic
-        (response.wsgi_request)
+        response_from_logic = recipeLogic.add_comment_logic(
+            response.wsgi_request)
 
         # Verifica que la respuesta de la lógica sea la esperada
         self.assertEqual(response_from_logic['message'], 'Comment updated.')
