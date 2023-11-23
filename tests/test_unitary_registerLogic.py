@@ -1,7 +1,7 @@
-import pytest
 from django.test import TestCase
 from app.logic import registerLogic
-from app.models import CustomUser 
+from app.models import CustomUser
+
 
 class RegisterTestCase(TestCase):
 
@@ -12,10 +12,10 @@ class RegisterTestCase(TestCase):
 
         respuestaCorrecta = registerLogic.username_check(username)
         respuestaIncorrecta = registerLogic.username_check(username2)
-        
+
         self.assertEqual(respuestaCorrecta, True)
         self.assertEqual(respuestaIncorrecta, False)
-    
+
     # Comprueba la validez de una dirección de correo electrónico
     def test_email_check(self):
         email_valido = "user@example.com"
@@ -36,12 +36,19 @@ class RegisterTestCase(TestCase):
         password_invalida_sin_numero = "Password!"
         password_invalida_sin_caracter_especial = "Password1"
 
-        respuesta_valida = registerLogic.password_check(password_valida)
-        respuesta_invalida_corta = registerLogic.password_check(password_invalida_corta)
-        respuesta_invalida_sin_mayuscula = registerLogic.password_check(password_invalida_sin_mayuscula)
-        respuesta_invalida_sin_minuscula = registerLogic.password_check(password_invalida_sin_minuscula)
-        respuesta_invalida_sin_numero = registerLogic.password_check(password_invalida_sin_numero)
-        respuesta_invalida_sin_caracter_especial = registerLogic.password_check(password_invalida_sin_caracter_especial)
+        respuesta_valida \
+            = registerLogic.password_check(password_valida)
+        respuesta_invalida_corta \
+            = registerLogic.password_check(password_invalida_corta)
+        respuesta_invalida_sin_mayuscula \
+            = registerLogic.password_check(password_invalida_sin_mayuscula)
+        respuesta_invalida_sin_minuscula \
+            = registerLogic.password_check(password_invalida_sin_minuscula)
+        respuesta_invalida_sin_numero \
+            = registerLogic.password_check(password_invalida_sin_numero)
+        respuesta_invalida_sin_caracter_especial \
+            = registerLogic.password_check(
+                password_invalida_sin_caracter_especial)
 
         self.assertEqual(respuesta_valida, True)
         self.assertEqual(respuesta_invalida_corta, False)
@@ -49,7 +56,6 @@ class RegisterTestCase(TestCase):
         self.assertEqual(respuesta_invalida_sin_minuscula, False)
         self.assertEqual(respuesta_invalida_sin_numero, False)
         self.assertEqual(respuesta_invalida_sin_caracter_especial, False)
-
 
     # Prueba si el usuario se registra correctamente
     def test_register_user_success(self):
@@ -63,7 +69,7 @@ class RegisterTestCase(TestCase):
 
     # Prueba si el método detecta que el nombre de usuario ya existe
     def test_register_user_username_exists(self):
-        existing_user = CustomUser.objects.create(
+        CustomUser.objects.create(
             username="ExistingUser",
             email="existinguser@example.com",
             password="Password1!"
@@ -79,7 +85,7 @@ class RegisterTestCase(TestCase):
 
     # Prueba si el método detecta que el correo electrónico ya existe
     def test_register_user_email_exists(self):
-        existing_user = CustomUser.objects.create(
+        CustomUser.objects.create(
             username="ExistingUser",
             email="existinguser@example.com",
             password="Password1!"
@@ -122,4 +128,3 @@ class RegisterTestCase(TestCase):
         response = registerLogic.register_user(username, email, password, None)
 
         self.assertEqual(response['error'], 'Password not valid')
-

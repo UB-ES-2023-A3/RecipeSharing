@@ -1,7 +1,4 @@
-import pytest
-from django.conf import settings
 from django.test import TestCase
-from decimal import Decimal
 import json
 
 from app.models import Recipe
@@ -13,7 +10,7 @@ class RecipeTestCase(TestCase):
 
     def test_add_rating_logic(self):
         # Crea una receta de ejemplo en la base de datos
-        recipe = Recipe.objects.create(
+        Recipe.objects.create(
             title='Recipe 1',
             id=2,
             ingredients="['Ingredient 1', 'Ingredient 2']",
@@ -24,12 +21,12 @@ class RecipeTestCase(TestCase):
             recipe_type="recipe_type",
             allergens="allergens",
             username_id=2,
-            creation_date = "2023-11-14",
-            rating_average = 2.0,
-            rating_amount= 2.0,
-            rating_list = {},
-            comments_list = {"2":4.0},
-            comments_amount = 0
+            creation_date="2023-11-14",
+            rating_average=2.0,
+            rating_amount=2.0,
+            rating_list={},
+            comments_list={"2": 4.0},
+            comments_amount=0
         )
 
         # Crea una solicitud simulada con datos de calificación
@@ -37,21 +34,29 @@ class RecipeTestCase(TestCase):
             "user_id": 1,
             "recipe_id": 2,
             "rating": 4.0,
-            "review_type":'rate'
+            "review_type": 'rate'
         }
         request_data_2 = {
             "user_id": "2",
             "recipe_id": 2,
             "rating": 4.0,
-            "review_type":'rate'
+            "review_type": 'rate'
         }
 
-        response_1 = self.client.post('/recipesPostRatings/', json.dumps(request_data_1), content_type='application/json')
-        response_2 = self.client.post('/recipesPostRatings/', json.dumps(request_data_2), content_type='application/json')
+        response_1 = self.client.post('/recipesPostRatings/',
+                                      json.dumps(request_data_1),
+                                      content_type='application/json')
+        response_2 = self.client.post('/recipesPostRatings/',
+                                      json.dumps(request_data_2),
+                                      content_type='application/json')
 
         # Llama a la función add_rating_logic con la solicitud simulada
-        response_from_logic_1 = recipeLogic.add_rating_logic(response_1.wsgi_request)  # Envía la solicitud, no la respuesta
-        response_from_logic_2 = recipeLogic.add_rating_logic(response_2.wsgi_request)  # Envía la solicitud, no la respuesta
+        # # Envía la solicitud, no la respuesta
+        response_from_logic_1 \
+            = recipeLogic.add_rating_logic(response_1.wsgi_request)
+        # Envía la solicitud, no la respuesta
+        response_from_logic_2 \
+            = recipeLogic.add_rating_logic(response_2.wsgi_request)
 
         # Verifica que la respuesta de la lógica sea la esperada
         self.assertEqual(response_from_logic_1['message'], 'Rating added.')
@@ -59,7 +64,7 @@ class RecipeTestCase(TestCase):
 
     def test_add_comment_logic(self):
 
-        recipe = Recipe.objects.create(
+        Recipe.objects.create(
             title='Recipe 1',
             ingredients="['Ingredient 1', 'Ingredient 2']",
             instructions="Instructions 1",
@@ -68,24 +73,27 @@ class RecipeTestCase(TestCase):
             id=1
         )
 
-        user = CustomUser.objects.create(
-            username = "username"
+        CustomUser.objects.create(
+            username="username"
         )
 
         request_data = {
             "user_id": "user123",
             "recipe_id": 1,
             "comment": "Comment",
-            "review_type":'comment',
+            "review_type": 'comment',
         }
 
-        response = self.client.post('/recipesPostRatings/', json.dumps(request_data), content_type='application/json')
+        response = self.client.post('/recipesPostRatings/',
+                                    json.dumps(request_data),
+                                    content_type='application/json')
         # Llama a la función add_rating_logic con la solicitud simulada
-        response_from_logic = recipeLogic.add_comment_logic(response.wsgi_request)  # Envía la solicitud, no la respuesta
+        # Envía la solicitud, no la respuesta
+        response_from_logic \
+            = recipeLogic.add_comment_logic(response.wsgi_request)
 
         # Verifica que la respuesta de la lógica sea la esperada
-        self.assertEqual(response_from_logic['message'], 'Comment updated.')  
-        self.assertEqual(response_from_logic['comments_list'], {'user123': "Comment"})
-        self.assertEqual(response_from_logic['comments_amount'], 1)  
-
-
+        self.assertEqual(response_from_logic['message'], 'Comment updated.')
+        self.assertEqual(response_from_logic['comments_list'],
+                         {'user123': "Comment"})
+        self.assertEqual(response_from_logic['comments_amount'], 1)
