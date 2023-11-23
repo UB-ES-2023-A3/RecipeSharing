@@ -338,9 +338,9 @@ def get_list_recipes_by_query(query):
                         ordering = "rating_average"
 
                     if order.split("=")[1].split("+")[1] == "desc":
-                        recipes.order_by("-" + ordering)
+                        recipes = recipes.order_by("-" + ordering)
                     elif order.split("=")[1].split("+")[1] == "asc":
-                        recipes.order_by(ordering)
+                        recipes = recipes.order_by(ordering)
                     else:
                         return {'error': 'Query not valid.'}
                 else:
@@ -384,14 +384,15 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(
                                 ingredients__contains=filters[filter])
                     elif filter == "allergens":
+                        print('hola')
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.exclude(
+                                recipes = recipes.filter(
                                     allergens__contains=f)
                         else:
                             f = filters[filter].replace("%20", " ")
-                            recipes = recipes.exclude(allergens__contains=f)
+                            recipes = recipes.filter(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
