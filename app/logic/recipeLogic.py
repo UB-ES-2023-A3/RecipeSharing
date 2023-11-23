@@ -64,7 +64,7 @@ def get_all_recipes():
 def get_recipes_main():
     recipes_rating = Recipe.objects.order_by("-rating_average")
     recipes_rating_list = [recipe.toJson() for recipe in recipes_rating]
-    recipes_recent = Recipe.objects.order_by("-creation_date")
+    recipes_recent = Recipe.objects.order_by("creation_date")
     recipes_recent_list = [recipe.toJson() for recipe in recipes_recent]
     return {'recipes_rating': recipes_rating_list, 'recipes_recent': recipes_recent_list}
 
