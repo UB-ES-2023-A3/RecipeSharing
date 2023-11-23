@@ -8,7 +8,6 @@ from app.logic import recipeLogic
 
 class RecipeTestCase(TestCase):
 
-
     def test_add_recipe(self):
 
         CustomUser.objects.create(
@@ -18,7 +17,6 @@ class RecipeTestCase(TestCase):
             list_own_recipes={}
         )
 
-        
         # Datos de la receta
         recipe_data = {
             "name": 'Test Recipe',
@@ -31,9 +29,10 @@ class RecipeTestCase(TestCase):
             "username_id": "ExistingUser"
         }
 
-
         # Realiza la solicitud para crear la receta
-        response = self.client.post('/addRecipe/', json.dumps(recipe_data), content_type='application/json')
+        response = self.client.post('/addRecipe/',
+                                    json.dumps(recipe_data),
+                                    content_type='application/json')
 
         # Verifica que la receta se haya creado correctamente
         self.assertEqual(response.status_code, 200)
@@ -42,8 +41,6 @@ class RecipeTestCase(TestCase):
         # Verifica que la receta existe en la base de datos
         recipe_exists = Recipe.objects.filter(title="Test Recipe").exists()
         self.assertTrue(recipe_exists)
-
-    
 
     def test_add_rating_logic(self):
         # Crea una receta de ejemplo en la base de datos
@@ -88,12 +85,12 @@ class RecipeTestCase(TestCase):
                                       content_type='application/json')
 
         # Llama a la función add_rating_logic con la solicitud simulada
-        # # Envía la solicitud, no la respuesta
-        response_from_logic_1 \
-            = recipeLogic.add_rating_logic(response_1.wsgi_request)
         # Envía la solicitud, no la respuesta
-        response_from_logic_2 \
-            = recipeLogic.add_rating_logic(response_2.wsgi_request)
+        response_from_logic_1 = recipeLogic.add_rating_logic
+        (response_1.wsgi_request)
+        # Envía la solicitud, no la respuesta
+        response_from_logic_2 = recipeLogic.add_rating_logic
+        (response_2.wsgi_request)
 
         # Verifica que la respuesta de la lógica sea la esperada
         self.assertEqual(response_from_logic_1['message'], 'Rating added.')
@@ -126,8 +123,8 @@ class RecipeTestCase(TestCase):
                                     content_type='application/json')
         # Llama a la función add_rating_logic con la solicitud simulada
         # Envía la solicitud, no la respuesta
-        response_from_logic \
-            = recipeLogic.add_comment_logic(response.wsgi_request)
+        response_from_logic = recipeLogic.add_comment_logic
+        (response.wsgi_request)
 
         # Verifica que la respuesta de la lógica sea la esperada
         self.assertEqual(response_from_logic['message'], 'Comment updated.')
