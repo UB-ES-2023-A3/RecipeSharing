@@ -8,6 +8,43 @@ from app.logic import recipeLogic
 
 class RecipeTestCase(TestCase):
 
+
+    def test_add_recipe(self):
+
+        CustomUser.objects.create(
+            username="ExistingUser",
+            email="existinguser@example.com",
+            password="Password1!",
+            list_own_recipes={}
+        )
+
+        
+        # Datos de la receta
+        recipe_data = {
+            "name": 'Test Recipe',
+            "ingredients": ["Cream"],
+            "instructions": "Mix ingredients and bake.",
+            "preparationTime": 30,
+            "servings": 4,
+            "type": "Spanish",
+            "allergens": "nuts",
+            "username_id": "ExistingUser"
+        }
+
+
+        # Realiza la solicitud para crear la receta
+        response = self.client.post('/addRecipe/', json.dumps(recipe_data), content_type='application/json')
+
+        # Verifica que la receta se haya creado correctamente
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['message'], 'Recipe created.')
+
+        # Verifica que la receta existe en la base de datos
+        recipe_exists = Recipe.objects.filter(title="Test Recipe").exists()
+        self.assertTrue(recipe_exists)
+
+    
+
     def test_add_rating_logic(self):
         # Crea una receta de ejemplo en la base de datos
         Recipe.objects.create(
