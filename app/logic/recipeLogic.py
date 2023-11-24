@@ -5,7 +5,7 @@ from app.models import CustomUser
 
 # Recipe logic
 def recipe_logic(title, ingredients, instructions, prep_time,
-                 username_id, servings, recipe_type, allergens):
+                 username_id, servings, recipe_type, allergens, request):
     new_recipe = Recipe(title=title,
                         ingredients=ingredients,
                         instructions=instructions,
@@ -58,6 +58,8 @@ def add_rating_logic(request):
 
 
 def get_all_recipes():
+    # Esto obtiene todos los objetos Recipe,
+    # ajusta tu consulta según sea necesario
     recipes = Recipe.objects.all()
     recipe_list = [recipe.toJson() for recipe in recipes]
     return {'recipes': recipe_list}
@@ -348,9 +350,9 @@ def get_list_recipes_by_query(query):
                     # return {'error': ordering}
 
                     if order.split("=")[1].split("+")[1] == "desc":
-                        recipes = Recipe.objects.all().order_by("-" + ordering)
+                        recipes = recipes.order_by("-" + ordering)
                     elif order.split("=")[1].split("+")[1] == "asc":
-                        recipes = Recipe.objects.all().order_by(ordering)
+                        recipes = recipes.order_by(ordering)
                     else:
                         return {'error': 'Query not valid.'}
                 else:
@@ -395,6 +397,7 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(
                                 ingredients__contains=filters[filter])
                     elif filter == "allergens":
+                        print('hola')
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
@@ -402,7 +405,7 @@ def get_list_recipes_by_query(query):
                                     allergens__contains=f)
                         else:
                             f = filters[filter].replace("%20", " ")
-                            recipes = recipes.exclude(allergens__contains=f)
+                            recipes = recipes.filter(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
                             final = None
@@ -476,10 +479,10 @@ def get_list_recipes_by_query(query):
                 else:
 
                     list_filters = query.split("%A2")
-                    # iterate the list of filters and create a dictionary with
-                    # the filters, setting the index as the
-                    # value before the character "=" and the value after the
-                    # character "=" as a list of values
+                    # iterate the list of filters and create a dictionary
+                    # with the filters, setting the index as the
+                    # value before the character "=" and the value after
+                    # the character "=" as a list of values
                     # separated by the character "+"
                     filters = {}
 
@@ -618,6 +621,7 @@ def calculateCalories(ingredients):
 
 def get_recipe_by_id(recipe_id):
     try:
+        # Supongo que el campo para el ID de la receta se llama 'id'
         recipe = Recipe.objects.get(id=recipe_id)
         return {'recipe': recipe.toJson()}
     except Recipe.DoesNotExist:
