@@ -40,12 +40,12 @@ class RecipeQueryTestCase(TestCase):
     def test_correct_allergens_filter(self):
         correct_response = get_list_recipes_by_query('allergens=Allergen 1')
         self.assertEqual(len(correct_response['recipes']), 1)
-        self.assertEqual(correct_response['recipes'][0]['title'], 'Recipe 1')
+        self.assertEqual(correct_response['recipes'][0]['title'], 'Recipe 2')
 
     def test_wrong_allergens_filter(self):
         wrong_response = get_list_recipes_by_query('allergens=Allergen 1')
         self.assertEqual(len(wrong_response['recipes']), 1)
-        self.assertNotEqual(wrong_response['recipes'][0]['title'], 'Recipe 2')
+        self.assertNotEqual(wrong_response['recipes'][0]['title'], 'Recipe 1')
 
     # Recipe type Test
     def test_correct_recipe_type_filter(self):

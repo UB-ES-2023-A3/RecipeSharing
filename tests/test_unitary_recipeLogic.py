@@ -90,14 +90,16 @@ class RecipeTestCase(TestCase):
                                         rating_average='5.0')
 
         # Llama a la función get_recipes_main para obtener todas las recetas
-        response = recipeLogic.get_recipes_main()
+        response_rating = recipeLogic.get_recipes_main("rate")
 
         # Verifica que la respuesta contiene las recetas creadas
-        recipes_rating = response['recipes_rating']
+        recipes_rating = response_rating['recipes_rating']
         # Verifica que se han recuperado dos recetas
         self.assertEqual(len(recipes_rating), 2)
 
-        recipes_recent = response['recipes_recent']
+        response_recent = recipeLogic.get_recipes_main("recent")
+        recipes_recent = response_recent['recipes_recent']
+
         # Verifica que se han recuperado dos recetas
         self.assertEqual(len(recipes_recent), 2)
 
