@@ -1,3 +1,4 @@
+/* global describe, beforeEach, it, cy */
 import './commands';
 // cypress/integration/my_component_spec.js
 import AppCardRecipe from "./AppCardRecipe.vue";
