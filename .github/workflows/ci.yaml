@@ -78,4 +78,4 @@ jobs:
         - name: Cypress run
           run: |
             cd frontend
-            npx cypress run --config-file=cypress.config.js --spec "/src/**/*.cy.js"
+            npx cypress open --config componentTestingConfig
