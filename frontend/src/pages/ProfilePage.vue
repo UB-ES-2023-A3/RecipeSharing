@@ -23,9 +23,8 @@
         </div>
       </div>
       <AppCardCarousel
-        :type="rate"
         :recipes="this.favoriteRecipes"
-        :visibleRecipes="10"
+        :visibleRecipes="8"
         :logged="this.logged"
         :username="this.username"
         v-if="favoriteRecipes.length > 0"
@@ -38,7 +37,6 @@
         </div>
       </div>
       <AppCardCarousel
-        :type="rate"
         :recipes="this.ownRecipes"
         :visibleRecipes="8"
         :logged="this.logged"
