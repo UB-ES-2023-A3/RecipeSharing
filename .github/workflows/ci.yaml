@@ -48,6 +48,12 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Add node_modules/.bin to PATH
+        run: export PATH="./node_modules/.bin:$PATH"
+
+      - name: Grant execute permissions to Cypress
+        run: chmod +x ./node_modules/.bin/cypress
+
       - name: Install Cypress
         run: npx cypress install --force
 
