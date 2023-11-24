@@ -58,4 +58,4 @@ jobs:
         run: npx cypress install --force
 
       - name: Run Cypress Component Tests
-        run: npx cypress run --config-file ./path/to/cypress.json --headless
+        run: npx cypress run --config-file ./cypress.config.js --headless
