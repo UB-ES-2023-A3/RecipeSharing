@@ -9,5 +9,7 @@ module.exports = defineConfig({
       bundler: "webpack",
     },
   },
-  e2e: {}
+  e2e: {
+    "supportFile": false
+  }
 });
