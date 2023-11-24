@@ -64,8 +64,17 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v2
-        # Install NPM dependencies, cache them correctly
-        # and run all Cypress tests
+          
+        - name: Install NPM dependencies
+          run: |
+            cd frontend
+            npm ci
+
+        - name: Set execute permissions for Cypress
+          run: |
+            cd frontend
+            chmod +x node_modules/.bin/cypress
+
         - name: Cypress run
           run: |
             cd frontend
