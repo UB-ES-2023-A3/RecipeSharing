@@ -1800,7 +1800,11 @@ module.exports = JSON.parse('[{"groupName":"Quick Meals","options":[15,30,45]},{
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
+<<<<<<< HEAD
 /******/ 		__webpack_require__.h = function() { return "78ea03b191628692"; }
+=======
+/******/ 		__webpack_require__.h = function() { return "493de227b41f4eaa"; }
+>>>>>>> e32900ba21592424c51cd539f43d826e289bc96f
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

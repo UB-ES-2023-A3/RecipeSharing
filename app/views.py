@@ -110,11 +110,9 @@ class AddRecipeView(TemplateView):
             recipe_type = body.get("type")
             allergens = body.get("allergens")
             username_id = body.get("username_id")
-            response_data = recipe_logic(title, ingredients,
-                                         instructions, prep_time,
-                                         username_id, servings,
-                                         recipe_type, allergens,
-                                         request)
+            response_data = recipe_logic(title, ingredients, instructions,
+                                         prep_time, username_id, servings,
+                                         recipe_type, allergens, request)
 
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)

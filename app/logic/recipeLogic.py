@@ -66,9 +66,9 @@ def get_all_recipes():
 
 
 def get_recipes_main():
-    recipes_rating = Recipe.objects.order_by("-rating_average")
+    recipes_rating = Recipe.objects.all().order_by("-rating_average")
     recipes_rating_list = [recipe.toJson() for recipe in recipes_rating]
-    recipes_recent = Recipe.objects.order_by("creation_date")
+    recipes_recent = Recipe.objects.all().order_by("-creation_date")
     recipes_recent_list = [recipe.toJson() for recipe in recipes_recent]
     return {'recipes_rating': recipes_rating_list,
             'recipes_recent': recipes_recent_list}
@@ -108,8 +108,8 @@ def get_list_recipes_by_query(query):
             # separate the string query by the string "%A2"
             if "%A2" in filters_order[1]:
                 list_filters = filters_order[1].split("%A2")
-                # iterate the list of filters and create a dictionary with
-                # the filters, setting the index as the
+                # iterate the list of filters and create a dictionary with the
+                # filters, setting the index as the
                 # value before the character "=" and the value after the
                 # character "=" as a list of values separated
                 # by the character "+"
@@ -161,10 +161,16 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.exclude(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(
-                                    recipe_type__contains=f)
+                                if final is None:
+                                    final = recipes.filter(
+                                        recipe_type__contains=f)
+                                else:
+                                    final = final | recipes.filter(
+                                        recipe_type__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(recipe_type__contains=f)
@@ -268,9 +274,15 @@ def get_list_recipes_by_query(query):
                         recipes = recipes.exclude(allergens__contains=f)
                 elif filter == "recipe_type":
                     if isinstance(filters[filter], list):
+                        final = None
                         for f in filters[filter]:
                             f.replace("%20", " ")
-                            recipes = recipes.filter(recipe_type__contains=f)
+                            if final is None:
+                                final = recipes.filter(recipe_type__contains=f)
+                            else:
+                                final = final | recipes.filter(
+                                    recipe_type__contains=f)
+                        recipes = final
                     else:
                         f = filters[filter].replace("%20", " ")
                         recipes = recipes.filter(recipe_type__contains=f)
@@ -331,11 +343,11 @@ def get_list_recipes_by_query(query):
                 ordering = order.split("=")[1].split("+")[0]
 
                 if ordering in ["rate", "recent"]:
-
                     if ordering == "recent":
                         ordering = "creation_date"
                     elif ordering == "rate":
                         ordering = "rating_average"
+                    # return {'error': ordering}
 
                     if order.split("=")[1].split("+")[1] == "desc":
                         recipes = recipes.order_by("-" + ordering)
@@ -353,6 +365,7 @@ def get_list_recipes_by_query(query):
                   "kcal" in query or
                   "preparation_time" in query or
                   "title" in query):
+
                 if "%A2" not in query:
                     filters = {}
 
@@ -388,17 +401,23 @@ def get_list_recipes_by_query(query):
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(
+                                recipes = recipes.exclude(
                                     allergens__contains=f)
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
+                            final = None
                             for f in filters[filter]:
                                 f.replace("%20", " ")
-                                recipes = recipes.filter(
-                                    recipe_type__contains=f)
+                                if final is None:
+                                    final = recipes.filter(
+                                        recipe_type__contains=f)
+                                else:
+                                    final = final | recipes.filter(
+                                        recipe_type__contains=f)
+                            recipes = final
                         else:
                             f = filters[filter].replace("%20", " ")
                             recipes = recipes.filter(recipe_type__contains=f)
@@ -506,10 +525,16 @@ def get_list_recipes_by_query(query):
                                     allergens__contains=f)
                         elif filter == "recipe_type":
                             if isinstance(filters[filter], list):
+                                final = None
                                 for f in filters[filter]:
                                     f.replace("%20", " ")
-                                    recipes = recipes.filter(
-                                        recipe_type__contains=f)
+                                    if final is None:
+                                        final = recipes.filter(
+                                            recipe_type__contains=f)
+                                    else:
+                                        final = final | recipes.filter(
+                                            recipe_type__contains=f)
+                                recipes = final
                             else:
                                 f = filters[filter].replace("%20", " ")
                                 recipes = recipes.filter(

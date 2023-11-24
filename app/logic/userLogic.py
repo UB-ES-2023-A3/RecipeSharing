@@ -33,9 +33,8 @@ def add_favorite_logic(request):
             # Recipe is already in favorites, remove it
             del list_favorite_recipes[str_recipe_id]
             user.save()
-            favorite_recipes \
-                = [Recipe.objects.get(id=int(recipe_id)).toJson()
-                    for recipe_id in list_favorite_recipes.keys()]
+            favorite_recipes = [Recipe.objects.get(id=int(recipe_id)).toJson()
+                                for recipe_id in list_favorite_recipes.keys()]
             print("entra1")
             return {'message': 'Recipe removed from favorites.',
                     'list_favorite_recipes': favorite_recipes}
@@ -43,9 +42,8 @@ def add_favorite_logic(request):
             # Recipe is not in favorites, add it
             list_favorite_recipes[str_recipe_id] = recipe.toJson()
             user.save()
-            favorite_recipes \
-                = [Recipe.objects.get(id=int(recipe_id)).toJson()
-                   for recipe_id in list_favorite_recipes.keys()]
+            favorite_recipes = [Recipe.objects.get(id=int(recipe_id)).toJson()
+                                for recipe_id in list_favorite_recipes.keys()]
             print("entra2")
             return {'message': 'Recipe added to favorites.',
                     'list_favorite_recipes': favorite_recipes}

@@ -19,7 +19,7 @@
     <div class="secondaryContainer">
       <div class="titleContainerHP">
         <div class="mainTitleHP">
-          <h1> Favourite Recipes </h1>
+          <h1> Favorite Recipes </h1>
         </div>
       </div>
       <AppCardCarousel
