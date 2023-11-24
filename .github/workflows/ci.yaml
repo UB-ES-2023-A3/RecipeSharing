@@ -49,7 +49,7 @@ jobs:
           node-version: '16'
 
       - name: Install Cypress
-        run: npm install cypress
+        run: npx cypress install --force
 
       - name: Run Cypress Tests
         run: npx cypress run
