@@ -5,7 +5,31 @@ on:
   pull_request:
 
 jobs:
-  run-tests:
+  run-linter-flake8:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["pypy3.8", "pypy3.9", "pypy3.10", "3.8", "3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+          with:
+            python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies for flake8
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install flake8
+
+      - name: Run flake8 (Linting)
+        run: flake8
+
+  run-unit-tests:
     strategy:
       fail-fast: false
       matrix:
@@ -28,11 +52,7 @@ jobs:
         run: | 
           python -m pip install -r requirements.txt
           python -m pip install pytest
-          python -m pip install flake8
-
-      - name: Run flake8 (Linting)
-        run: flake8 
-
+          
       - name: Run tests
         run: pytest
 
