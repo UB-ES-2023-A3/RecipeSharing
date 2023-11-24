@@ -26,7 +26,7 @@ const defaultConfig = {
 // Exporta ambas configuraciones
 module.exports = defineConfig({
   // Combina la configuración por defecto con la configuración específica
-  ...defaultConfig,
+  // ...defaultConfig,
 
   // Configuración específica para pruebas de componentes
   ...componentTestingConfig,

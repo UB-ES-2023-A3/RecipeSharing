@@ -78,4 +78,5 @@ jobs:
         - name: Cypress run
           run: |
             cd frontend
-            npx cypress open --config componentTestingConfig
+            npx cypress open --config "$(echo '$componentTestingConfig' | base64 -w 0)"
+
