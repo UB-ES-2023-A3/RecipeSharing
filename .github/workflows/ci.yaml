@@ -78,5 +78,5 @@ jobs:
         - name: Cypress run
           run: |
             cd frontend
-            npx cypress run
+            npx cypress run-ct
 
