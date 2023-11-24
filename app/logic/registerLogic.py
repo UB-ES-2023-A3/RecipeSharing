@@ -4,8 +4,6 @@ import re
 from app.models import CustomUser
 
 
-from app.models import CustomUser
-
 def register_user(username, email, password, request):
     # Check if the provided username already exists in the database
     if CustomUser.objects.filter(username=username).exists():
