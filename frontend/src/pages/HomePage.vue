@@ -443,10 +443,10 @@ export default {
             try {
                 const response = await axios.get("recipes/rate/");
                 if (response.status === 200) {
-                    const recipes = response.data.recipes;
+                    const recipes = response.data;
                     // Puedes manejar las recetas de 'rate' de manera específica aquí
                     this.recipesByRate = recipes;
-                    console.log(response.data.recipes);
+                    console.log(response.data);
                 }
             } catch (error) {
                 console.error("Error fetching recipes by rate:", error);
@@ -457,10 +457,10 @@ export default {
             try {
                 const response = await axios.get("recipes/recent/");
                 if (response.status === 200) {
-                    const recipes = response.data.recipes;
+                    const recipes = response.data;
                     // Puedes manejar las recetas de 'recent' de manera específica aquí
                     this.recipesByDate = recipes;
-                    console.log(response.data.recipes);
+                    console.log(response.data);
                 }
             } catch (error) {
                 console.error("Error fetching recent recipes:", error);

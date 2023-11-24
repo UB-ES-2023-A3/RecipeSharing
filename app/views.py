@@ -128,12 +128,15 @@ class QueryListRecipes(TemplateView):
 
     def get(self, request, query):
         if request.method == 'GET' and query is not None:
-            response_data = get_list_recipes_by_query(query)
+            if query == "recent" or query == "rate":
+                response_data = get_recipes_main(query)
+            else:
+                response_data = get_list_recipes_by_query(query)
 
             if 'error' in response_data:
-                return JsonResponse(response_data, status=400)
+                return JsonResponse(response_data, safe=False, status=400)
             else:
-                return JsonResponse(response_data, status=200)
+                return JsonResponse(response_data, safe=False, status=200)
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
 

@@ -41,7 +41,6 @@ def add_rating_logic(request):
         recipe.rating_average \
             = (((recipe.rating_average * recipe.rating_amount)
                 - previous_rating) + rating) / recipe.rating_amount
-        print(recipe.rating_average)
         recipe.save()
         return {'message': 'Rating updated.',
                 'rating_average': recipe.rating_average,
@@ -65,13 +64,15 @@ def get_all_recipes():
     return {'recipes': recipe_list}
 
 
-def get_recipes_main():
-    recipes_rating = Recipe.objects.all().order_by("-rating_average")
-    recipes_rating_list = [recipe.toJson() for recipe in recipes_rating]
-    recipes_recent = Recipe.objects.all().order_by("-creation_date")
-    recipes_recent_list = [recipe.toJson() for recipe in recipes_recent]
-    return {'recipes_rating': recipes_rating_list,
-            'recipes_recent': recipes_recent_list}
+def get_recipes_main(query):
+    if query == "rate":
+        recipes_rating = Recipe.objects.all().order_by("-rating_average")
+        list = [recipe.toJson() for recipe in recipes_rating]
+        return list
+    else:
+        recipes_recent = Recipe.objects.all().order_by("-creation_date")
+        return [recipe.toJson() for recipe in recipes_recent]
+
 
 
 def get_list_recipes_by_query(query):
@@ -397,7 +398,6 @@ def get_list_recipes_by_query(query):
                             recipes = recipes.filter(
                                 ingredients__contains=filters[filter])
                     elif filter == "allergens":
-                        print('hola')
                         if isinstance(filters[filter], list):
                             for f in filters[filter]:
                                 f.replace("%20", " ")
@@ -405,7 +405,7 @@ def get_list_recipes_by_query(query):
                                     allergens__contains=f)
                         else:
                             f = filters[filter].replace("%20", " ")
-                            recipes = recipes.filter(allergens__contains=f)
+                            recipes = recipes.exclude(allergens__contains=f)
                     elif filter == "recipe_type":
                         if isinstance(filters[filter], list):
                             final = None
