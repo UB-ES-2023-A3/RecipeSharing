@@ -35,3 +35,21 @@ jobs:
 
       - name: Run tests
         run: pytest
+
+  run-cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install Cypress
+        run: npm install cypress
+
+      - name: Run Cypress Tests
+        run: npx cypress run
