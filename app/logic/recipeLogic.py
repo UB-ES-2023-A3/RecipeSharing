@@ -74,7 +74,6 @@ def get_recipes_main(query):
         return [recipe.toJson() for recipe in recipes_recent]
 
 
-
 def get_list_recipes_by_query(query):
     if query is not None:
         # try:
