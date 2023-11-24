@@ -64,6 +64,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Install Node.js and npm
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nodejs npm
+
+      - name: Install NPM dependencies
+        run: npm install
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
