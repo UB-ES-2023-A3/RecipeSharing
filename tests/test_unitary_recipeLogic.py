@@ -127,26 +127,26 @@ class RecipeTestCase(TestCase):
                          recipe1.rating_average)
 
         # Ordenadas por recent
-        self.assertEqual(recipes_recent[1]['title'],
+        self.assertEqual(recipes_recent[0]['title'],
                          recipe1.title)
-        self.assertEqual(recipes_recent[1]['ingredients'],
+        self.assertEqual(recipes_recent[0]['ingredients'],
                          recipe1.ingredients)
-        self.assertEqual(recipes_recent[1]['instructions'],
+        self.assertEqual(recipes_recent[0]['instructions'],
                          recipe1.instructions)
-        self.assertEqual(recipes_recent[1]['creation_date'],
+        self.assertEqual(recipes_recent[0]['creation_date'],
                          recipe1.creation_date)
-        self.assertEqual(recipes_recent[1]['rating_average'],
+        self.assertEqual(recipes_recent[0]['rating_average'],
                          recipe1.rating_average)
 
-        self.assertEqual(recipes_recent[0]['title'],
+        self.assertEqual(recipes_recent[1]['title'],
                          recipe2.title)
-        self.assertEqual(recipes_recent[0]['ingredients'],
+        self.assertEqual(recipes_recent[1]['ingredients'],
                          recipe2.ingredients)
-        self.assertEqual(recipes_recent[0]['instructions'],
+        self.assertEqual(recipes_recent[1]['instructions'],
                          recipe2.instructions)
-        self.assertEqual(recipes_recent[0]['creation_date'],
+        self.assertEqual(recipes_recent[1]['creation_date'],
                          recipe2.creation_date)
-        self.assertEqual(recipes_recent[0]['rating_average'],
+        self.assertEqual(recipes_recent[1]['rating_average'],
                          recipe2.rating_average)
 
     def test_get_rating_by_id(self):
