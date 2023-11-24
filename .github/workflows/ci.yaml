@@ -57,5 +57,5 @@ jobs:
       - name: Install Cypress
         run: npx cypress install --force
 
-      - name: Run Cypress Tests
-        run: npx cypress run
+      - name: Run Cypress Component Tests
+        run: npx cypress open --config-file ./path/to/cypress.json
