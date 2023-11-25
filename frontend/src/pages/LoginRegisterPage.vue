@@ -1,53 +1,130 @@
 <template>
-    <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>Create Account</h1>
-                <input type="text" placeholder="Name"/>
-                <input type="email" placeholder="Email"/>
-                <input type="password" placeholder="Password"/>
-                <button>Register</button>
-            </form>
-        </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Sign in</h1>
-                <input type="email" placeholder="Email"/>
-                <input type="password" placeholder="Password"/>
-                <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn" @click="togglePanel(false)">Sign In</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
-                    <button class="ghost" id="signUp" @click="togglePanel(true)">Sign Up</button>
+    <div class="mainLoginRegisterContainer">
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form action="#">
+                    <h1>Create Account</h1>
+                    <input id="registerUsernameInput" type="text" placeholder="Username" v-model="this.registerUsername"
+                           @input="this.checkUsername"/>
+                    <div class="note">
+                        <p>The username must be between 8 and 16 characters.</p>
+                    </div>
+                    <input id="registerEmailInput" type="email" placeholder="Email" v-model="this.registerEmail"
+                           @input="this.checkEmail"/>
+                    <div class="note">
+                        <p>Only the following domains are valid: example.com, yourdomain.com, gmail.com, hotmail.com</p>
+                    </div>
+                    <input
+                            id="registerPasswordInput"
+                            :type="showRegisterPassword ? 'text' : 'password'"
+                            placeholder="Password"
+                            v-model="this.registerPassword"
+                            @input="this.checkPassword"
+                    />
+                    <div class="input-group-append">
+                        <button
+                                class="btn btn-primary"
+                                type="button"
+                                @click="toggleShowRegisterPassword"
+                        >
+                            <span class="fa" :class="showRegisterPassword ? 'fa-eye' : 'fa-eye-slash'"></span>
+                        </button>
+                    </div>
+                    <div class="note">
+                        <p>The password must be at least 8 characters long, contain one uppercase letter, one lowercase
+                            letter, one number, and one symbol.</p>
+                    </div>
+                    <input
+                            id="registerPasswordInput"
+                            :type="showRegisterPasswordConfirmation ? 'text' : 'password'"
+                            placeholder="Password Confirmation"
+                            v-model="this.registerPasswordConfirm"
+                    />
+                    <div class="input-group-append">
+                        <button
+                                class="btn btn-primary"
+                                type="button"
+                                @click="toggleShowRegisterPasswordConfirmation"
+                        >
+                            <span class="fa"
+                                  :class="showRegisterPasswordConfirmation ? 'fa-eye' : 'fa-eye-slash'"></span>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <p>Password Strength:</p>
+                        <div class="password-strength-meter">
+                            <div class="password-strength-bar" :style="{ width: registerPasswordStrength + '%' }"></div>
+                        </div>
+                    </div>
+                    <button @click.prevent="this.register">Register</button>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="#">
+                    <h1>Login</h1>
+                    <input type="email" placeholder="Username or Email" v-model="this.loginUsernameOrEmail"/>
+                    <input
+                            id="loginPasswordInput"
+                            :type="showLoginPassword ? 'text' : 'password'"
+                            placeholder="Password"
+                            v-model="this.loginPassword"
+                    />
+                    <div class="input-group-append">
+                        <button
+                                class="btn btn-primary"
+                                type="button"
+                                @click="toggleShowLoginPassword"
+                        >
+                            <span class="fa" :class="showLoginPassword ? 'fa-eye' : 'fa-eye-slash'"></span>
+                        </button>
+                    </div>
+                    <button @click.prevent="this.login">Login</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>Already have an account? Login and explore!</p>
+                        <button class="ghost" id="signIn" @click="togglePanel(false)">Login</button>
+                        <router-link to="/"><p>« Return to main page</p></router-link>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello!</h1>
+                        <p>Don't have an account yet? Register and start exploring!</p>
+                        <button class="ghost" id="signUp" @click="togglePanel(true)">Register</button>
+                        <router-link to="/"><p>« Return to main page</p></router-link>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer>
-        <p>
-            Created with <i class="fa fa-heart"></i> by
-            <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
-            - Read how I created this and how you can join the challenge
-            <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
-        </p>
-    </footer>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     data() {
+        return {
+            loginUsernameOrEmail: "",
+            loginUsername: "",
+            loginEmail: "",
+            loginPassword: "",
 
+            registerUsername: "",
+            registerEmail: "",
+            registerPassword: "",
+            registerPasswordConfirm: "",
+            registerPasswordStrength: 0,
+            strength: 0,
+
+            showLoginPassword: false,
+            showRegisterPassword: false,
+            showRegisterPasswordConfirmation: false,
+            logged: false,
+
+        }
     },
     methods: {
         togglePanel(isSignUp) {
@@ -58,7 +135,187 @@ export default {
             } else {
                 container.classList.remove('right-panel-active');
             }
-        }
+        },
+        toggleShowRegisterPassword() {
+            this.showRegisterPassword = !this.showRegisterPassword;
+        },
+        toggleShowRegisterPasswordConfirmation() {
+            this.showRegisterPasswordConfirmation = !this.showRegisterPasswordConfirmation;
+        },
+        toggleShowLoginPassword() {
+            this.showLoginPassword = !this.showLoginPassword;
+        },
+        checkUsername() {
+            const usernameInput = document.getElementById('registerUsernameInput');
+
+            if (this.registerUsername.length !== 0) {
+                if (this.registerUsername.length < 8 || this.registerUsername.length > 16) {
+                    usernameInput.style.border = '1px solid red';
+                } else {
+                    usernameInput.style.border = '';
+                }
+            } else {
+                usernameInput.style.border = '';
+            }
+        },
+        checkEmail() {
+            // Check the validity of the entered email
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            const emailInput = document.getElementById('registerEmailInput');
+
+            if (this.registerEmail.length != 0) {
+                if (!emailRegex.test(this.registerEmail)) {
+                    emailInput.style.border = '1px solid red';
+                } else {
+                    // Define valid email extensions
+                    const validEmailExtensions = ["example.com", "yourdomain.com", "gmail.com", "hotmail.com"];
+                    // Split the email to get the domain part
+                    const emailParts = this.registerEmail.split("@");
+                    const emailExtension = emailParts[1];
+                    // Check if the email extension is valid
+                    if (!validEmailExtensions.includes(emailExtension)) {
+                        emailInput.style.border = '1px solid red';
+                    } else {
+                        emailInput.style.border = '';
+                    }
+                }
+            }
+        },
+        checkPassword() {
+            // Check the validity and strength of the entered password
+            const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+            const passwordInput = document.getElementById('registerPasswordInput');
+
+            if (this.registerPassword.length != 0) {
+                if (!passwordRegex.test(this.registerPassword)) {
+                    passwordInput.style.border = '1px solid red';
+                } else {
+                    passwordInput.style.border = '';
+                }
+
+                // Calculate password strength
+                let strength = 0;
+                if (this.registerPassword.length >= 8) {
+                    strength++;
+                }
+                if (/[a-z]/.test(this.registerPassword) && /[A-Z]/.test(this.registerPassword)) {
+                    strength++;
+                }
+                if (/\d/.test(this.registerPassword)) {
+                    strength++;
+                }
+                if (/\W|_/.test(this.registerPassword)) {
+                    strength++;
+                }
+                this.registerPasswordStrength = (strength / 4) * 100;
+            } else {
+                passwordInput.style.border = '';
+            }
+        },
+        async login() {
+            // Determine if the input is an email or username
+            if (this.loginUsernameOrEmail === 0 || this.loginPassword.length === 0) {
+                alert("Complete the form");
+                return;
+            }
+            let loginIdentifier = this.loginUsernameOrEmail;
+            if (loginIdentifier.match(/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)) {
+                // If it matches the email format, set it as an email
+                this.loginEmail = loginIdentifier;
+            } else {
+                // Otherwise, set it as a username
+                this.loginUsername = loginIdentifier;
+            }
+
+            try {
+                let response = await axios.post('/login/', {
+                    username: this.loginUsername,
+                    email: this.loginEmail,
+                    password: this.loginPassword,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 200) {
+                    // Successful login, perform necessary actions
+                    alert("Logged!") // Display a success message
+                    this.logged = true; // Set the logged flag to true
+                    localStorage.setItem('logged', this.logged); // Store the logged status in local storage
+                    localStorage.setItem('username', this.loginUsername);
+                    this.$emit('login-success', this.logged); // Emit a custom event indicating login success
+                    this.$emit('username-success', this.loginUsername);
+                    this.$emit('email-success', this.loginEmail);
+                    this.$emit('password-success', this.loginPassword);
+                    this.$router.push('/'); // Redirect to the home page
+                }
+            } catch (error) {
+                if (error.response) {
+                    // Handle login failure (e.g., display an error message).
+                    if (error.response.status === 400) {
+                        alert(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        alert("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        alert("Unexpected error");
+                    }
+                } else {
+                    // Handle other errors.
+                    console.error("An error occurred while logging in.");
+                }
+            }
+        },
+        async register() {
+            // Check if passwords match
+            if (this.registerUsername.length === 0 || this.registerEmail.length === 0 ||
+                this.registerPassword.length === 0 || this.registerPasswordConfirm.length === 0) {
+                alert("Complete the form");
+                return;
+            }
+            if (this.registerPassword !== this.registerPasswordConfirm) {
+                alert("Passwords do not match");
+                return;
+            }
+            try {
+                // Send a registration request to the server
+                let response = await axios.post('/register/', {
+                    username: this.registerUsername,
+                    email: this.registerEmail,
+                    password: this.registerPassword,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // Check the HTTP status code in the response
+                if (response.status === 200) {
+                    // Registration successful, you can handle success here
+                    console.log("Registration successful");
+                    alert("Registration successful");
+                    this.$router.push('/');
+                }
+            } catch (error) {
+                if (error.response) {
+                    // Handle network errors
+                    if (error.response.status === 400) {
+                        // Handle client-side validation errors
+                        alert(error.response.data.error);
+                    } else if (error.response.status === 500) {
+                        // Handle server errors
+                        alert("An error occurred while registering.");
+                    } else {
+                        // Handle other status codes
+                        alert("Unexpected error");
+                    }
+                } else {
+                    // Handle other unexpected errors
+                    alert("An error occurred while registering.");
+                }
+            }
+        },
     }
 }
 </script>
@@ -89,10 +346,15 @@ h2 {
 }
 
 a {
-    color: #333;
+    color: #FFFFFF;
     font-size: 14px;
     text-decoration: none;
     margin: 1.5vh 0;
+}
+
+a:hover {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 button {
@@ -140,16 +402,28 @@ input {
     width: 100%;
 }
 
+.mainLoginRegisterContainer {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/loginRegisterBG.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .container {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(0, 0, 0, 0.22);
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: hidden;
-    width: 76.8vh;
+    width: 80vh;
     max-width: 100%;
-    min-height: 48vh;
+    min-height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -265,43 +539,50 @@ input {
     transform: translateX(20%);
 }
 
-.social-container {
-    margin: 20px 0;
+.note {
+    color: gray;
+    font-size: 12px;
+    text-align: justify;
 }
 
-.social-container a {
-    border: 1px solid #DDDDDD;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0.5vh;
-    height: 4vh;
-    width: 4vh;
+.password-strength p {
+    color: gray;
+    text-align: justify;
+    font-weight: normal;
 }
 
-footer {
-    background-color: #222;
-    color: #fff;
+.password-strength {
+    font-weight: bold;
+    width: 100%;
+    margin: 0.8vh 0;
+}
+
+.password-strength-meter {
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0;
+    transition: width 0.3s;
+}
+
+.input-group-append {
+    width: 100%;
+    text-align: justify;
+}
+
+.input-group-append button {
+    padding: 0.2vh 0.3vh;
+}
+
+.input-group-append button .fa {
     font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
 }
 
-footer p {
-    margin: 1vh 0;
-}
-
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-}
 </style>

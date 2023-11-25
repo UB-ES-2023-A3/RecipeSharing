@@ -60,14 +60,14 @@ export default {
             }
         },
         goToLogin() {
-            this.$router.push('/login'); // Navigate to the login page
+            this.$router.push('/loginRegister'); // Navigate to the login page
         },
         goToProfile() {
             this.$router.push('/profile');
         },
         async logout() {
             try {
-                let response = await axios.post('/login/', {
+                let response = await axios.post('/loginRegister/', {
                     username: "Logout",
                     email: this.email,
                     password: this.password,
@@ -118,8 +118,8 @@ export default {
 }
 
 .user-image {
-    width: 70px;
-    height: 70px;
+    width: 7vh;
+    height: 7vh;
     border-radius: 50%;
     margin-right: 10px;
 }

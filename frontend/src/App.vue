@@ -1,11 +1,11 @@
 <template>
-    <div id="header">
-        <AppHeader :logged="logged" :username="username" :email="email" :password="password"/>
-    </div>
     <div id="pages" class="pages-container">
         <router-view :logged="logged" :username="username" @login-success="onLoginSuccess"
                      @username-success="onUsernameSuccess" @email-success="onEmailSuccess"
                      @password-sucess="onPasswordSuccess"/>
+    </div>
+    <div id="header">
+        <AppHeader :logged="logged" :username="username" :email="email" :password="password"/>
     </div>
 </template>
 
@@ -51,5 +51,6 @@ export default {
     top: 10vh;
     left: 0;
     width: 100%;
+    height: 90%
 }
 </style>
