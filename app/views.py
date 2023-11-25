@@ -89,6 +89,35 @@ class LoginView(TemplateView):
 
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
+class LoginRegisterView(TemplateView):
+    template_name = "LoginRegisterPage.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        if request.method == "POST":
+            data = json.loads(request.body)
+            username = data.get('username')
+            email = data.get('email')
+            password = data.get('password')
+            lr_type = data.get('type')
+
+            if lr_type == "login":
+                response_data = login_logic(username, email, password)
+
+                if 'error' in response_data:
+                    return JsonResponse(response_data, status=400)
+                else:
+                    return JsonResponse(response_data, status=200)
+            else:
+                response_data = register_user(username, email, password, request)
+
+                if 'error' in response_data:
+                    return JsonResponse(response_data, status=400)
+                else:
+                    return JsonResponse(response_data, status=200)
+        return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
 # Add Recipe Page
 class AddRecipeView(TemplateView):

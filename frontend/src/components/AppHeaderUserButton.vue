@@ -113,10 +113,8 @@ export default {
     position: absolute;
     top: 0;
     right: 0;
-    height: 100%;
-    margin-top: 7px;
-    margin-right: 10px;
-    border-radius: 50%;
+    margin-top: 0.7vh;
+    margin-right: 1vh;
 }
 
 .user-image {

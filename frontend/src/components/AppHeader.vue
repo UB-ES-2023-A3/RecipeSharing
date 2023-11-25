@@ -49,14 +49,10 @@ export default {
     width: 100%;
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
 }
 
 .image-container {
-    position: relative;
-    height: 100px;
+    height: 10vh;
 }
 
 .image {
@@ -67,20 +63,15 @@ export default {
 
 .text-overlay {
     position: absolute;
-    top: 0;
-    left: 300px;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .text-overlay p {
     color: #fff;
     font-style: oblique;
     font-size: 1cm;
-    text-align: center;
 }
 
 .animated-title {
@@ -103,12 +94,9 @@ export default {
 
 .button-image-logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 70px;
-    margin-top: 12px;
-    margin-left: 20px;
-    border-radius: 50%;
+    width: 7vh;
+    margin-top: 1.2vh;
+    margin-left: 2vh;
 }
 
 </style>

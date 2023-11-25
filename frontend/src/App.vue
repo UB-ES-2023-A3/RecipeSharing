@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div id="header">
+        <AppHeader :logged="logged" :username="username" :email="email" :password="password"/>
+    </div>
+    <div id="pages" class="pages-container">
         <router-view :logged="logged" :username="username" @login-success="onLoginSuccess"
                      @username-success="onUsernameSuccess" @email-success="onEmailSuccess"
                      @password-sucess="onPasswordSuccess"/>
-
-        <AppHeader :logged="logged" :username="username" :email="email" :password="password"/>
     </div>
 </template>
 
@@ -43,3 +44,12 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.pages-container {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+}
+</style>
