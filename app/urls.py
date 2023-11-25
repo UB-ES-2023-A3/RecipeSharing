@@ -7,15 +7,12 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='registerpage'),
     path('login/', LoginView.as_view(), name='loginpage'),
     path('addRecipe/', AddRecipeView.as_view(), name='addRecipe'),
-
-    # path('getRecipes/', HomeView.get_recipes, name= 'get_recipes'),
-    path('recipe/<str:query>/', QueryListRecipesView.as_view(), name='queryListRecipes'),
-    path('recipes/postratings/', PostRecipeRatingView.as_view(), name='postRatingRecipe'),
-    path('recipes/getratings/<str:query>/', GetRecipeRatingView.as_view(), name='getRatingRecipe')
-
-    # path('new/', views.create_new_recipe, name='create_new_recipe'),
-    # path('recipes/<int:recipe_id>/', views.update_recipe, name='update_recipe'),
-    # path('recipes/<int:recipe_id>/', views.delete_recipe, name='delete_recipe')
+    path('recipes/<str:query>/', QueryListRecipes.as_view(), name='queryListRecipes'),
+    path('recipesPostRatings/', RecipeView.as_view(), name='postRatingRecipe'),
+    path('recipesAddFavorites/', PostFavoriteRecipe.as_view(), name='addRecipeToFavorite'),
+    path('recipes/getratings/<str:query>/', GetRatingsByID.as_view(), name='getRatingRecipe'),
+    path('user/<str:username>/', GetUserByUsername.as_view(), name='getUser'),
+    path('recipe/<str:recipe_id>/', RecipeView.as_view(), name='recipe'),
 ]
 
 urlpatterns += [

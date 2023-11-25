@@ -19,11 +19,22 @@ class RecipeAdmin(admin.ModelAdmin):
         (None, {'fields': ['allergens']})
     ]
 
-    # Define the list_display property to specify which fields are displayed in the list view
+    # Define the list_display property to specify
+    # which fields are displayed in the list view
     list_display = (
-        'title', 'ingredients', 'instructions', 'preparation_time', 'servings', 'kcal', 'username_id', 'creation_date',
-        'recipe_type', 'allergens')
+        'title',
+        'ingredients',
+        'instructions',
+        'preparation_time',
+        'servings',
+        'kcal',
+        'username_id',
+        'creation_date',
+        'recipe_type',
+        'allergens'
+    )
 
 
-# Register the Recipe model with the custom RecipeAdmin class in the admin site
+# Register the Recipe model with the custom RecipeAdmin class
+# in the admin site
 admin.site.register(Recipe, RecipeAdmin)

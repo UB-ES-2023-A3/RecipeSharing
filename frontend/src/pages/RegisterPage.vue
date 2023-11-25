@@ -1,12 +1,8 @@
 <template>
-    <div class="mainContainer" style="color: black">
-        <div class="form-background">
-            <div class="mainTitle" style="color: #ff5733">
-                <!-- Title for the registration form with custom color -->
-                <h1>Register</h1>
-            </div>
-            <form @submit.prevent="register" class="form">
-                <div class="form-group">
+    <div id="registerMainContainer">
+        <div id="registerCenteredContainer">
+            <div id="register">
+                <form @submit.prevent="register" class="registerForm">
                     <label for="username">Username:</label>
                     <!-- AppTextField component for username input -->
                     <AppTextField
@@ -18,8 +14,6 @@
                         <p>The username must be between 8 and 16 characters.</p>
                     </div>
                     <p v-if="usernameError" class="error">This username is not valid</p>
-                </div>
-                <div class="form-group">
                     <label for="email">Email:</label>
                     <!-- AppTextField component for email input -->
                     <AppTextField
@@ -31,8 +25,6 @@
                         <p>Only the following domains are valid: example.com, yourdomain.com, gmail.com, hotmail.com</p>
                     </div>
                     <p v-if="emailError" class="error">This email extension is not valid</p>
-                </div>
-                <div class="form-group">
                     <label for="password">Password:</label>
                     <!-- AppTextFieldPassword component for password input -->
                     <AppTextFieldPassword
@@ -45,30 +37,34 @@
                             letter, one number, and one symbol.</p>
                     </div>
                     <p v-if="passwordError" class="error">This password is not valid</p>
-                </div>
-                <div class="form-group">
                     <label for="confirmPassword">Confirm Password:</label>
                     <!-- AppTextFieldPassword component for password confirmation input -->
                     <AppTextFieldPassword
                             :defaultMessage="defaultMessagePasswordCheck"
                             @update:textValue="confirmPassword = $event"
                     />
-                </div>
-                <div class="password-strength">
-                    Password Strength:
-                    <div class="password-strength-meter">
-                        <div class="password-strength-bar" :style="{ width: passwordStrength + '%' }"></div>
+                    <br>
+                    <div class="password-strength">
+                        Password Strength:
+                        <div class="password-strength-meter">
+                            <div class="password-strength-bar" :style="{ width: passwordStrength + '%' }"></div>
+                        </div>
                     </div>
+                    <button type="submit" class="submit-button">Register</button>
+                </form>
+            </div>
+            <div id="registerRight">
+                <div class="registerTitle">
+                    Register
                 </div>
-                <p>
+                <hr>
+                <div class="registerRightForm">
                     <!-- Router link to navigate to the login page if the user already has an account -->
                     <router-link to="/login">Already have an account? Log in</router-link>
-                </p>
-                <div class="secondaryContainer" style="background-color: white">
-                    <!-- Register button to submit the form -->
-                    <button type="submit" class="submit-button">Register</button>
+                    <hr>
+                    <router-link to="/">« Go back to the main page</router-link>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -201,6 +197,154 @@ export default {
 </script>
 
 <style scoped>
+
+#registerMainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+
+    background-position: center;
+    background-size: cover;
+}
+
+#registerCenteredContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    min-width: 380px;
+    max-width: 900px;
+    width: 90%;
+
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    background-color: #f39a3d;
+
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+#register {
+    width: 100%;
+    padding: 30px 30px 50px 30px;
+    background-color: #efb378;
+
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+    -webkit-border-radius: 3px 3px 3px 3px;
+
+    box-sizing: border-box;
+
+    opacity: 1;
+}
+
+#registerRight {
+    text-align: center;
+    width: 100%;
+
+    padding: 20px 20px 20px 50px;
+    box-sizing: border-box;
+}
+
+.registerTitle {
+    font-size: 500%;
+    color: #ffffff;
+}
+
+hr {
+    border-top: 1px solid #df8500;
+    border-bottom: 1px solid #ffbf00;
+
+}
+
+.registerRightForm {
+    font-size: 90%;
+    text-align: center;
+    margin-top: 15px;
+    color: #ffffff;
+}
+
+.registerRightForm a {
+    display: block;
+    text-decoration: none;
+    color: #e7d6c6;
+    margin-bottom: 3px;
+    font-size: 120%;
+}
+
+.registerRightForm a:hover {
+    color: #ffffff;
+}
+
+#register button {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color: #e7d6c6;
+    width: 100%;
+    height: 40px;
+    border: none;
+
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+
+    background-color: #ffa500;
+
+    margin-top: 10px;
+}
+
+#register button:hover {
+    background-color: #ff8c00;
+    color: #ffffff;
+}
+
+@media all and (max-width: 775px) {
+    #registerMainContainer {
+        flex-direction: column-reverse;
+
+        min-width: 380px;
+        max-width: 900px;
+        width: 90%;
+
+        background-color: #5f6769;
+
+        border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+
+        -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.15);
+
+        padding: 30px;
+        box-sizing: border-box;
+    }
+
+    #register {
+        margin: 0 auto;
+    }
+
+    #registerRight {
+        padding: 20px 20px 20px 20px;
+    }
+}
 
 .password-strength {
     font-weight: bold;
