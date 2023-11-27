@@ -110,10 +110,7 @@ export default {
     },
     methods: {
         togglePopup() {
-            this.$router.push({
-                path: '/recipePage',
-                query: {recipe_id: this.recipe_id, username: this.username}
-            });
+            this.$router.push(`/recipe/${this.recipe_id}`);
         },
         goToLogin() {
             alert('Log in to see the recipe!');

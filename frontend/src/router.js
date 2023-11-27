@@ -7,6 +7,7 @@ import LoginRegisterPage from "./pages/LoginRegisterPage.vue";
 import AddRecipePage from "./pages/AddRecipePage.vue";
 import ProfilePage from "./pages/ProfilePage.vue"
 import RecipePage from "./pages/RecipePage.vue"
+import RecipePageRework from "./pages/RecipePageRework.vue"
 
 const routes = [
   {
@@ -43,6 +44,12 @@ const routes = [
     path: "/loginRegister",
     component: LoginRegisterPage,
     name: "loginRegisterPage",
+  },
+  {
+    path: "/recipe/:id",
+    component: RecipePageRework,
+    name: "recipePageRework",
+    props: true,
   }
 ];
 

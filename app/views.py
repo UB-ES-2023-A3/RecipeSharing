@@ -18,7 +18,6 @@ class HomeView(TemplateView):
     template_name = "HomePage.html"
 
     def get(self, request):
-
         return render(request, self.template_name)
 
     def get_recipes(self):
@@ -210,12 +209,17 @@ class GetUserByUsername(TemplateView):
 
 class RecipeView(TemplateView):
 
+    template_name = "RecipePageRework.html";
+
     def get(self, request, recipe_id):
+
         if request.method == 'GET':
             response_data = get_recipe_by_id(recipe_id)
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
+                print(render(request, self.template_name, context=response_data))
+                return render(request, self.template_name, response_data)
                 return JsonResponse(response_data, status=200)
 
     def post(self, request):
