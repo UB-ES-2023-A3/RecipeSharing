@@ -13,6 +13,8 @@ urlpatterns = [
     path('recipes/getratings/<str:query>/', GetRatingsByID.as_view(), name='getRatingRecipe'),
     path('user/<str:username>/', GetUserByUsername.as_view(), name='getUser'),
     path('recipe/<str:recipe_id>/', RecipeView.as_view(), name='recipe'),
+
+path('loginRegister/', LoginRegisterView.as_view(), name='loginregisterpage'),
 ]
 
 urlpatterns += [

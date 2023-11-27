@@ -117,7 +117,7 @@ export default {
         },
         goToLogin() {
             alert('Log in to see the recipe!');
-            this.$router.push('/login');
+            this.$router.push('/loginRegister');
         },
         parseText(listString) {
             const sinCorchetes = listString.replace(/\[|\]/g, '');
