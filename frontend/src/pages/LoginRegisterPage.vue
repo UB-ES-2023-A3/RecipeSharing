@@ -1,8 +1,8 @@
 <template>
     <div class="mainLoginRegisterContainer">
         <div class="container" id="container">
-            <div class="form-container sign-up-container">
-                <form action="#">
+            <div class="form-container sign-up-container" v-show="!this.showLogin">
+                <form class="registerForm" action="#">
                     <h1>Create Account</h1>
                     <input id="registerUsernameInput" type="text" placeholder="Username" v-model="this.registerUsername"
                            @input="this.checkUsername"/>
@@ -57,10 +57,11 @@
                         </div>
                     </div>
                     <button @click.prevent="this.register">Register</button>
+                    <hr>
                 </form>
             </div>
-            <div class="form-container sign-in-container">
-                <form action="#">
+            <div class="form-container sign-in-container" v-show="this.showLogin">
+                <form class="loginForm" action="#">
                     <h1>Login</h1>
                     <input type="email" placeholder="Username or Email" v-model="this.loginUsernameOrEmail"/>
                     <input
@@ -122,20 +123,32 @@ export default {
             showLoginPassword: false,
             showRegisterPassword: false,
             showRegisterPasswordConfirmation: false,
+
+            showLogin: true,
             logged: false,
 
         }
     },
     methods: {
         togglePanel(isSignUp) {
-            const container = document.getElementById('container');
+            const container = document.querySelector('.container');
+            const signUpContainer = document.querySelector('.form-container');
 
             if (isSignUp) {
                 container.classList.add('right-panel-active');
+                signUpContainer.style.display = '';
+                signUpContainer.style.justifyContent = 'none';
+                signUpContainer.style.overflow = 'auto';
+                this.showLogin = false;
             } else {
                 container.classList.remove('right-panel-active');
+                signUpContainer.style.display = 'flex';
+                signUpContainer.style.justifyContent = 'center'; // You might need to adjust this line
+                signUpContainer.style.overflow = '';
+                this.showLogin = true;
             }
         },
+
         toggleShowRegisterPassword() {
             this.showRegisterPassword = !this.showRegisterPassword;
         },
@@ -381,17 +394,21 @@ button:focus {
 button.ghost {
     background-color: transparent;
     border-color: #FFFFFF;
+    margin-bottom: 0.2vh;
 }
 
 form {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     padding: 0 5vh;
     height: 100%;
     text-align: center;
+}
+
+.loginForm {
+    justify-content: center;
 }
 
 input {
@@ -558,10 +575,10 @@ input {
 }
 
 .password-strength-meter {
-    height: 10px;
+    height: 1vh;
     background-color: #ccc;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 1vh;
     overflow: hidden;
 }
 
