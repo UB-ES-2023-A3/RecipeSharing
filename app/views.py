@@ -89,6 +89,7 @@ class LoginView(TemplateView):
 
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
 
+
 class LoginRegisterView(TemplateView):
     template_name = "LoginRegisterPage.html"
 
@@ -111,13 +112,18 @@ class LoginRegisterView(TemplateView):
                 else:
                     return JsonResponse(response_data, status=200)
             else:
-                response_data = register_user(username, email, password, request)
+                response_data = register_user(
+                                            username,
+                                            email,
+                                            password,
+                                            request)
 
                 if 'error' in response_data:
                     return JsonResponse(response_data, status=400)
                 else:
                     return JsonResponse(response_data, status=200)
         return JsonResponse({'error': 'Method not allowed.'}, status=405)
+
 
 # Add Recipe Page
 class AddRecipeView(TemplateView):
