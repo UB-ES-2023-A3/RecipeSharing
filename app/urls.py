@@ -7,6 +7,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='registerpage'),
     path('login/', LoginView.as_view(), name='loginpage'),
     path('addRecipe/', AddRecipeView.as_view(), name='addRecipe'),
+    path('ingredientsFilterPage/',IngredientsFilterView.as_view(), name='ingredientsFilter'),
     path('recipes/<str:query>/', QueryListRecipes.as_view(), name='queryListRecipes'),
     path('recipesPostRatings/', RecipeView.as_view(), name='postRatingRecipe'),
     path('recipesAddFavorites/', PostFavoriteRecipe.as_view(), name='addRecipeToFavorite'),
