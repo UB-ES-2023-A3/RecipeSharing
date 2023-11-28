@@ -241,7 +241,7 @@ export default {
             }
 
             try {
-                let response = await axios.post('/login/', {
+                let response = await axios.post('login/', {
                     username: this.loginUsername,
                     email: this.loginEmail,
                     password: this.loginPassword,
@@ -293,7 +293,7 @@ export default {
             }
             try {
                 // Send a registration request to the server
-                let response = await axios.post('/register/', {
+                let response = await axios.post('register/', {
                     username: this.registerUsername,
                     email: this.registerEmail,
                     password: this.registerPassword,

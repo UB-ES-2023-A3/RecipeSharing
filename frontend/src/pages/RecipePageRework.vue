@@ -1,21 +1,128 @@
 <template>
-    <h1>HOLA</h1>
+    <div class="recipeMainContainer" v-if="this.recipe">
+        <div class="recipeInfoContainer">
+            <div class="recipeLeftContainer">
+                <div class="recipeImageContainer">
+
+                </div>
+                <div class="recipeUsernameCreationDateContainer">
+                    <div class="recipeUsernameContainer">
+                        <p>@{{ this.recipe.username_id }}</p>
+                    </div>
+                    <div class="recipeCreationDateContainer">
+                        <p>Created: {{ this.recipe.creation_date }}</p>
+                    </div>
+                </div>
+                <div class="recipeHRLeftUsernameRating">
+                    <hr>
+                </div>
+                <div class="recipeRatingFavoriteContainer">
+                    <div class="recipeRatingContainer">
+                        <div class="recipeRatingTitleContainer">
+                            <p>Current Rating:
+                                {{ this.recipe.rating_average + " from " + this.recipe.rating_amount + " ratings" }}</p>
+                        </div>
+                        <div class="recipeRatingStarsContainer">
+                            <div v-if="this.username !== this.recipe.username_id">
+                                <p>Add your rating:</p>
+                            </div>
+                            <span
+                                    v-for="star in [1, 2, 3, 4, 5]"
+                                    :key="star"
+                                    @click="setRating(star)"
+                                    @mouseover="hoverStars(star)"
+                                    @mouseout="resetStars"
+                                    :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
+                            >
+                            ★
+                            </span>
+                        </div>
+                    </div>
+                    <div class="recipeFavoriteContainer">
+                        <button @click="addToFavorites" :class="{ 'active': isFavorited }" class="heart-btn">
+                            <i class="far fa-heart heart-icon" v-if="!isFavorited"></i>
+                            <i class="fas fa-heart heart-icon active-heart" v-if="isFavorited"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="recipeHRLeftUsernameRating">
+                    <hr>
+                </div>
+                <div class="recipeTypeContainer">
+                    <div v-for="(step, index) in this.parseText(this.recipe.recipe_type)" :key="index"
+                         class="recipeType">
+                        #{{ step }}
+                    </div>
+                </div>
+                <div class="recipeHRLeftUsernameRating">
+                    <hr>
+                </div>
+                <div class="recipeAllergensContainer">
+                    <p>Allergens:</p>
+                    <div v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index"
+                         class="recipeAllergens">
+                        <li>{{ step }}</li>
+                    </div>
+                </div>
+            </div>
+            <div class="recipeRightContainer">
+                <div class="recipeTitleContainer">
+                    <h1>{{ this.recipe.title }}</h1>
+                </div>
+                <div class="recipeServingsPrepTimeContainer">
+                    <div class="recipeServingsContainer">
+                        <p>Servings: {{ this.recipe.servings }}</p>
+                    </div>
+                    <div class="recipePrepTimeContainer">
+                        <p>Preparation Time: {{ this.recipe.preparation_time }}</p>
+                    </div>
+                </div>
+                <div class="recipeHRLeftUsernameRating">
+                    <hr>
+                </div>
+                <div class="recipeIngredientsContainer">
+                    <h2>Ingredients:</h2>
+                    <p v-for="(ingredient, index) in this.parseText(this.recipe.ingredients)" :key="index"
+                       class="ingredientCheckbox">
+                        <input type="checkbox" :value="ingredient">
+                        {{ ingredient }}
+                    </p>
+                </div>
+                <div class="recipeHRLeftUsernameRating">
+                    <hr>
+                </div>
+                <div class="recipeInstructionsContainer">
+                    <h2>Instructions:</h2>
+                    <ol>
+                        <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
+                            {{ step }}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="recipeCommentsContainer">
+            <AppComments :username="this.username" :recipe_id="this.recipeId" :comments="this.recipe.comments_list">
+            </AppComments>
+        </div>
+    </div>
 </template>
 
 <script>
 
 import axios from 'axios';
+import AppComments from "@/components/AppComments.vue";
 
 
 export default {
     name: "RecipePageRework",
+    components: {AppComments},
     data() {
         return {
             showPopup: false,
             rating: 0, // Valoración inicial
             NumRatings: 0,
             CurrRating: 0,
-            recipe_id: 0,
             hoveredStar: 0,
             username: null,
             recipe: null,
@@ -52,7 +159,7 @@ export default {
         },
         getRating() {
             // Axios para recibir los ratings
-            axios.get(`recipes/getratings/${this.recipe_id}/`)
+            axios.get(`getRatings/`)
                 .then((response) => {
                     if (response.status === 200) {
                         const ratings = response.data;
@@ -68,7 +175,7 @@ export default {
         addRating() {
             //axios para postear el rating de una receta
             axios
-                .post("recipesPostRatings/", {
+                .post("postRatings/", {
                     user_id: this.username,
                     recipe_id: this.recipe.id,
                     rating: this.rating,
@@ -91,10 +198,7 @@ export default {
                 .get(`/recipe/${this.recipeId}/`)
                 .then((response) => {
                     if (response.status === 200) {
-                        const info = response.data.recipe;
-                        console.log(response.data.recipe[0].fields)
-                        this.recipe = info;
-                        console.log(this.recipe)
+                        this.recipe = response.data.recipe;
                     }
                 })
                 .catch((error) => {
@@ -105,16 +209,17 @@ export default {
             // Lógica para agregar o quitar de favoritos
             this.isFavorited = !this.isFavorited;
             axios
-                .post("recipesAddFavorites/", {
+                .post("/recipes/postFavorites/", {
                     user_id: this.username,
                     recipe_id: this.recipe.id,
                 })
                 .then((response) => {
                     if (response.status === 200) {
                         console.log("Recipe updated");
-                        this.isFavorited = this.recipe_id in this.profileInfo.list_favorite_recipes
-                        this.getRecipeInformation();
+                        console.log(response)
+                        this.isFavorited = this.recipeId in this.profileInfo.list_favorite_recipes
                         this.getUserInformation();
+                        this.getRecipeInformation();
                         alert("List of favorites updated")
                     }
                 })
@@ -125,7 +230,7 @@ export default {
         getUserInformation() {
             // Axios para recibir lla información del usuario
             axios
-                .get(`user/${this.username}/`)
+                .get(`/user/${this.username}/`)
                 .then((response) => {
                     if (response.status === 200) {
                         const info = response.data.user;
@@ -138,21 +243,140 @@ export default {
                     console.error("Error al obtener las información del usuario:", error);
                 });
         },
-
         checkFavorite() {
-            this.isFavorited = this.recipe_id in this.profileInfo.list_favorite_recipes
+            this.isFavorited = this.recipeId in this.profileInfo.list_favorite_recipes
         }
 
     },
-    created() {
+    async created() {
         this.recipeId = this.$route.params.id;
         this.getRecipeInformation();
-        // this.getUserInformation();
+        this.username = localStorage.getItem('username');
+        this.getUserInformation();
     }
 }
 </script>
 
 <style scoped>
+
+.recipeMainContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.recipeInfoContainer {
+    margin-top: 3vh;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    display: flex;
+}
+
+.recipeLeftContainer {
+    height: 100%;
+    width: 50%;
+}
+
+.recipeImageContainer {
+    width: 70%;
+    height: 30vh;
+    background-image: url('../assets/images/loginRegisterBG.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.recipeUsernameCreationDateContainer {
+    display: flex;
+    width: 70%;
+}
+
+.recipeUsernameContainer {
+    width: 50%;
+}
+
+.recipeCreationDateContainer {
+    width: 50%;
+    text-align: end;
+}
+
+.recipeHRLeftUsernameRating {
+    width: 70%
+}
+
+.recipeRatingFavoriteContainer {
+    width: 70%;
+    text-align: center;
+    display: flex;
+}
+
+.recipeRatingContainer {
+    width: 50%;
+}
+
+.recipeRatingStarsContainer span {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-left: 5px;
+}
+
+.recipeRatingStarsContainer span.filled {
+    cursor: pointer;
+    color: #ffcc00;
+}
+
+.recipeRatingStarsContainer span.hovered {
+    cursor: pointer;
+    color: #ffcc00;
+}
+
+
+.hidden-stars {
+    display: none;
+}
+
+.recipeFavoriteContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.heart-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.heart-icon {
+    font-size: 50px;
+    color: #FFFFFF;
+    transition: color 0.3s ease;
+}
+
+.active-heart {
+    /* Estilos para el corazón relleno */
+    color: #ff0000; /* Color del corazón relleno */
+}
+
+.recipeRightContainer {
+    height: 100%;
+    width: 50%;
+}
+
+.recipeServingsPrepTimeContainer {
+    display: flex;
+    width: 70%;
+}
+
+.recipeServingsContainer {
+    width: 50%;
+}
+
+.recipePrepTimeContainer {
+    width: 50%;
+    text-align: end;
+}
 
 .scrollable-content {
     max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
@@ -182,24 +406,6 @@ export default {
     width: 75%;
 }
 
-.rating-stars span {
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #ccc;
-    margin-left: 5px;
-}
-
-.rating-stars span.filled {
-    color: #ffcc00;
-}
-
-.rating-stars span.hovered {
-    color: #ffcc00;
-}
-
-.hidden-stars {
-    display: none;
-}
 
 .recipe-header {
     background-color: #FF5733;
@@ -252,5 +458,6 @@ h3 {
     background-color: #ffcc00; /* Cambia el color de fondo cuando está marcado como favorito */
     color: #333; /* Cambia el color del texto cuando está marcado como favorito */
 }
+
 
 </style>

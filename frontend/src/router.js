@@ -10,47 +10,47 @@ import RecipePage from "./pages/RecipePage.vue"
 import RecipePageRework from "./pages/RecipePageRework.vue"
 
 const routes = [
-  {
-    path: "",
-    component: HomePage,
-    name: "home",
-  },
-  {
-    path: "/register",
-    component: RegisterPage,
-    name: "register",
-  },
-  {
-    path: "/login",
-    component: LoginPage,
-    name: "login",
-  },
-  {
-    path: "/addRecipe",
-    component: AddRecipePage,
-    name: "addRecipe",
-  },
-  {
-    path: "/profile",
-    component: ProfilePage,
-    name: "profile",
-  },
-  {
-    path: "/recipePage",
-    component: RecipePage,
-    name: "recipePage",
-  },
-  {
-    path: "/loginRegister",
-    component: LoginRegisterPage,
-    name: "loginRegisterPage",
-  },
-  {
-    path: "/recipe/:id",
-    component: RecipePageRework,
-    name: "recipePageRework",
-    props: true,
-  }
+    {
+        path: "",
+        component: HomePage,
+        name: "home",
+    },
+    {
+        path: "/register",
+        component: RegisterPage,
+        name: "register",
+    },
+    {
+        path: "/login",
+        component: LoginPage,
+        name: "login",
+    },
+    {
+        path: "/addRecipe",
+        component: AddRecipePage,
+        name: "addRecipe",
+    },
+    {
+        path: "/profile",
+        component: ProfilePage,
+        name: "profile",
+    },
+    {
+        path: "/recipePage",
+        component: RecipePage,
+        name: "recipePage",
+    },
+    {
+        path: "/loginRegister",
+        component: LoginRegisterPage,
+        name: "loginRegisterPage",
+    },
+    {
+        path: "/recipes/:id",
+        component: RecipePageRework,
+        name: "recipesPageRework",
+        props: true,
+    },
 ];
 
 const router = createRouter({
