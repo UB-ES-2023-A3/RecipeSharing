@@ -232,6 +232,7 @@ class RecipeView(TemplateView):
         else:
             return JsonResponse(response_data, status=200)
 
+
 class AllergensFilterView(TemplateView):
     template_name = "AllergensFilterPage.html"
 
