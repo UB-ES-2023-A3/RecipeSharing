@@ -197,6 +197,7 @@ class RecipeView(TemplateView):
         else:
             return JsonResponse(response_data, status=200)
 
+
 # Register Page
 class IngredientsFilterView(View):
     template_name = "IngredientsFilterPage.html"
@@ -204,5 +205,3 @@ class IngredientsFilterView(View):
     # Get Endpoint
     def get(self, request):
         return render(request, self.template_name)
-
-    
