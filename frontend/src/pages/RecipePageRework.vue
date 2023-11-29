@@ -1,42 +1,36 @@
 <template>
     <div class="recipeMainContainer">
         <div class="recipeContainer">
-            <div class="recipeTitleImageFavRatingContainer">
-                <div class="recipeLeftContainer">
-                    <div class="recipeTitleContainer">
-                        {{ this.recipe.title }}
+            <div class="recipeTitleImageRatingFavContainer">
+                <div class="recipeImageContainer">
+                    <p>{{ this.recipe.title }}</p>
+                </div>
+                <div class="recipeRatingFavContainer">
+                    <div class="recipeRatingContainer">
+                        <div class="recipeRatingStars">
+                            <span
+                                    v-for="star in [1, 2, 3, 4, 5]"
+                                    :key="star"
+                                    @click="setRating(star)"
+                                    @mouseover="hoverStars(star)"
+                                    @mouseout="resetStars"
+                                    :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
+                            >
+                            ★
+                            </span>
+                            <p>{{ this.recipe.rating_average + "(" + this.recipe.rating_amount + ")" }}</p>
+                        </div>
                     </div>
-                    <!--                    <div class="recipeHorizontalLineContainer">-->
-                    <!--                        <hr class="recipeHorizontalLine">-->
-                    <!--                    </div>-->
-                    <div class="recipeImageContainer">
-
+                    <div class="recipeFavContainer">
+                        <button @click="addToFavorites" :class="{ 'active': isFavorited }" class="heart-btn">
+                            <i class="far fa-heart heart-icon" v-if="!isFavorited"></i>
+                            <i class="fas fa-heart heart-icon active-heart" v-if="isFavorited"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="recipeRightContainer">
-                    <div class="recipeRatingFavContainer">
-                        <div class="recipeRatingContainer">
-                            <div class="recipeRatingStars">
-                                <span
-                                        v-for="star in [1, 2, 3, 4, 5]"
-                                        :key="star"
-                                        @click="setRating(star)"
-                                        @mouseover="hoverStars(star)"
-                                        @mouseout="resetStars"
-                                        :class="{ 'filled': star <= rating, 'hovered': star <= hoveredStar, 'hidden-stars': username === this.recipe.username_id }"
-                                >
-                                ★
-                                </span>
-                                <p>{{ this.recipe.rating_average + "(" + this.recipe.rating_amount + ")" }}</p>
-                            </div>
-                        </div>
-                        <div class="recipeFavContainer">
-                            <button @click="addToFavorites" :class="{ 'active': isFavorited }" class="heart-btn">
-                                <i class="far fa-heart heart-icon" v-if="!isFavorited"></i>
-                                <i class="fas fa-heart heart-icon active-heart" v-if="isFavorited"></i>
-                            </button>
-                        </div>
-                    </div>
+            </div>
+            <div class="recipeInfoContainer">
+                <div class="recipeInfoLeftContainer">
                     <div class="recipeIngredientsContainer">
                         <h3>Ingredients</h3>
                         <ul>
@@ -45,75 +39,65 @@
                             </li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            <div class="recipeInstructionsContainer">
-                <h3>Instructions</h3>
-                <ol>
-                    <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
-                        {{ step }}
-                    </li>
-                </ol>
-            </div>
-            <div class="recipeAllergensTypesContainer">
-                <div class="recipeAllergensContainer">
-                    <h3>Allergens</h3>
-                    <ul>
-                        <li v-for="(step, index) in this.parseText(this.recipe.allergens)" :key="index">
-                            {{ step }}
-                        </li>
-                    </ul>
-                </div>
-                <div class="recipeTypesContainer">
-                    <h3>Types</h3>
-                    <ul>
-                        <li v-for="(step, index) in this.parseText(this.recipe.recipe_type)" :key="index">
-                            {{ step }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="recipePrepTimeServingsContainer">
-                <div class="recipePrepTimeContainer">
-                    <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
-                </div>
-                <div class="recipeServingsContainer">
-                    <h3>Servings</h3> {{ this.recipe.servings }}
-                </div>
-            </div>
-            <div class="recipeCommentsSectionContainer">
-                <div class="recipeCommentsContainer">
-                    <div class="recipeCommentTitleContainer">
-                        <h3>COMMENTS</h3>
+                    <div class="recipeTypesContainer">
+                        <h3>Types</h3>
+                        <ul>
+                            <li v-for="(step, index) in this.parseText(this.recipe.recipe_type)" :key="index">
+                                {{ step }}
+                            </li>
+                        </ul>
                     </div>
-                    <div class="recipeCommentList scrollable-content">
-                        <div v-for="(comment, index) in this.recipe.comments_list" :key="index"
-                             class="recipeCommentContainer">
-                            <div class="recipeCommentInfoContainer">
-                                <div class="recipeCommentInfoUsernameContainer">
-                                    <p><strong>Username:</strong> {{ comment.username }}</p>
+                    <div class="recipePrepTimeContainer">
+                        <h3>Preparation time</h3> {{ this.recipe.preparation_time }}
+                    </div>
+                    <div class="recipeServingsContainer">
+                        <h3>Servings</h3> {{ this.recipe.servings }}
+                    </div>
+                </div>
+                <div class="recipeInfoRightContainer">
+                    <div class="recipeInstructionsContainer">
+                        <h3>Instructions</h3>
+                        <ol>
+                            <li v-for="(step, index) in this.recipe.instructions.split('\n')" :key="index">
+                                {{ step }}
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="recipeCommentsSectionContainer">
+                    <div class="recipeCommentsContainer">
+                        <div class="recipeCommentTitleContainer">
+                            <h3>COMMENTS</h3>
+                        </div>
+                        <div class="recipeCommentList scrollable-content">
+                            <div v-for="(comment, index) in this.recipe.comments_list" :key="index"
+                                 class="recipeCommentContainer">
+                                <div class="recipeCommentInfoContainer">
+                                    <div class="recipeCommentInfoUsernameContainer">
+                                        <p><strong>Username:</strong> {{ comment.username }}</p>
+                                    </div>
+                                    <div class="recipeCommentInfoDateContainer">
+                                        <p><strong>Date:</strong> {{ comment.date }}</p>
+                                    </div>
                                 </div>
-                                <div class="recipeCommentInfoDateContainer">
-                                    <p><strong>Date:</strong> {{ comment.date }}</p>
+                                <div class="recipeCommentContentContainer">
+                                    <p>{{ comment.review }}</p>
                                 </div>
                             </div>
-                            <div class="recipeCommentContentContainer">
-                                <p>{{ comment.review }}</p>
+                        </div>
+                        <div class="recipeAddCommentContainer">
+                            <div class="recipeCommentTextFieldContainer">
+                                <label class="label" for="commentInput">Add a comment:</label>
+                                <textarea
+                                        v-model="newComment"
+                                        id="commentInput"
+                                        placeholder="Write your comment"
+                                        class="textarea"
+                                ></textarea>
                             </div>
                         </div>
+                        <button @click="addComment" class="submit-button">Add comment</button>
                     </div>
-                    <div class="recipeAddCommentContainer">
-                        <div class="recipeCommentTextFieldContainer">
-                            <label class="label" for="commentInput">Add a comment:</label>
-                            <textarea
-                                    v-model="newComment"
-                                    id="commentInput"
-                                    placeholder="Write your comment"
-                                    class="textarea"
-                            ></textarea>
-                        </div>
-                    </div>
-                    <button @click="addComment" class="submit-button">Add comment</button>
                 </div>
             </div>
         </div>
@@ -317,26 +301,20 @@ export default {
 <style scoped>
 
 .recipeMainContainer {
-    background-color: rgb(199, 235, 243);
-    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
 }
 
 .recipeContainer {
-    height: 100%;
-    padding-top: 3vh;
     width: 50%;
-    margin: auto;
+    background-color: antiquewhite;
+    border-radius: 2%;
+    border: 2px solid gray;
+    margin: 2% auto auto;
 }
 
-.recipeTitleImageFavRatingContainer {
-    border: 2px solid rgb(0, 162, 232);
+.recipeTitleImageRatingFavContainer {
     display: flex;
-    width: 100%;
-    min-height: 40%;
+    justify-content: space-between;
 }
 
 .recipeLeftContainer {
@@ -345,19 +323,32 @@ export default {
 }
 
 .recipeTitleContainer {
-    height: 20%;
-    width: 100%;
-    font-family: fantasy;
-    font-size: x-large;
+    width: 30%;
 }
 
 .recipeImageContainer {
-    height: 80%;
-    width: 90%;
-    background-image: url('../assets/images/loginRegisterBG.jpg');
+    background-image: url(http://localhost:8080/img/loginRegisterBG.8d961785.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    text-align: end;
+    width: 50%;
+    aspect-ratio: 1/1; /* Establece una relación de aspecto 1:1 para hacer que la imagen sea un cuadrado */
+    border-radius: 50%; /* Esto asegurará que el cuadrado sea una forma circular */
+    overflow: hidden; /* Para asegurarse de que la imagen se ajuste al contenedor circular */
+    margin: 2%;
+    height: auto; /* Ajusta la altura automáticamente */
+    display: block;
+}
+
+.recipeImageContainer p {
+    background-color: white;
+    text-align: center;
+    padding: 5%;
+    margin-top: 65%;
+    margin-left: 50%;
+    font-size: x-large;
+    font-family: 'FontAwesome';
 }
 
 .recipeRightContainer {
@@ -366,10 +357,10 @@ export default {
 }
 
 .recipeRatingFavContainer {
-    width: 100%;
+    width: 50%;
     display: flex;
-    justify-content: space-between; /* Espaciado entre elementos */
-    align-items: center; /* Alineación vertical al centro */
+    margin-top: 2%;
+    height: fit-content;
 }
 
 .recipeRatingContainer {
@@ -382,14 +373,13 @@ export default {
     width: 100%;
     height: 100%;
     margin-top: -5%;
-    display: contents;
     /* Asegúrate de que este contenedor sea flexible para alinear horizontalmente */
     display: flex;
     justify-content: flex-start; /* Alineación horizontal al inicio */
 }
 
 .recipeRatingStars p {
-margin-left: 2%;
+    margin-left: 2%;
     width: 100%;
 }
 
@@ -417,9 +407,8 @@ margin-left: 2%;
 }
 
 .recipeFavContainer {
-    width: 20%;
     height: 100%;
-    text-align: end;
+    padding: 3%;
 }
 
 .heart-btn {
@@ -449,6 +438,7 @@ margin-left: 2%;
     width: 100%;
     border: 2px solid rgb(127 198 229);
     margin-top: 1%;
+    background-color: rgb(199, 235, 243);
 }
 
 .recipeAllergensTypesContainer {
@@ -456,6 +446,7 @@ margin-left: 2%;
     border: 2px solid rgb(127 198 229);
     margin-top: 1%;
     display: flex;
+    background-color: rgb(199, 235, 243);
 }
 
 .recipeAllergensContainer {
@@ -473,6 +464,7 @@ margin-left: 2%;
     border: 2px solid rgb(127 198 229);
     margin-top: 1%;
     display: flex;
+    background-color: rgb(199, 235, 243);
 }
 
 .recipePrepTimeContainer {
@@ -490,6 +482,7 @@ margin-left: 2%;
     border: 2px solid rgb(127 198 229);
     margin-top: 1%;
     text-align: center;
+    background-color: rgb(199, 235, 243);
 }
 
 .recipeCommentsContainer {
