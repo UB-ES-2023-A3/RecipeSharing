@@ -1,7 +1,7 @@
 <template>
-    <div class="commentContainer">
+    <div class="comment-container">
         <div class="title-container">
-            <h3 style="border-bottom: 2px solid #3139d4; padding-bottom: 5px;">COMMENTS</h3>
+            <h3 style="border-bottom: 2px solid #d44d31; padding-bottom: 5px;">COMMENTS</h3>
         </div>
         <div class="comments-list scrollable-content">
             <div v-for="(comment, index) in comments_updated" :key="index" class="recipe-container">
@@ -70,7 +70,7 @@ export default {
             };
 
             axios
-                .post("postRatings/", {
+                .post("recipesPostRatings/", {
                     user_id: this.username,
                     recipe_id: this.recipe_id,
                     comment: comment,
@@ -96,7 +96,9 @@ export default {
 </script>
 
 <style scoped>
-.commentContainer {
+.comment-container {
+    text-align: center;
+    align-items: center;
     width: 75%;
     margin: 20px auto;
 }
@@ -104,17 +106,17 @@ export default {
 .title-container {
     text-align: center;
     margin-bottom: 10px;
-    color: #314cd4;
+    color: #d44d31;
 }
 
 .label {
     display: block; /* Hace que la etiqueta sea un bloque, lo que permite centrar el texto */
     text-align: center;
-    color: #317dd4;
+    color: #d44d31;
 }
 
 .comments-list {
-
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -122,7 +124,7 @@ export default {
     max-height: 200px;
     overflow-y: auto;
     padding: 10px;
-    border: 2px solid #319bd4;
+    border: 2px solid #d44d31;
     border-radius: 10px;
     background-color: #fff;
 }
@@ -144,7 +146,7 @@ export default {
 .textarea {
     margin-bottom: 10px;
     padding: 5px;
-    border: 1px solid #31a3d4;
+    border: 1px solid #d44d31;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
@@ -153,7 +155,7 @@ export default {
 }
 
 .submit-button {
-    background-color: #0e819a;
+    background-color: #FF5733;
     color: white;
     padding: 8px 15px;
     border: none;
@@ -168,7 +170,7 @@ export default {
 
 .recipe-container {
     margin-bottom: 20px;
-    border: 2px solid #31cfd4;
+    border: 2px solid #d44d31;
     border-radius: 10px;
     padding: 10px;
     background-color: #fff;
@@ -176,7 +178,6 @@ export default {
 
 .recipe-info {
     margin-bottom: 10px;
-    display: flex;
 }
 
 .recipe-review {

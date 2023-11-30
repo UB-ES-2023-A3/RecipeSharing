@@ -28,7 +28,7 @@ class UserLogicTestCase(TestCase):
             "recipe_id": int(self.recipe.id)
         }
         response = client.post(
-            '/recipes/postFavorites/',
+            '/recipesAddFavorites/',
             json.dumps(request_data),
             content_type='application/json'
         )
@@ -54,7 +54,7 @@ class UserLogicTestCase(TestCase):
             "recipe_id": int(self.recipe.id)
         }
         response = client.post(
-            '/recipes/postFavorites/',
+            '/recipesAddFavorites/',
             json.dumps(request_data),
             content_type='application/json'
         )
@@ -73,7 +73,7 @@ class UserLogicTestCase(TestCase):
             "recipe_id": 2
         }
         response = client.post(
-            '/recipes/postFavorites/',
+            '/recipesAddFavorites/',
             json.dumps(request_data),
             content_type='application/json'
         )
@@ -92,7 +92,7 @@ class UserLogicTestCase(TestCase):
             "recipe_id": int(self.recipe.id)
         }
         response = client.post(
-            '/recipes/postFavorites/',
+            '/recipesAddFavorites/',
             json.dumps(request_data),
             content_type='application/json'
         )

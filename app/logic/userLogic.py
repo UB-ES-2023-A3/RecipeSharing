@@ -14,6 +14,7 @@ def add_favorite_logic(request):
     body = json.loads(request.body.decode('utf-8'))
     user_id = body.get("user_id")
     recipe_id = body.get("recipe_id")
+
     try:
         recipe = Recipe.objects.get(id=recipe_id)
         user = CustomUser.objects.get(username=user_id)
