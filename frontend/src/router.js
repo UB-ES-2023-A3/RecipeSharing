@@ -3,10 +3,12 @@ import {createWebHistory, createRouter} from "vue-router";
 import HomePage from "./pages/HomePage.vue";
 import RegisterPage from "./pages/RegisterPage.vue";
 import LoginPage from "./pages/LoginPage.vue";
+import LoginRegisterPage from "./pages/LoginRegisterPage.vue";
 import AddRecipePage from "./pages/AddRecipePage.vue";
 import ProfilePage from "./pages/ProfilePage.vue"
 import RecipePage from "./pages/RecipePage.vue"
-import IngredientsFilterPage from "./pages/IngredientsFilterPage.vue"
+import RecipePageRework from "./pages/RecipePageRework.vue"
+import AllergensFilterPage from "./pages/AllergensFilterPage.vue"
 
 const routes = [
   {
@@ -40,9 +42,20 @@ const routes = [
     name: "recipePage",
   },
   {
-    path: "/ingredientsFilterPage",
-    component: IngredientsFilterPage,
-    name: "ingredientsFilterPage",
+    path: "/loginRegister",
+    component: LoginRegisterPage,
+    name: "loginRegisterPage",
+  },
+  {
+    path: "/recipes/:id",
+    component: RecipePageRework,
+    name: "recipesPageRework",
+    props: true,
+  },
+  {
+    path: "/recipe/filters/allergens",
+    component: AllergensFilterPage,
+    name: "allergensFilterPage",
   },
 ];
 

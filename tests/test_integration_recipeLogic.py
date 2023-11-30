@@ -76,10 +76,10 @@ class RecipeTestCase(TestCase):
             "review_type": 'rate'
         }
 
-        response_1 = self.client.post('/recipesPostRatings/',
+        response_1 = self.client.post('/recipes/postRatings/',
                                       json.dumps(request_data_1),
                                       content_type='application/json')
-        response_2 = self.client.post('/recipesPostRatings/',
+        response_2 = self.client.post('/recipes/postRatings/',
                                       json.dumps(request_data_2),
                                       content_type='application/json')
 
@@ -116,7 +116,7 @@ class RecipeTestCase(TestCase):
             "review_type": 'comment',
         }
 
-        response = self.client.post('/recipesPostRatings/',
+        response = self.client.post('/recipes/postRatings/',
                                     json.dumps(request_data),
                                     content_type='application/json')
         # Envía la solicitud, no la respuesta
