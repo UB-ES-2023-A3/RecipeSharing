@@ -227,7 +227,7 @@ export default {
                 this.showRecipesFilter = false;
             }
         },
-        resetFlags() {
+        async resetFlags() {
             this.showRecipesFilterTitle = false;
             this.showRecipesFilterPrepTime = false;
             this.showRecipesFilterServings = false;
@@ -241,7 +241,7 @@ export default {
             await this.fetchData();
             try {
                 let prev = false;
-                let endpoint = 'recipes/';
+                let endpoint = 'recipes/filters/';
                 if (this.selectedTitle != "") {
                     endpoint += `title=${this.selectedTitle}`;
                     prev = true;
@@ -441,7 +441,7 @@ export default {
         async getRecipesByRate() {
             await this.fetchData();
             try {
-                const response = await axios.get("recipes/rate/");
+                const response = await axios.get("recipes/filters/rate/");
                 if (response.status === 200) {
                     const recipes = response.data;
                     // Puedes manejar las recetas de 'rate' de manera específica aquí
@@ -455,7 +455,7 @@ export default {
         async getRecipesByRecent() {
             await this.fetchData();
             try {
-                const response = await axios.get("recipes/recent/");
+                const response = await axios.get("recipes/filters/recent/");
                 if (response.status === 200) {
                     const recipes = response.data;
                     // Puedes manejar las recetas de 'recent' de manera específica aquí

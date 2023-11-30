@@ -7,49 +7,50 @@ import LoginRegisterPage from "./pages/LoginRegisterPage.vue";
 import AddRecipePage from "./pages/AddRecipePage.vue";
 import ProfilePage from "./pages/ProfilePage.vue"
 import RecipePage from "./pages/RecipePage.vue"
-import AllergensFilterPage from "@/pages/AllergensFilterPage.vue";
+import RecipePageRework from "./pages/RecipePageRework.vue"
 
 const routes = [
-  {
-    path: "",
-    component: HomePage,
-    name: "home",
-  },
-  {
-    path: "/register",
-    component: RegisterPage,
-    name: "register",
-  },
-  {
-    path: "/login",
-    component: LoginPage,
-    name: "login",
-  },
-  {
-    path: "/addRecipe",
-    component: AddRecipePage,
-    name: "addRecipe",
-  },
-  {
-    path: "/profile",
-    component: ProfilePage,
-    name: "profile",
-  },
-  {
-    path: "/recipePage",
-    component: RecipePage,
-    name: "recipePage",
-  },
-  {
-    path: "/loginRegister",
-    component: LoginRegisterPage,
-    name: "loginRegisterPage",
-  },
-  {
-    path: "/allergensFilterPage",
-    component: AllergensFilterPage,
-    name: "allergensFilterPage",
-  }
+    {
+        path: "",
+        component: HomePage,
+        name: "home",
+    },
+    {
+        path: "/register",
+        component: RegisterPage,
+        name: "register",
+    },
+    {
+        path: "/login",
+        component: LoginPage,
+        name: "login",
+    },
+    {
+        path: "/addRecipe",
+        component: AddRecipePage,
+        name: "addRecipe",
+    },
+    {
+        path: "/profile",
+        component: ProfilePage,
+        name: "profile",
+    },
+    {
+        path: "/recipePage",
+        component: RecipePage,
+        name: "recipePage",
+    },
+    {
+        path: "/loginRegister",
+        component: LoginRegisterPage,
+        name: "loginRegisterPage",
+    },
+    {
+        path: "/recipes/:id",
+        component: RecipePageRework,
+        name: "recipesPageRework",
+        props: true,
+    },
 ];
 
 const router = createRouter({

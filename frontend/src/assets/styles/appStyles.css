@@ -6,12 +6,11 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #ffddb3;
 }
 
 /* Main Background */
 .main-background {
-    background-color: #ffddb3;
+    /*background-color: #ffddb3;*/
     color: white;
 }
 
@@ -24,7 +23,7 @@ html, body {
     align-items: center;
     color: white;
     padding-top: 120px;
-    background-color: #ffddb3;
+    /*background-color: #ffddb3;*/
 }
 
 /* Secondary Container - Containers inside de Main Container */
