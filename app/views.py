@@ -256,3 +256,11 @@ class AllergensFilterView(TemplateView):
     def get(self, request):
 
         return render(request, self.template_name)
+
+
+class IngredientsFilterView(TemplateView):
+    template_name = "IngredientsFilterPage.html"
+
+    def get(self, request):
+
+        return render(request, self.template_name)
