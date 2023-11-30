@@ -1,6 +1,6 @@
 <template>
-    <div class="recipeMainContainer">
-        <div class="recipeContainer">
+    <div class="recipeMainContainer" v-if="this.recipe">
+        <div class="recipeContainer" v-if="this.profileInfo">
             <div class="recipeTitleImageRatingFavContainer">
                 <div class="recipeImageContainer">
                     <img src="../assets/images/loginRegisterBG.jpg" alt="Recipe Image">

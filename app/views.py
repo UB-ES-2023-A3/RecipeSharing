@@ -248,3 +248,11 @@ class RecipesView(TemplateView):
             return JsonResponse(response_data, status=400)
         else:
             return JsonResponse(response_data, status=200)
+
+
+class AllergensFilterView(TemplateView):
+    template_name = "AllergensFilterPage.html"
+
+    def get(self, request):
+
+        return render(request, self.template_name)

@@ -18,6 +18,7 @@ urlpatterns = [
     path('recipes/postFavorites/', PostFavoriteRecipe.as_view(), name='addRecipeToFavorite'),
     path('recipes/filters/<str:query>/', QueryListRecipes.as_view(), name='queryListRecipes'),
     path('recipes/<str:query>/getRatings/', GetRatingsByID.as_view(), name='getRatingRecipe'),
+    path('recipe/filters/allergens/', AllergensFilterView.as_view(), name='allergensFilter'),
 
     path('user/<str:username>/', GetUserByUsername.as_view(), name='getUser'),
 ]
