@@ -8,49 +8,55 @@ import AddRecipePage from "./pages/AddRecipePage.vue";
 import ProfilePage from "./pages/ProfilePage.vue"
 import RecipePage from "./pages/RecipePage.vue"
 import RecipePageRework from "./pages/RecipePageRework.vue"
+import AllergensFilterPage from "./pages/AllergensFilterPage.vue"
 
 const routes = [
-    {
-        path: "",
-        component: HomePage,
-        name: "home",
-    },
-    {
-        path: "/register",
-        component: RegisterPage,
-        name: "register",
-    },
-    {
-        path: "/login",
-        component: LoginPage,
-        name: "login",
-    },
-    {
-        path: "/addRecipe",
-        component: AddRecipePage,
-        name: "addRecipe",
-    },
-    {
-        path: "/profile",
-        component: ProfilePage,
-        name: "profile",
-    },
-    {
-        path: "/recipePage",
-        component: RecipePage,
-        name: "recipePage",
-    },
-    {
-        path: "/loginRegister",
-        component: LoginRegisterPage,
-        name: "loginRegisterPage",
-    },
-    {
-        path: "/recipes/:id",
-        component: RecipePageRework,
-        name: "recipesPageRework",
-        props: true,
-    },
+  {
+    path: "",
+    component: HomePage,
+    name: "home",
+  },
+  {
+    path: "/register",
+    component: RegisterPage,
+    name: "register",
+  },
+  {
+    path: "/login",
+    component: LoginPage,
+    name: "login",
+  },
+  {
+    path: "/addRecipe",
+    component: AddRecipePage,
+    name: "addRecipe",
+  },
+  {
+    path: "/profile",
+    component: ProfilePage,
+    name: "profile",
+  },
+  {
+    path: "/recipePage",
+    component: RecipePage,
+    name: "recipePage",
+  },
+  {
+    path: "/loginRegister",
+    component: LoginRegisterPage,
+    name: "loginRegisterPage",
+  },
+  {
+    path: "/recipes/:id",
+    component: RecipePageRework,
+    name: "recipesPageRework",
+    props: true,
+  },
+  {
+    path: "/recipe/filters/allergens",
+    component: AllergensFilterPage,
+    name: "allergensFilterPage",
+  },
 ];
 
 const router = createRouter({
