@@ -257,6 +257,7 @@ class AllergensFilterView(TemplateView):
 
         return render(request, self.template_name)
 
+
 class IngredientsFilterView(TemplateView):
     template_name = "IngredientsFilterPage.html"
 
