@@ -77,12 +77,10 @@ class RecipeTestCase(TestCase):
         }
 
         response_1 = self.client.post('/recipes/postRatings/',
-                                      json.dumps(request_data_1,
-                                                 request_data_1["recipe_id"]),
+                                      json.dumps(request_data_1),
                                       content_type='application/json')
         response_2 = self.client.post('/recipes/postRatings/',
-                                      json.dumps(request_data_2,
-                                                 request_data_2["recipe_id"]),
+                                      json.dumps(request_data_2),
                                       content_type='application/json')
 
         # Llama a la función add_rating_logic con la solicitud simulada
@@ -119,8 +117,7 @@ class RecipeTestCase(TestCase):
         }
 
         response = self.client.post('/recipes/postRatings/',
-                                    json.dumps(request_data,
-                                               request_data["recipe_id"]),
+                                    json.dumps(request_data),
                                     content_type='application/json')
         # Envía la solicitud, no la respuesta
         response_from_logic = recipeLogic.add_comment_logic(
