@@ -1,6 +1,8 @@
 <template>
   <div class="mainContainer">
-    <h1>Allergens List A-Z</h1>
+    <h1>Ingredients List A-Z</h1>
+
+    <!-- Botones de letras -->
     <div class="letrasButtons">
       <a
         v-for="letra in letras"
@@ -168,6 +170,9 @@ h1 {
   transition: background-color 0.3s ease;
   margin-top: 40px;
   justify-content: center;
+  margin-right: 200px;
+  margin-left: 200px;
+
 }
 
 .IngredientsSection.resaltado {
@@ -233,6 +238,7 @@ h1 {
   width: 15%; /* Ancho fijo o puedes usar % para que también sea relativo al tamaño de la ventana */
   transition: max-height 0.3s ease; /* Agregar una transición para una apariencia suave al cambiar el tamaño */
 }
+
 .selected-ingredients-list {
   display: flex;
   flex-direction: column;

@@ -12,13 +12,14 @@ urlpatterns = [
     path('addRecipe/', AddRecipeView.as_view(), name='addRecipe'),
 
     path('recipe/<int:recipe_id>/', RecipeView.as_view(), name='recipe'),
+    path('recipe/filters/allergens/', AllergensFilterView.as_view(), name='allergensFilter'),
+    path('recipe/filters/ingredients/', IngredientsFilterView.as_view(), name='ingredientsFilter'),
     path('recipes/<int:recipe_id>/', RecipesView.as_view(), name='recipes'),
     path('recipes/<int:recipe_id>/postRatings/', RecipeView.as_view(), name='postRatingRecipe'),
     path('recipes/postRatings/', RecipeView.as_view(), name='postRatingRecipe'),
     path('recipes/postFavorites/', PostFavoriteRecipe.as_view(), name='addRecipeToFavorite'),
     path('recipes/filters/<str:query>/', QueryListRecipes.as_view(), name='queryListRecipes'),
     path('recipes/<str:query>/getRatings/', GetRatingsByID.as_view(), name='getRatingRecipe'),
-    path('recipe/filters/allergens/', AllergensFilterView.as_view(), name='allergensFilter'),
 
     path('user/<str:username>/', GetUserByUsername.as_view(), name='getUser'),
 ]

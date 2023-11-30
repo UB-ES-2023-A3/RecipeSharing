@@ -1,6 +1,6 @@
 <template>
   <div class="mainContainer">
-    <h1>Allergens List A-Z</h1>
+    <h1>Ingredients List A-Z</h1>
 
     <!-- Botones de letras -->
     <div class="letrasButtons">

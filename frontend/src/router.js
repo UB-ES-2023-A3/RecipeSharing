@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage.vue"
 import RecipePage from "./pages/RecipePage.vue"
 import RecipePageRework from "./pages/RecipePageRework.vue"
 import AllergensFilterPage from "./pages/AllergensFilterPage.vue"
+import IngredientsFilterPage from "./pages/IngredientsFilterPage.vue"
 
 const routes = [
   {
@@ -56,6 +57,11 @@ const routes = [
     path: "/recipe/filters/allergens",
     component: AllergensFilterPage,
     name: "allergensFilterPage",
+  },
+  {
+    path: "/recipe/filters/ingredients",
+    component: IngredientsFilterPage,
+    name: "ingredientsFilterPage",
   },
 ];
 
