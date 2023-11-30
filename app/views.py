@@ -18,7 +18,6 @@ class HomeView(TemplateView):
     template_name = "HomePage.html"
 
     def get(self, request):
-
         return render(request, self.template_name)
 
     def get_recipes(self):
@@ -113,10 +112,10 @@ class LoginRegisterView(TemplateView):
                     return JsonResponse(response_data, status=200)
             else:
                 response_data = register_user(
-                                            username,
-                                            email,
-                                            password,
-                                            request)
+                    username,
+                    email,
+                    password,
+                    request)
 
                 if 'error' in response_data:
                     return JsonResponse(response_data, status=400)
@@ -176,7 +175,6 @@ class QueryListRecipes(TemplateView):
 
 
 class GetRatingsByID(TemplateView):
-
     def get(self, request, query):
         if request.method == 'GET':
             response_data = get_rating_by_id(query)
@@ -187,7 +185,6 @@ class GetRatingsByID(TemplateView):
 
 
 class PostFavoriteRecipe(TemplateView):
-
     def post(self, request):
         if request.method == 'POST':
             response_data = add_favorite_logic(request)
@@ -209,7 +206,6 @@ class GetUserByUsername(TemplateView):
 
 
 class RecipeView(TemplateView):
-
     def get(self, request, recipe_id):
         if request.method == 'GET':
             response_data = get_recipe_by_id(recipe_id)
@@ -217,6 +213,27 @@ class RecipeView(TemplateView):
                 return JsonResponse(response_data, status=400)
             else:
                 return JsonResponse(response_data, status=200)
+
+    def post(self, request, recipe_id=None):
+        # print "value" in the terminal
+        body = json.loads(request.body.decode('utf-8'))
+        if request.method == 'POST' and "review_type" in body:
+            if body['review_type'] == 'rate':
+                response_data = add_rating_logic(request)
+            elif body['review_type'] == 'comment':
+                response_data = add_comment_logic(request)
+
+        if 'error' in response_data:
+            return JsonResponse(response_data, status=400)
+        else:
+            return JsonResponse(response_data, status=200)
+
+
+class RecipesView(TemplateView):
+    template_name = "RecipePageRework.html"
+
+    def get(self, request, recipe_id):
+        return render(request, self.template_name)
 
     def post(self, request):
         # print "value" in the terminal
