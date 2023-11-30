@@ -231,6 +231,7 @@ class RecipeView(TemplateView):
 
 class RecipesView(TemplateView):
     template_name = "RecipePageRework.html"
+
     def get(self, request, recipe_id):
         return render(request, self.template_name)
 
