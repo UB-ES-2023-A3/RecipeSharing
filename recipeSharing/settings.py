@@ -15,7 +15,7 @@ SECRET_KEY = "19718efb4407f6f3532c040e04a47d18" # os.environ.get("SECRET_KEY")#'
 DEBUG = True
 
 # List of allowed hostnames or IP addresses for this project
-ALLOWED_HOSTS = "recipesharing.azurewebsites.net"#os.environ.get("ALLOWED_HOSTS").split(" ") #[]
+ALLOWED_HOSTS = ["recipesharing.azurewebsites.net"]#os.environ.get("ALLOWED_HOSTS").split(" ") #[]
 
 # Application definition
 INSTALLED_APPS = [
