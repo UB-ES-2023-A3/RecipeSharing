@@ -21,7 +21,8 @@ urlpatterns = [
     path('recipes/filters/<str:query>/', QueryListRecipes.as_view(), name='queryListRecipes'),
     path('recipes/<str:query>/getRatings/', GetRatingsByID.as_view(), name='getRatingRecipe'),
 
-    path('user/<str:username>/', GetUserByUsername.as_view(), name='getUser'),
+    path('profile/<str:username>/', GetUserByUsername.as_view(), name='getUser'),
+    path('profiles/<str:username>/', GetUsersByUsername.as_view(), name='getUsers'),
 ]
 
 urlpatterns += [

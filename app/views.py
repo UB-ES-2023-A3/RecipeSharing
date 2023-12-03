@@ -205,6 +205,13 @@ class GetUserByUsername(TemplateView):
                 return JsonResponse(response_data, status=200)
 
 
+class GetUsersByUsername(TemplateView):
+    template_name = "ProfilePageRework.html"
+
+    def get(self, request, username):
+        return render(request, self.template_name)
+
+
 class RecipeView(TemplateView):
     def get(self, request, recipe_id):
         if request.method == 'GET':
@@ -254,7 +261,6 @@ class AllergensFilterView(TemplateView):
     template_name = "AllergensFilterPage.html"
 
     def get(self, request):
-
         return render(request, self.template_name)
 
 
@@ -262,5 +268,4 @@ class IngredientsFilterView(TemplateView):
     template_name = "IngredientsFilterPage.html"
 
     def get(self, request):
-
         return render(request, self.template_name)
