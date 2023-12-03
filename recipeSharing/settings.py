@@ -9,13 +9,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")#'django-insecure-$p9@j@+pi_@f!19nv4lv(a=hnmz70qto1z*-7820*z*dpe^_q4'
+SECRET_KEY = "19718efb4407f6f3532c040e04a47d18" # os.environ.get("SECRET_KEY")#'django-insecure-$p9@j@+pi_@f!19nv4lv(a=hnmz70qto1z*-7820*z*dpe^_q4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # List of allowed hostnames or IP addresses for this project
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ") #[]
+ALLOWED_HOSTS = "recipesharing.azurewebsites.net"#os.environ.get("ALLOWED_HOSTS").split(" ") #[]
 
 # Application definition
 INSTALLED_APPS = [
@@ -73,22 +73,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'recipeSharing.wsgi.application'
 
 # Database settings
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}"""
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "",
-        "USER": "recipesharingadmin",
-        "PASSWORD": "eloiesnuestropadre2023*",
-        "HOST": "recipesharingserver.postgres.database.azure.com",
-        "PORT": "5432"
-    }
+       "ENGINE": "django.db.backends.postgresql_psycopg2",
+       "NAME": "data",
+       "USER": "recipesharingadmin",
+       "PASSWORD": "eloiesnuestropadre2023*",
+       "HOST": "recipesharingserver.postgres.database.azure.com",
+       "PORT": "5432"
+   }
 }
 
 # Password validation settings
