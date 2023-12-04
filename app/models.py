@@ -15,6 +15,7 @@ class CustomUser(models.Model):
     list_favorite_recipe_types = models.JSONField(default=dict)
     list_allergens = models.JSONField(default=dict)
     list_own_recipes = models.JSONField(default=dict)
+    list_followed_users = models.JSONField(default=dict)
 
     def __str__(self):
         return self.username
@@ -29,7 +30,7 @@ class CustomUser(models.Model):
             'list_favorite_recipe_types': self.list_favorite_recipe_types,
             'list_allergens': self.list_allergens,
             'list_own_recipes': self.list_own_recipes,
-
+            'list_followed_users': self.list_followed_users
         }
 
 
