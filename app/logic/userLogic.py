@@ -52,6 +52,7 @@ def add_favorite_logic(request):
     except CustomUser.DoesNotExist:
         return {'error': 'User not found.'}
 
+
 def follow_profile_logic(request):
     body = json.loads(request.body.decode('utf-8'))
     user_id = body.get("user_id")
@@ -69,12 +70,12 @@ def follow_profile_logic(request):
         list_following_users = user_to_follow.list_following_users
 
         # Convertir las claves a cadenas
-        str_user_to_follow_id = str(user_to_follow.id)
+        str_u_to_follow_id = str(user_to_follow.id)
         str_user_id = str(user.id)
 
-        if str_user_to_follow_id in list_follower_users:
+        if str_u_to_follow_id in list_follower_users:
             # User is already followed, unfollow it
-            del list_follower_users[str_user_to_follow_id]
+            del list_follower_users[str_u_to_follow_id]
             del list_following_users[str_user_id]
             user.save()
             user_to_follow.save()
@@ -83,7 +84,7 @@ def follow_profile_logic(request):
                     'list_follower_users': list_follower_users}
         else:
             # User is not followed, follow it
-            list_follower_users[str_user_to_follow_id] = user_to_follow.toJson()
+            list_follower_users[str_u_to_follow_id] = user_to_follow.toJson()
             list_following_users[str_user_id] = user.toJson()
             user.save()
             user_to_follow.save()
@@ -93,3 +94,4 @@ def follow_profile_logic(request):
 
     except CustomUser.DoesNotExist:
         return {'error': 'User not found.'}
+
