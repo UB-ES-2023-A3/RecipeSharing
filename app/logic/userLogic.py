@@ -94,4 +94,3 @@ def follow_profile_logic(request):
 
     except CustomUser.DoesNotExist:
         return {'error': 'User not found.'}
-
