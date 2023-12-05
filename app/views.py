@@ -204,7 +204,7 @@ class GetUserByUsername(TemplateView):
                 return JsonResponse(response_data, status=400)
             else:
                 return JsonResponse(response_data, status=200)
-            
+
     def post(self, request, username):
         if request.method == 'POST':
             response_data = follow_profile_logic(request)
