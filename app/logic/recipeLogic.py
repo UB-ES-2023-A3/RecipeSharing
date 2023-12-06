@@ -5,8 +5,10 @@ from app.models import CustomUser
 
 # Recipe logic
 def recipe_logic(title, ingredients, instructions, prep_time,
-                 username_id, servings, recipe_type, allergens, request):
+                 username_id, servings, recipe_type, allergens,
+                 recipe_image, request):
     new_recipe = Recipe(title=title,
+                        recipe_image=recipe_image,
                         ingredients=ingredients,
                         instructions=instructions,
                         username_id=username_id,

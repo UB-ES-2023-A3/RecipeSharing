@@ -144,9 +144,13 @@ class AddRecipeView(TemplateView):
             recipe_type = body.get("type")
             allergens = body.get("allergens")
             username_id = body.get("username_id")
+
+            recipe_image = request.FILES.get('recipe_image')
+
             response_data = recipe_logic(title, ingredients, instructions,
                                          prep_time, username_id, servings,
-                                         recipe_type, allergens, request)
+                                         recipe_type, allergens, request, 
+                                         recipe_image)
 
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
@@ -215,7 +219,6 @@ class RecipeView(TemplateView):
                 return JsonResponse(response_data, status=200)
 
     def post(self, request, recipe_id=None):
-        # print "value" in the terminal
         body = json.loads(request.body.decode('utf-8'))
         if request.method == 'POST' and "review_type" in body:
             if body['review_type'] == 'rate':

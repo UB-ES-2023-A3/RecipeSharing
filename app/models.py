@@ -7,6 +7,11 @@ from django.utils import timezone
 class CustomUser(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=150, unique=True)
+    profile_image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='profile_image/'
+    )
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     name = models.CharField(max_length=100, default='')
@@ -29,6 +34,7 @@ class CustomUser(models.Model):
             'list_favorite_recipe_types': self.list_favorite_recipe_types,
             'list_allergens': self.list_allergens,
             'list_own_recipes': self.list_own_recipes,
+            'profile_image': self.profile_image.url
 
         }
 
@@ -52,7 +58,11 @@ class Profile(User):
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-
+    recipe_image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='recipe_image/'
+    )
     # create a foreign key to the user model
     ingredients = models.TextField()
     instructions = models.TextField()
@@ -62,7 +72,6 @@ class Recipe(models.Model):
     recipe_type = models.TextField()
     allergens = models.TextField()
 
-    # username_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     username_id = models.TextField()
     creation_date = models.DateField(default=timezone.now)
     # Rating fileds
@@ -80,6 +89,7 @@ class Recipe(models.Model):
         return {
             'id': self.id,
             'title': self.title,
+            'recipe_image': self.recipe_image.url,
             'ingredients': self.ingredients,
             'instructions': self.instructions,
             'preparation_time': self.preparation_time,
