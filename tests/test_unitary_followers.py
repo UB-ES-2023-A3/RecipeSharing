@@ -1,8 +1,6 @@
 from django.test import TestCase, Client
-from django.urls import reverse
 
 from app.models import CustomUser
-from app.logic import userLogic
 import json
 
 
@@ -19,7 +17,7 @@ class FollowersTestCase(TestCase):
         request_data = {
             "user_id": "user2"
         }
-        response = client.post(
+        client.post(
             'user/user1',
             json.dumps(request_data),
             content_type='application/json'
