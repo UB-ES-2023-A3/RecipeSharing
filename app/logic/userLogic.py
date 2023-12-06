@@ -53,13 +53,13 @@ def add_favorite_logic(request):
         return {'error': 'User not found.'}
 
 
-def follow_profile_logic(request):
+def follow_profile_logic(request, user):
     body = json.loads(request.body.decode('utf-8'))
-    user_id = body.get("user_id")
-    user_to_follow_id = body.get("user_to_follow_id")
+    user_name = body.get("user")
+    user_to_follow_name = user
     try:
-        user = CustomUser.objects.get(username=user_id)
-        user_to_follow = CustomUser.objects.get(username=user_to_follow_id)
+        user = CustomUser.objects.get(username=user_name)
+        user_to_follow = CustomUser.objects.get(username=user_to_follow_name)
 
         if user is None:
             return {'error': 'User not found.'}
@@ -93,4 +93,5 @@ def follow_profile_logic(request):
                     'list_follower_users': list_follower_users}
 
     except CustomUser.DoesNotExist:
+
         return {'error': 'User not found.'}
