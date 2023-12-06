@@ -8,8 +8,16 @@ class FollowersTestCase(TestCase):
 
     def setUp(self):
         # Crear usuarios de prueba
-        self.user = CustomUser.objects.create(username='user1', password='testpass', email='email1')
-        self.user_to_follow = CustomUser.objects.create(username='user2', password='testpass', email='email2')
+        self.user = CustomUser.objects.create(
+            username='user1',
+            password='testpass',
+            email='email1'
+        )
+        self.user_to_follow = CustomUser.objects.create(
+            username='user2',
+            password='testpass',
+            email='email2'
+        )
 
     def test_follow_profile_logic(self):
         client = Client()
