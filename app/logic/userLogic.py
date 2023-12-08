@@ -66,31 +66,28 @@ def follow_profile_logic(request, user):
         if user_to_follow is None:
             return {'error': 'User to follow not found.'}
 
-        list_follower_users = user.list_follower_users
-        list_following_users = user_to_follow.list_following_users
-
         # Convertir las claves a cadenas
         str_u_to_follow_id = str(user_to_follow.id)
         str_user_id = str(user.id)
 
-        if str_u_to_follow_id in list_follower_users:
+        if str_u_to_follow_id in user.list_following_users:
             # User is already followed, unfollow it
-            del list_follower_users[str_u_to_follow_id]
-            del list_following_users[str_user_id]
+            del user.list_following_users[str_u_to_follow_id]
+            del user_to_follow.list_follower_users[str_user_id]
             user.save()
             user_to_follow.save()
 
             return {'message': 'User unfollowed.',
-                    'list_follower_users': list_follower_users}
+                    'list_follower_users': user_to_follow.list_follower_users}
         else:
             # User is not followed, follow it
-            list_follower_users[str_u_to_follow_id] = user_to_follow.toJson()
-            list_following_users[str_user_id] = user.toJson()
+            user.list_following_users[str_u_to_follow_id] = user_to_follow.toJson()
+            user_to_follow.list_follower_users[str_user_id] = user.toJson()
             user.save()
             user_to_follow.save()
 
             return {'message': 'User followed.',
-                    'list_follower_users': list_follower_users}
+                    'list_follower_users': user_to_follow.list_follower_users}
 
     except CustomUser.DoesNotExist:
 
