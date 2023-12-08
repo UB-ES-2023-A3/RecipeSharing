@@ -52,7 +52,6 @@ def add_favorite_logic(request):
     except CustomUser.DoesNotExist:
         return {'error': 'User not found.'}
 
-
 def follow_profile_logic(request, user):
     body = json.loads(request.body.decode('utf-8'))
     user_name = body.get("user")
@@ -92,3 +91,4 @@ def follow_profile_logic(request, user):
     except CustomUser.DoesNotExist:
 
         return {'error': 'User not found.'}
+
