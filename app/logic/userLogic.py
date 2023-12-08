@@ -80,8 +80,9 @@ def follow_profile_logic(request, user):
                     'list_follower_users': user_to_follow.list_follower_users}
         else:
             # User is not followed, follow it
-            user.list_following_users[str_u_to_follow_id] = user_to_follow.toJson()
-            user_to_follow.list_follower_users[str_user_id] = user.toJson()
+            user_json = user_to_follow.username
+            user.list_following_users[str_u_to_follow_id] = user_json
+            user_to_follow.list_follower_users[str_user_id] = user.username
             user.save()
             user_to_follow.save()
 
