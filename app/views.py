@@ -1,5 +1,6 @@
 import json
 
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -11,6 +12,9 @@ from app.logic.recipeLogic import add_comment_logic, add_rating_logic, \
     recipe_logic, get_rating_by_id
 from app.logic.registerLogic import register_user
 from app.logic.userLogic import add_favorite_logic, get_user_by_username
+from base64 import b64decode
+from PIL import Image
+from io import BytesIO
 
 
 # Home Page
@@ -129,13 +133,13 @@ class AddRecipeView(TemplateView):
     template_name = "AddRecipePage.html"
 
     # Get Endpoint
-    def get(self, request):
+    def get(self, request, **kwargs):
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == 'POST':
-            body = json.loads(request.body.decode('utf-8'))
+            body = json.loads(request.body.decode("utf-8")) #.decode('utf-8')
             title = body.get("name")
             ingredients = body.get("ingredients")
             instructions = body.get("instructions")
@@ -144,12 +148,22 @@ class AddRecipeView(TemplateView):
             recipe_type = body.get("type")
             allergens = body.get("allergens")
             username_id = body.get("username_id")
+            recipe_image_base64 = body.get("recipe_image")
 
-            recipe_image = request.FILES.get('recipe_image')
+            recipe_image = BytesIO(b64decode(recipe_image_base64))
+            recipe_image.seek(0)
+            recipe_image = Image.open(recipe_image)
+            recipe_image.show()
+
+
+            #if 'recipe_image' in request.Files:
+            #    print("AQUI LLEGA")
+            #    recipe_image = request.FILES['recipe_image']
+            #    recipe_image.show()
 
             response_data = recipe_logic(title, ingredients, instructions,
                                          prep_time, username_id, servings,
-                                         recipe_type, allergens, request, 
+                                         recipe_type, allergens, request,
                                          recipe_image)
 
             if 'error' in response_data:
