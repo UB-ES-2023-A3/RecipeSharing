@@ -14,6 +14,7 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/', RecipeView.as_view(), name='recipe'),
     path('recipe/filters/allergens/', AllergensFilterView.as_view(), name='allergensFilter'),
     path('recipe/filters/ingredients/', IngredientsFilterView.as_view(), name='ingredientsFilter'),
+    path('recipe/filters/types/', TypesFilterView.as_view(), name='typesFilter'),
     path('recipes/<int:recipe_id>/', RecipesView.as_view(), name='recipes'),
     path('recipes/<int:recipe_id>/postRatings/', RecipeView.as_view(), name='postRatingRecipe'),
     path('recipes/postRatings/', RecipeView.as_view(), name='postRatingRecipe'),

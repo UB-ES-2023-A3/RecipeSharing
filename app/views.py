@@ -278,3 +278,9 @@ class IngredientsFilterView(TemplateView):
 
     def get(self, request):
         return render(request, self.template_name)
+
+class TypesFilterView(TemplateView):
+    template_name = "TypesFilterPage.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
