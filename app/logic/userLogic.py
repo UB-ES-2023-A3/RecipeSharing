@@ -91,4 +91,5 @@ def follow_profile_logic(request, user):
                     'list_follower_users': user_to_follow.list_follower_users}
 
     except CustomUser.DoesNotExist:
+
         return {'error': 'User not found.'}
