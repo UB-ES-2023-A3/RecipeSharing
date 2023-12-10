@@ -24,6 +24,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Make Migrations
+        run: |
+          python manage.py makemigrations
+          python manage.py migrate
+
       - name: Install dependencies
         run: | 
           python -m pip install -r requirements.txt
