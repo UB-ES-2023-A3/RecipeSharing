@@ -7,7 +7,6 @@ from app.models import CustomUser
 def recipe_logic(title, ingredients, instructions, prep_time,
                  username_id, servings, recipe_type, allergens,
                  recipe_image, request):
-
     if recipe_image == "":
         recipe_image = None
 
