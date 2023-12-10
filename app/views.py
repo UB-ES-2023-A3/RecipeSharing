@@ -10,7 +10,8 @@ from app.logic.recipeLogic import add_comment_logic, add_rating_logic, \
     get_list_recipes_by_query, get_recipe_by_id, get_recipes_main, \
     recipe_logic, get_rating_by_id
 from app.logic.registerLogic import register_user
-from app.logic.userLogic import add_favorite_logic, get_user_by_username
+from app.logic.userLogic import add_favorite_logic, get_user_by_username, \
+    modify_user_profile
 
 
 # Home Page
@@ -144,11 +145,11 @@ class AddRecipeView(TemplateView):
             recipe_type = body.get("type")
             allergens = body.get("allergens")
             username_id = body.get("username_id")
-            
+
             if body.get("recipe_image") is not None:
                 recipe_image_base64 = body.get("recipe_image")
             else:
-                recipe_image_base64 = ""
+                recipe_image_base64 = None
 
             response_data = recipe_logic(title, ingredients, instructions,
                                          prep_time, username_id, servings,
@@ -206,6 +207,14 @@ class GetUserByUsername(TemplateView):
     def get(self, request, username):
         if request.method == 'GET':
             response_data = get_user_by_username(username)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+    def post(self, request, username):
+        if request.method == 'POST':
+            response_data = modify_user_profile(request, username)
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
             else:
