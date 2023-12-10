@@ -651,6 +651,7 @@ def add_comment_logic(request):
                 'comments_list': recipe.comments_list,
                 'comments_amount': recipe.comments_amount}
 
+
 CALORIES = {
     "Almond Milk": 13,
     "Almond": 576,
