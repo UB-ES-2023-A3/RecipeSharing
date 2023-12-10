@@ -16,6 +16,8 @@ class CustomUser(models.Model):
     list_favorite_recipe_types = models.JSONField(default=dict)
     list_allergens = models.JSONField(default=dict)
     list_own_recipes = models.JSONField(default=dict)
+    list_follower_users = models.JSONField(default=dict)
+    list_following_users = models.JSONField(default=dict)
 
     def __str__(self):
         return self.username
