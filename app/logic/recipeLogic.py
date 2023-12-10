@@ -690,23 +690,23 @@ CALORIES = {
     "Chickpeas": 164,
     "Chives": 1,  # Placeholder value, as chives usually have minimal calories
     "Chocolate": 552,
-    "Cilantro": 1,  # Placeholder value, as cilantro usually has minimal calories
-    "Cinnamon": 1,  # Placeholder value, as cinnamon usually has minimal calories
+    "Cilantro": 1,
+    "Cinnamon": 1,
     "Coconut": 354,
     "Coffee": 2,
     "Corn": 372,
     "Corn Flakes": 372,
     "Cottage Cheese": 98,
-    "Cranberries": 1,  # Placeholder value, as cranberries usually have minimal calories
+    "Cranberries": 1,
     "Cream": 296,
     "Cucumber": 15,
-    "Cayenne Pepper": 1,  # Placeholder value, as cayenne pepper usually has minimal calories
+    "Cayenne Pepper": 1,
     "Cashews": 567,
     "Cheddar Cheese": 403,
     "Cherry": 50,
     "Dates": 282,
     "Dill": 1,  # Placeholder value, as dill usually has minimal calories
-    "Dragon Fruit": 1,  # Placeholder value, as dragon fruit usually has minimal calories
+    "Dragon Fruit": 1,
     "Eggplant": 25,
     "Eggs": 143,
     "Endive": 17,
@@ -733,8 +733,8 @@ CALORIES = {
     "Heavy Cream": 345,
     "Ice Cream": 207,
     "Icing Sugar": 387,
-    "Italian Herbs": 1,  # Placeholder value, as Italian herbs usually have minimal calories
-    "Jalapeño": 1,  # Placeholder value, as jalapeño usually has minimal calories
+    "Italian Herbs": 1,
+    "Jalapeño": 1,
     "Jackfruit": 95,
     "Kale": 49,
     "Kiwi": 61,
@@ -747,7 +747,7 @@ CALORIES = {
     "Lobster": 90,
     "Mango": 60,
     "Maple Syrup": 260,
-    "Mushrooms": 22,  # Placeholder value, as mushrooms usually have minimal calories
+    "Mushrooms": 22,
     "Mint": 1,  # Placeholder value, as mint usually has minimal calories
     "Mozzarella Cheese": 280,
     "Nectarine": 44,
@@ -780,7 +780,7 @@ CALORIES = {
     "Raspberry": 52,
     "Red Bell Pepper": 31,
     "Rice": 206,  # Assuming a standard rice value
-    "Rosemary": 1,  # Placeholder value, as rosemary usually has minimal calories
+    "Rosemary": 1,
     "Ricotta Cheese": 174,
     "Salmon": 206,
     "Salt": 0,  # Assuming a negligible value for salt
