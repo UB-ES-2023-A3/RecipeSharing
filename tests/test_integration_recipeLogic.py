@@ -25,7 +25,8 @@ class RecipeTestCase(TestCase):
             "servings": 4,
             "type": "Spanish",
             "allergens": "nuts",
-            "username_id": "ExistingUser"
+            "username_id": "ExistingUser",
+            "recipe_image": None
         }
 
         # Realiza la solicitud para crear la receta
@@ -59,6 +60,7 @@ class RecipeTestCase(TestCase):
             rating_amount=2.0,
             rating_list={},
             comments_list={"2": 4.0},
+            recipe_image=None,
             comments_amount=0
         )
 

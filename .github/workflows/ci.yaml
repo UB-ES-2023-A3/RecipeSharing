@@ -30,6 +30,11 @@ jobs:
           python -m pip install pytest
           python -m pip install flake8
 
+      - name: Make Migrations
+        run: |
+          python manage.py makemigrations
+          python manage.py migrate
+
       - name: Run flake8 (Linting)
         run: flake8 
 

@@ -5,8 +5,13 @@ from app.models import CustomUser
 
 # Recipe logic
 def recipe_logic(title, ingredients, instructions, prep_time,
-                 username_id, servings, recipe_type, allergens, request):
+                 username_id, servings, recipe_type, allergens,
+                 recipe_image, request):
+    if recipe_image == "":
+        recipe_image = None
+
     new_recipe = Recipe(title=title,
+                        recipe_image=recipe_image,
                         ingredients=ingredients,
                         instructions=instructions,
                         username_id=username_id,
@@ -18,9 +23,12 @@ def recipe_logic(title, ingredients, instructions, prep_time,
                         rating_amount=0,
                         rating_average=0,
                         rating_list={})
+
     new_recipe.save()
+
     user = CustomUser.objects.get(username=new_recipe.username_id)
     user.list_own_recipes[new_recipe.id] = new_recipe.toJson()
+
     user.save()
     return {'message': 'Recipe created.'}
 
@@ -678,6 +686,7 @@ CALORIES = {
     "Brown Rice": 365,
     "Butter": 717,
     "Blackberries": 43,
+    "Potato": 87,
     "Brussels Sprouts": 43,
     "Buttermilk": 58,  # Placeholder value, as buttermilk calories can vary
     "Cabbage": 25,
