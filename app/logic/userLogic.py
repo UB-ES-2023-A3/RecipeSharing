@@ -51,3 +51,45 @@ def add_favorite_logic(request):
         return {'error': 'Recipe not found.'}
     except CustomUser.DoesNotExist:
         return {'error': 'User not found.'}
+
+
+def follow_profile_logic(request, user):
+    body = json.loads(request.body.decode('utf-8'))
+    user_name = body.get("user")
+    user_to_follow_name = user
+    try:
+        user = CustomUser.objects.get(username=user_name)
+        user_to_follow = CustomUser.objects.get(username=user_to_follow_name)
+
+        if user is None:
+            return {'error': 'User not found.'}
+        if user_to_follow is None:
+            return {'error': 'User to follow not found.'}
+
+        # Convertir las claves a cadenas
+        str_u_to_follow_id = str(user_to_follow.id)
+        str_user_id = str(user.id)
+
+        if str_u_to_follow_id in user.list_following_users:
+            # User is already followed, unfollow it
+            del user.list_following_users[str_u_to_follow_id]
+            del user_to_follow.list_follower_users[str_user_id]
+            user.save()
+            user_to_follow.save()
+
+            return {'message': 'User unfollowed.',
+                    'list_follower_users': user_to_follow.list_follower_users}
+        else:
+            # User is not followed, follow it
+            user_json = user_to_follow.username
+            user.list_following_users[str_u_to_follow_id] = user_json
+            user_to_follow.list_follower_users[str_user_id] = user.username
+            user.save()
+            user_to_follow.save()
+
+            return {'message': 'User followed.',
+                    'list_follower_users': user_to_follow.list_follower_users}
+
+    except CustomUser.DoesNotExist:
+
+        return {'error': 'User not found.'}
