@@ -10,7 +10,8 @@ from app.logic.recipeLogic import add_comment_logic, add_rating_logic, \
     get_list_recipes_by_query, get_recipe_by_id, get_recipes_main, \
     recipe_logic, get_rating_by_id
 from app.logic.registerLogic import register_user
-from app.logic.userLogic import add_favorite_logic, get_user_by_username
+from app.logic.userLogic import add_favorite_logic, get_user_by_username, \
+    modify_user_profile
 
 
 # Home Page
@@ -129,13 +130,13 @@ class AddRecipeView(TemplateView):
     template_name = "AddRecipePage.html"
 
     # Get Endpoint
-    def get(self, request):
+    def get(self, request, **kwargs):
         return render(request, self.template_name)
 
     # Post Endpoint
     def post(self, request):
         if request.method == 'POST':
-            body = json.loads(request.body.decode('utf-8'))
+            body = json.loads(request.body.decode("utf-8"))
             title = body.get("name")
             ingredients = body.get("ingredients")
             instructions = body.get("instructions")
@@ -144,9 +145,16 @@ class AddRecipeView(TemplateView):
             recipe_type = body.get("type")
             allergens = body.get("allergens")
             username_id = body.get("username_id")
+
+            if body.get("recipe_image") is not None:
+                recipe_image_base64 = body.get("recipe_image")
+            else:
+                recipe_image_base64 = None
+
             response_data = recipe_logic(title, ingredients, instructions,
                                          prep_time, username_id, servings,
-                                         recipe_type, allergens, request)
+                                         recipe_type, allergens,
+                                         recipe_image_base64, request)
 
             if 'error' in response_data:
                 return JsonResponse(response_data, status=400)
@@ -204,6 +212,21 @@ class GetUserByUsername(TemplateView):
             else:
                 return JsonResponse(response_data, status=200)
 
+    def post(self, request, username):
+        if request.method == 'POST':
+            response_data = modify_user_profile(request, username)
+            if 'error' in response_data:
+                return JsonResponse(response_data, status=400)
+            else:
+                return JsonResponse(response_data, status=200)
+
+
+class GetUsersByUsername(TemplateView):
+    template_name = "ProfilePageRework.html"
+
+    def get(self, request, username):
+        return render(request, self.template_name)
+
 
 class RecipeView(TemplateView):
     def get(self, request, recipe_id):
@@ -215,7 +238,6 @@ class RecipeView(TemplateView):
                 return JsonResponse(response_data, status=200)
 
     def post(self, request, recipe_id=None):
-        # print "value" in the terminal
         body = json.loads(request.body.decode('utf-8'))
         if request.method == 'POST' and "review_type" in body:
             if body['review_type'] == 'rate':
@@ -254,7 +276,6 @@ class AllergensFilterView(TemplateView):
     template_name = "AllergensFilterPage.html"
 
     def get(self, request):
-
         return render(request, self.template_name)
 
 
@@ -262,5 +283,11 @@ class IngredientsFilterView(TemplateView):
     template_name = "IngredientsFilterPage.html"
 
     def get(self, request):
+        return render(request, self.template_name)
 
+
+class TypesFilterView(TemplateView):
+    template_name = "TypesFilterPage.html"
+
+    def get(self, request):
         return render(request, self.template_name)

@@ -10,6 +10,26 @@ def get_user_by_username(username):
         return {'error': 'User not found.'}
 
 
+def modify_user_profile(request, username):
+    body = json.loads(request.body.decode('utf-8'))
+    user = CustomUser.objects.get(username=username)
+    if user is None:
+        return {'error': 'User not found.'}
+    else:
+        if "username" in body:
+            user.username = body.get("username")
+        if "email" in body:
+            user.email = body.get("email")
+        if "password" in body:
+            user.password = body.get("password")
+        if "profile_image" in body:
+            user.profile_image = body.get("profile_image")
+        if "list_favorite_recipes" in body:
+            user.list_favorite_recipes = body.get("list_favorite_recipes")
+
+        user.save()
+
+
 def add_favorite_logic(request):
     body = json.loads(request.body.decode('utf-8'))
     user_id = body.get("user_id")
