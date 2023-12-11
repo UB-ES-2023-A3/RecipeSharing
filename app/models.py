@@ -40,7 +40,9 @@ class CustomUser(models.Model):
             'list_favorite_recipe_types': self.list_favorite_recipe_types,
             'list_allergens': self.list_allergens,
             'list_own_recipes': self.list_own_recipes,
-            'profile_image': self.profile_image
+            'profile_image': self.profile_image,
+            'list_follower_users': self.list_follower_users,
+            'list_following_users': self.list_following_users
 
         }
 
