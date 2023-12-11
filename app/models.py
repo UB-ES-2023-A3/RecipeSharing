@@ -90,7 +90,7 @@ class Recipe(models.Model):
     def save(self, *args, **kwargs):
 
         if self.recipe_image is None:
-            with open('app/default_images/default_recipe_image.txt', 
+            with open('app/default_images/default_recipe_image.txt',
                       'r') as file:
                 default_image = file.read()
 
