@@ -25,7 +25,8 @@ class CustomUser(models.Model):
     def save(self, *args, **kwargs):
 
         if self.profile_image is None:
-            with open('default_recipe_image.txt', 'r') as file:
+            with open('app/default_images/default_profile_image.txt',
+                      'r') as file:
                 default_image = file.read()
             self.profile_image = default_image
         super().save(*args, **kwargs)
@@ -93,7 +94,8 @@ class Recipe(models.Model):
     def save(self, *args, **kwargs):
 
         if self.recipe_image is None:
-            with open('default_recipe_image.txt', 'r') as file:
+            with open('app/default_images/default_recipe_image.txt',
+                      'r') as file:
                 default_image = file.read()
 
             self.recipe_image = default_image
