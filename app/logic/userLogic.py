@@ -26,8 +26,10 @@ def modify_user_profile(request, username):
             user.profile_image = body.get("profile_image")
         if "list_favorite_recipes" in body:
             user.list_favorite_recipes = body.get("list_favorite_recipes")
-
+        if "profile_image" in body:
+            user.profile_image = body.get("profile_image")
         user.save()
+    return {'user': user.toJson()}
 
 
 def add_favorite_logic(request):
