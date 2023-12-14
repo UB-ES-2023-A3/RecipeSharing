@@ -1,6 +1,9 @@
 # Import the 'Path' class from the 'pathlib' module
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,13 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$p9@j@+pi_@f!19nv4lv(a=hnmz70qto1z*-7820*z*dpe^_q4'
+SECRET_KEY = os.getenv("SECRET_KEY")#'django-insecure-$p9@j@+pi_@f!19nv4lv(a=hnmz70qto1z*-7820*z*dpe^_q4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # List of allowed hostnames or IP addresses for this project
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',  # Define the app for this project
+    'corsheaders'
 ]
 
 # Middleware settings
@@ -33,11 +37,17 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Middleware para cors
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = "*"
 
 # URL for redirecting after a successful login
 LOGIN_REDIRECT_URL = "/"
