@@ -7,6 +7,7 @@ from django.utils import timezone
 class CustomUser(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=150, unique=True)
+    profile_image = models.TextField(blank=True, null=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     name = models.CharField(max_length=100, default='')
@@ -15,9 +16,20 @@ class CustomUser(models.Model):
     list_favorite_recipe_types = models.JSONField(default=dict)
     list_allergens = models.JSONField(default=dict)
     list_own_recipes = models.JSONField(default=dict)
+    list_follower_users = models.JSONField(default=dict)
+    list_following_users = models.JSONField(default=dict)
 
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+
+        if self.profile_image is None:
+            with open('app/default_images/default_profile_image.txt',
+                      'r') as file:
+                default_image = file.read()
+            self.profile_image = default_image
+        super().save(*args, **kwargs)
 
     def toJson(self):
         return {
@@ -29,6 +41,9 @@ class CustomUser(models.Model):
             'list_favorite_recipe_types': self.list_favorite_recipe_types,
             'list_allergens': self.list_allergens,
             'list_own_recipes': self.list_own_recipes,
+            'profile_image': self.profile_image,
+            'list_follower_users': self.list_follower_users,
+            'list_following_users': self.list_following_users
 
         }
 
@@ -52,6 +67,7 @@ class Profile(User):
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
+    recipe_image = models.TextField(blank=True, null=True)
 
     # create a foreign key to the user model
     ingredients = models.TextField()
@@ -62,7 +78,6 @@ class Recipe(models.Model):
     recipe_type = models.TextField()
     allergens = models.TextField()
 
-    # username_id = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     username_id = models.TextField()
     creation_date = models.DateField(default=timezone.now)
     # Rating fileds
@@ -76,10 +91,21 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+
+        if self.recipe_image is None:
+            with open('app/default_images/default_recipe_image.txt',
+                      'r') as file:
+                default_image = file.read()
+
+            self.recipe_image = default_image
+        super().save(*args, **kwargs)
+
     def toJson(self):
         return {
             'id': self.id,
             'title': self.title,
+            'recipe_image': self.recipe_image,
             'ingredients': self.ingredients,
             'instructions': self.instructions,
             'preparation_time': self.preparation_time,
