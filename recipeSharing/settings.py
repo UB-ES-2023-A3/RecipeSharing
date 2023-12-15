@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
-    'corsheaders'# Define the app for this project
+    'corsheaders',# Define the app for this project
 ]
 
 # Middleware settings
@@ -45,6 +45,7 @@ MIDDLEWARE = [
 ]
 
 # Middleware para cors
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ["*"]
