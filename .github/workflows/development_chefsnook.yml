@@ -34,6 +34,11 @@ jobs:
       - name: Run flake8 (Linting)
         run: flake8 
 
+      - name: Set ALLOWED_HOSTS for tests
+        env:
+          ALLOWED_HOSTS: "recipeSharing.settings"
+        run: pytest
+
       - name: Run tests
         run: pytest
 
