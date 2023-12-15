@@ -34,10 +34,10 @@ INSTALLED_APPS = [
 
 # Middleware settings
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -45,9 +45,9 @@ MIDDLEWARE = [
 ]
 
 # Middleware para cors
-CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000", "https://chefsnook.onrender.com"]
 CORS_ALLOW_HEADERS = ["*"]
 CORS_ALLOW_METHODS = [
     'DELETE',
